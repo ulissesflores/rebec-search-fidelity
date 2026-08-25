@@ -80,15 +80,15 @@
     {
       "name": "paper",
       "kind": "artifact",
-      "merkle_root": "6523f399ece1f7fb865d8b7ee02707cd1f10a2ab9ce34071c167f1d7b70bf1e4",
+      "merkle_root": "2c0e546e6465870badc0e0dc4895cc333d87b6f008803293a3e49e09603426da",
       "leaves": {
-        "docs/paper/MANUSCRIPT-en.md": "58d9581328c3f2f47477932faddec756316716c6664a5c167d597c92a7473148",
-        "docs/paper/MANUSCRITO-pt-BR.md": "20e2e471f4943ac2930c17e17e2b89b2d62dad72bb74ee17fcd093819eeada46",
+        "docs/paper/MANUSCRIPT-en.md": "a330757c41db8d79c0a182bc2b3ab314de7ccaac29290fafc651c9da34464c8d",
+        "docs/paper/MANUSCRITO-pt-BR.md": "b717690910b9745e1868a9b7058682722d0c0d3f2a57a1e95e5cdf6569d67257",
         "docs/paper/QUALITY-AUDIT-2026-08-25.md": "8a70eac42427a3f80b2671c50fd2352c6f66dbf908eb9252b50840b5d8fd43ed",
         "docs/paper/QUALITY-CALIBRATION.md": "93adb97e52eb5592e8270285fe8ad97adf1b44ed127db9cae92462103d46222c"
       },
-      "hash": "6523f399ece1f7fb865d8b7ee02707cd1f10a2ab9ce34071c167f1d7b70bf1e4",
-      "chain_link": "3558fe89a3a5deac1a5f68d20022ee64601c8076300c270fa7867362a34ac9be"
+      "hash": "2c0e546e6465870badc0e0dc4895cc333d87b6f008803293a3e49e09603426da",
+      "chain_link": "cbdb30d5a1ba204c20cb04caa6c442481a7ff645533506644f917f65f180d73c"
     }
   ],
   "chain_order": [
@@ -98,6 +98,6 @@
     "figures",
     "paper"
   ],
-  "artifact_root": "3558fe89a3a5deac1a5f68d20022ee64601c8076300c270fa7867362a34ac9be",
+  "artifact_root": "cbdb30d5a1ba204c20cb04caa6c442481a7ff645533506644f917f65f180d73c",
   "doi_anchor": "set at release: the Zenodo Version DOI binds this artifact_root"
 }

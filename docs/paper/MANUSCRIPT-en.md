@@ -40,8 +40,8 @@ client — scripts, harvesters, and web archives — receives a search page that
 For the term `dengue`, the registry database returns 17 trials while the public search surfaces 14 of
 them (recall 14/17), of which two omissions are attributable index failures: the trial pages exist,
 contain the search term, and are still not returned. Internet Archive captures show the
-query-insensitive behaviour of defect 2 already present on 23 September 2025, at least 11 months
-before our measurement.
+query-insensitive behaviour of defect 2 already present on 23 September 2025, eleven months before
+our measurement — two measured points, not a continuous series.
 
 **Conclusions.** A WHO ICTRP primary registry can present a search interface that looks like a
 database query, is in fact a third-party web index of incomplete coverage, and fails in ways that are
@@ -333,8 +333,9 @@ those reviews missed — replacing the co-occurrence counts of §4.1 with an eff
 (ReBEC, operated within ICICT/Fiocruz) on **25 August 2026 (UTC)**, before deposit, at two addresses:
 the one the registry publishes on its own site, and `sic@fiocruz.br`, the institutional Citizen
 Information Service of the operating foundation, verified on the foundation's own
-access-to-information page on the same date. The notice carried this text and its SHA-256, and said
-plainly that deposit was imminent. **No response was awaited, and none is treated as consent**: the
+access-to-information page on the same date. The notice identified this text by its SHA-256 and by
+the immutable commit that freezes it, offered the typeset PDF on request, and said plainly that
+deposit was imminent. **No response was awaited, and none is treated as consent**: the
 purpose of notifying first is that the operator should not learn from a permanent identifier that a
 report naming their system exists.
 

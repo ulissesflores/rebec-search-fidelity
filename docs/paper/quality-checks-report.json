@@ -6,25 +6,25 @@
  },
  "density": {
   "en": {
-   "words": 4806,
+   "words": 4825,
    "unique_concepts": 63,
    "fillers": 0,
    "inline_citations": 12,
    "metric_numbers": 31,
-   "tdi": 6.55,
+   "tdi": 6.53,
    "filler_ratio": 0.0,
-   "info_density": 4.47,
+   "info_density": 4.46,
    "verdict": "ok"
   },
   "pt": {
-   "words": 4858,
+   "words": 4875,
    "unique_concepts": 62,
    "fillers": 1,
    "inline_citations": 12,
    "metric_numbers": 31,
-   "tdi": 6.38,
+   "tdi": 6.36,
    "filler_ratio": 0.0002,
-   "info_density": 4.43,
+   "info_density": 4.41,
    "verdict": "ok"
   }
  },

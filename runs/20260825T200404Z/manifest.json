@@ -1,9 +1,9 @@
 {
-  "run_id": "20260825T200124Z",
-  "created_utc": "2026-08-25T20:01:24.178733+00:00",
+  "run_id": "20260825T200404Z",
+  "created_utc": "2026-08-25T20:04:04.933916+00:00",
   "git": {
     "repository_url": "set at release",
-    "commit": "cf19ae499bb8e5930f987f398bb43c3ab21a11ec",
+    "commit": "b004fd99638f76b7bc1641f5510658ef24660a17",
     "tag": null
   },
   "environment": {
@@ -259,7 +259,7 @@
       "zipp==3.23.1"
     ]
   },
-  "artifact_root": "3558fe89a3a5deac1a5f68d20022ee64601c8076300c270fa7867362a34ac9be",
+  "artifact_root": "cbdb30d5a1ba204c20cb04caa6c442481a7ff645533506644f917f65f180d73c",
   "chain_algorithm": "sha256 Merkle-per-stage + left-fold chain (scripts/build_chain.py)",
   "notes": "rebec-search-fidelity seal; captures frozen, figures byte-reproducible"
 }

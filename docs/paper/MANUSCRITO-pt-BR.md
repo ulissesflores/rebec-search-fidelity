@@ -41,7 +41,8 @@ SHA-256). A filtragem ocorre apenas em JavaScript no cliente — logo, todo clie
 termo `dengue`, o banco devolve 17 ensaios e a busca pública entrega 14 deles (recall 14/17); duas
 das ausências são falhas de índice atribuíveis: a página do ensaio existe, contém o termo buscado, e
 ainda assim não é devolvida. Capturas do Internet Archive mostram o comportamento do defeito 2 já
-presente em 23 de setembro de 2025 — pelo menos 11 meses antes da nossa medição.
+presente em 23 de setembro de 2025, onze meses antes da nossa medição — dois pontos medidos, não
+uma série contínua.
 
 **Conclusões.** Um registro primário do ICTRP pode apresentar uma busca que parece consulta a banco de
 dados, é na verdade um índice de terceiro com cobertura incompleta, e falha de maneiras invisíveis a
@@ -335,8 +336,9 @@ revisões perderam — trocando as contagens de coocorrência do §4.1 por um ef
 (ReBEC, operado no ICICT/Fiocruz) em **25 de agosto de 2026 (UTC)**, antes do depósito, para dois
 endereços: o que o próprio registro publica em seu site e `sic@fiocruz.br`, o Serviço de Informação
 ao Cidadão institucional da fundação que o opera, verificado na página de acesso à informação da
-própria fundação na mesma data. O aviso levou este texto e o seu SHA-256, e dizia com todas as letras
-que o depósito era iminente. **Nenhuma resposta foi aguardada, e resposta nenhuma é tratada como
+própria fundação na mesma data. O aviso identificou este texto pelo seu SHA-256 e pelo commit
+imutável que o congela, ofereceu o PDF diagramado a pedido, e dizia com todas as letras que o
+depósito era iminente. **Nenhuma resposta foi aguardada, e resposta nenhuma é tratada como
 anuência**: notificar antes serve para que o operador não descubra por um identificador permanente
 que existe um relato nomeando o sistema dele.
 
