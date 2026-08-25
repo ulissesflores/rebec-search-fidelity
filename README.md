@@ -4,7 +4,7 @@
 
 **A WHO ICTRP primary registry serves a search interface that never queries its own database — and fails in ways the person searching cannot see.**
 
-[![DOI](https://img.shields.io/badge/DOI-pending-lightgrey)](#citation)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22102596.svg)](https://doi.org/10.5281/zenodo.22102596)
 [![License: Apache-2.0](https://img.shields.io/badge/code-Apache--2.0-blue)](LICENSES/Apache-2.0.txt)
 [![License: CC BY 4.0](https://img.shields.io/badge/paper-CC--BY--4.0-blue)](LICENSES/CC-BY-4.0.txt)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](pyproject.toml)
@@ -165,8 +165,9 @@ No funding. No competing interests. No relationship of any kind with ReBEC, Fioc
 
 ## Citation
 
-A DOI will be minted at the authorised release. Cite the **concept DOI** to mean the work as such,
-and the **version DOI** to mean the exact bytes you read; `artifact_root` above binds those bytes.
+Cite the **concept DOI** [`10.5281/zenodo.22102596`](https://doi.org/10.5281/zenodo.22102596) to mean the work as such, and
+the **version DOI** [`10.5281/zenodo.22102597`](https://doi.org/10.5281/zenodo.22102597) to mean the exact bytes you read;
+`artifact_root` above binds those bytes.
 
 ```bibtex
 @misc{flores2026rebec,
@@ -174,7 +175,8 @@ and the **version DOI** to mean the exact bytes you read; `artifact_root` above 
   title  = {When a trial registry outsources its own search: measured defects
             in the public search of {ReBEC}},
   year   = {2026},
-  note   = {Version 0.1.0. artifact\_root
+  doi    = {10.5281/zenodo.22102596},
+  note   = {Version 1.0.0. artifact\_root
             cbdb30d5a1ba204c20cb04caa6c442481a7ff645533506644f917f65f180d73c}
 }
 ```

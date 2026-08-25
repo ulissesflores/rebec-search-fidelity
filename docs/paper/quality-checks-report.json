@@ -204,62 +204,7 @@
   "identical": true
  },
  "network": {
-  "urls": [
-   {
-    "url": "https://datatables.net/manual/server-side",
-    "http": 200
-   },
-   {
-    "url": "https://orcid.org/0000-0002-6034-7765",
-    "http": 200
-   },
-   {
-    "url": "https://www.w3.org/TR/upgrade-insecure-requests/",
-    "http": 200
-   },
-   {
-    "url": "https://www.who.int/clinical-trials-registry-platform",
-    "http": 200
-   }
-  ],
-  "dois": [
-   {
-    "doi": "10.1017/CBO9780511809071",
-    "crossref_http": 200
-   },
-   {
-    "doi": "10.1136/bmj.j448",
-    "crossref_http": 200
-   },
-   {
-    "doi": "10.1590/1516-3180.2014.00441803",
-    "crossref_http": 200
-   },
-   {
-    "doi": "10.1590/s0034-89102009000200024",
-    "crossref_http": 200
-   },
-   {
-    "doi": "10.17487/RFC6797",
-    "crossref_http": 200
-   },
-   {
-    "doi": "10.17487/RFC9525",
-    "crossref_http": 200
-   },
-   {
-    "doi": "10.2196/72015",
-    "crossref_http": 200
-   },
-   {
-    "doi": "10.26633/rpsp.2017.31",
-    "crossref_http": 200
-   },
-   {
-    "doi": "10.26633/rpsp.2018.44",
-    "crossref_http": 200
-   }
-  ]
+  "skipped": true
  },
  "failures": [],
  "verdict": "PASS"

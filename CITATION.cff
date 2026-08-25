@@ -21,6 +21,14 @@ abstract: >-
 type: software
 version: "1.0.0"
 date-released: "2026-08-25"
+doi: "10.5281/zenodo.22102596"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22102596"
+    description: "Concept DOI - all versions of this work"
+  - type: doi
+    value: "10.5281/zenodo.22102597"
+    description: "Version DOI - the exact bytes of v1.0.0"
 license:
   - Apache-2.0
   - CC-BY-4.0
