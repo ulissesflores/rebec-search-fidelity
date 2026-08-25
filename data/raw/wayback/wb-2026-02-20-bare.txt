@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="algolia-site-verification"  content="D48668D5C6816C95" />    
+
+<title>REBEC</title>
+    <link rel="icon" href="https://ensaiosclinicos.gov.br/assets/images/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://ensaiosclinicos.gov.br/assets/vendors/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet" type="text/css" />
+    <link href="https://ensaiosclinicos.gov.br/assets/vendors/font-awesome-4.7.0/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css" />
+    <link href="https://ensaiosclinicos.gov.br/assets/vendors/flag-icon-css/css/flag-icon.min.css"
+          rel="stylesheet" type="text/css" />
+
+    <style>
+        .border-dark {
+            border: 1px solid rgba(86, 61, 124, .2)
+        }
+        .rebec-background {
+            color: white;
+            background-color: #0C6B67;
+        }
+    </style>
+
+    <script type="text/javascript"
+            src="https://ensaiosclinicos.gov.br/assets/vendors/jquery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript"
+            src="https://ensaiosclinicos.gov.br/assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!--        <script type="text/javascript"-->
+    <!--                src="--><!--"-->
+    <!--                onload="link_barra_brasil()"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" 
+            integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer">
+    </script>
+    <link   rel="stylesheet" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" 
+            integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer" />
+    <style>
+        .breadcrumb {
+            display: inline-block;
+            padding: 0 11px;
+            border: 1px solid #d6d4d4;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 24px;
+            min-height: 6px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+            list-style: none;
+            background-color: #f6f6f6;
+        }
+        .breadcrumb a, .breadcrumb a:hover {
+            display: inline-block;
+            background: #fff;
+            padding: 0 35px 0 22px;
+            margin-left: -26px;
+            position: relative;
+            z-index: 2;
+            color: #333;
+            text-decoration: none;
+        }
+        .breadcrumb a.home:before {
+            border: none;
+        }
+        .breadcrumb a:before {
+            display: inline-block;
+            content: ".";
+            position: absolute;
+            left: -10px;
+            top: 3px;
+            width: 18px;
+            height: 18px;
+            background: transparent;
+            border-right: 1px solid #d6d4d4;
+            border-top: 1px solid #d6d4d4;
+            border-radius: 2px;
+            text-indent: -5000px;
+            z-index: -1;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+        .breadcrumb a:after {
+            display: inline-block;
+            content: ".";
+            position: absolute;
+            right: -10px;
+            top: 3px;
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border-right: 1px solid #d6d4d4;
+            border-top: 1px solid #d6d4d4;
+            border-radius: 2px;
+            text-indent: -5000px;
+            z-index: -1;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+        .breadcrumb .navigation-pipe {
+            width: 18px;
+            display: inline-block;
+            text-indent: -5000px;
+        }
+    </style>
+    <style>
+        html, body {
+            height: 100% !important;
+            font-size: 1em !important;
+        }
+    </style>
+    <link href="https://ensaiosclinicos.gov.br/assets/vendors/rebec/css/clinical_trials.css"
+          rel="stylesheet" type="text/css" />
+    <!-- semantic -->
+    <link href="https://ensaiosclinicos.gov.br/assets/vendors/semantic/semantic.min.css"
+          rel="stylesheet" type="text/css" />
+    <!-- semantic -->
+    <script type="text/javascript"
+            src="https://ensaiosclinicos.gov.br/assets/vendors/semantic/semantic.min.js"></script>
+    <!-- mousetrap -->
+    <script type="text/javascript"
+            src="https://ensaiosclinicos.gov.br/assets/vendors/mousetrap/mousetrap.min.js"></script>
+    <script type="text/javascript"><!--
+
+        function modal_ajax_posting() { // main
+            $('.modal').find('form').each(function(index_n1, element_n1_form){
+                var object_n1_form = $(element_n1_form);
+// console.info('object_n1_form');
+// console.info(object_n1_form);
+                object_n1_form.find('input[action=save]')
+                    .each(function(index_n2, element_n2_input_submit){
+// console.info('object_n1_form input[type=submit] > each > object_n2_input_submit');
+                        var object_n2_input_submit = $(element_n2_input_submit);
+// console.info(object_n2_input_submit);
+                        object_n2_input_submit.attr('type', 'button');
+                        object_n2_input_submit.unbind('click');
+// console.info('object_n2_input_submit: ' + object_n2_input_submit);
+                        object_n2_input_submit.click(function(event){
+// console.info('object_n2_input_submit.click');
+                            // event.preventDefault();
+                            var object_form_parameters = Object.create(null);
+                            var form = $($(event.currentTarget).parents('form')[0]);
+                            form.find('[name]').each(function(name_index, object_n2_form_each){
+// console.info('form > [name] > each');
+// console.info($(object_n2_form_each));
+                                var name = $(object_n2_form_each).attr('name');
+                                var value = $(object_n2_form_each).val();
+//                    if (value != '' && $(object_n2_form_each).is('select')) {
+//                        value = $(object_n2_form_each).find('option:selected').val();
+//                        console.info('value: ' + value);
+//                    }
+                                $(object_form_parameters).prop(name, value);
+                            });
+// console.info(form.attr("action"));
+// console.info(object_form_parameters);
+                            $.ajax({
+                                type: "POST",
+                                url: form.attr("action"),
+                                async: false,
+                                data: object_form_parameters,
+                                success: function(data) {
+// console.info('data: [' + data + "]");
+                                    var responseok = '<success />';
+                                    var modalContent = form.parent('.modal-body');
+                                    var modal = form.parents('.modal');
+                                    var success = (data.length >= responseok.length && data.indexOf(responseok) > -1);
+
+// console.info('data.substring: ' + data.substring(0, responseok.length + 1));
+// console.info('success: ' + success);
+// console.info(modalContent);
+// console.info(modal);
+
+                                    $(modalContent).html(data);
+
+                                    var data_update_objects = $(data).find('[data-update]');
+// console.info('data_update_objects: ' + data_update_objects);
+// console.info('data_update_objects[0]: ' + $(data_update_objects[0]).html());
+
+                                    $(data_update_objects).each(function(modal_element_index, modal_element_update_each){
+// console.info('each: ' + modal_element_index);
+                                        //if ($(modal_element_update_each).parents('.modal').length == 0) return;
+                                        var update = $(modal_element_update_each).attr('data-update');
+                                        var conteudo_atualizado = $(modal_element_update_each).html();
+// console.info('update: ' + update);
+// console.info('conteudo atualizado: ' + conteudo_atualizado);
+                                        $('[update="'+update+'"]').each(function(no_modal_element_index, no_modal_element_update_each){
+                                            if ($(no_modal_element_update_each).parents('.modal').length > 0) return;
+                                            var selected = '';
+                                            if ($(no_modal_element_update_each).is('select') === false) return;
+// console.info('no_modal_element_update_each: ');
+// console.info(no_modal_element_update_each);
+                                            selected = $(no_modal_element_update_each).find('option:selected').val();
+// console.info('selected: ');
+// console.info(selected);
+                                            $(no_modal_element_update_each).html(conteudo_atualizado);
+// console.info('html: ' + conteudo_atualizado);
+// console.info($(no_modal_element_update_each).children('option[value="'+selected+'"]'));
+                                            $(no_modal_element_update_each).find('option[value="'+selected+'"]').prop('selected', true);
+// console.info('no_modal_element_update_each: ');
+// console.info(no_modal_element_update_each);
+                                        });
+                                    });
+                                    if (success) {
+// console.info('responseok');
+// console.info('object_n1_form');
+// console.info(object_n1_form);
+                                        object_n1_form.trigger("reset");
+// console.info(object_n1_form.find('input[action=close]'));
+                                        // object_n1_form.find('input[action=close]').click();
+                                        $("[data-dismiss=modal]").trigger({ type: "click" });
+                                    } else {
+// console.info('no ok');
+                                    }
+                                    modal_ajax_posting();
+                                },
+                                dataType: 'html',
+                            });
+                            return false;
+                        });
+                    });
+
+            });
+        }
+        jQuery(document).ready(function(){
+// console.info('document.ready');
+            modal_ajax_posting();
+            $('[accesskey]').each(function(index, element){
+                Mousetrap.bind($(element).attr('accesskey'), function() { $(element)[0].click(); });
+            });
+            $('div.modal-add-contact').on('show.bs.modal', function (event) {
+// console.info('show.bs.modal');
+                var this_modal = $(this);
+                this_modal.find('.modal-content').html('');
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var recipient = button.data('combo'); // Extract info from data-* attributes
+                var clinicaltrial_id = button.data('clinicaltrial_id');
+                if (recipient !== undefined) {
+                    var contact_id = (recipient == '') ? '' : $('#'+recipient).val();
+                    if (contact_id != '') contact_id = contact_id.substr(contact_id.lastIndexOf('+')+1);
+                    $.ajax({
+                        method: 'PATCH',
+                        url: "https://ensaiosclinicos.gov.br/prototype/contato/"+clinicaltrial_id+"/"+contact_id,
+                        success: function(data) {
+                            this_modal.find('.modal-content').html(data);
+                            modal_ajax_posting();
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        method: 'PATCH',
+                        url: "https://ensaiosclinicos.gov.br/prototype/contato/"+clinicaltrial_id,
+                        success: function(data) {
+                            this_modal.find('.modal-content').html(data);
+                            modal_ajax_posting();
+                        }
+                    });
+                }
+            });
+        });
+        --></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-30642716-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-30642716-1');
+    </script>
+    <!-- End Google Analytics -->
+        </head>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
+<script>
+    $(document).ready(function () {
+        // $('main').css({ marginTop : $('header').height() + .2 + 'px'})
+        // $('body').css({ paddingBottom : $('footer').height() + 30 + 'px'})
+        $('[data-toggle="tooltip"]').tooltip();
+        //
+        if ($('[type="date"]').length == 0) {
+            console.log('no inputs date');
+        } else if ($('[type="date"]').prop('type') != 'date') {
+            console.log('input sem date');
+            $('[type="date"]').datepicker({ 
+                format: "yyyy-mm-dd",
+                todayHighlight: true
+            });
+        } else {
+            console.log('input com date');
+        }
+    });
+    $(window).resize(function () {
+        // $('main').css({ marginTop : $('header').height() + .2 + 'px'})
+        // $('body').css({ paddingBottom : $('footer').height() + 30 + 'px'})
+    });
+</script>
+
+<script>
+function onTurnstileSuccess(token) {
+    document.getElementById('cf-turnstile-response').value = token;
+    document.getElementById('submit-btn').disabled = false;
+}
+</script>
+
+<body class="" translate="no">
+<div>
+   
+    <div class="modal fade"
+         id="modal_forgot_password"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="modalLabel_signin"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm"
+             role="document">
+            <div class="modal-content">
+                <form action="https://ensaiosclinicos.gov.br/reset" method="post">
+                    <div class="modal-header">
+                        <h5>Password reset request</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group has-feedback">
+                            <input  type="text" class="form-control" 
+                                    placeholder="Username" 
+                                    name="email" required 
+				    value=""  />
+
+                            <!--honey spot -->
+                            <div style="display:none;">
+                                <label for="website">Não preencha este campo</label>
+                                <input type="text" name="website" id="website" value="">
+			    </div>
+                           <!--fim honey spot -->
+
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                            </div><!-- /.col -->
+			    <div class="col-sm-7">
+				<!--math captcha 
+				<div class="form-group">
+                                   <label for="math-captcha">Quanto é <span id="num1"></span> + <span id="num2"></span>?</label>
+                                   <input type="number" id="math-captcha" class="form-control" required>
+				</div>-->
+                                <!--cloudflare
+                                   <div class="cf-turnstile" data-sitekey="0x4AAAAAAAgW3FAkCl6cyvBQ" data-callback="onTurnstileSuccess"></div>
+                                   <input type="hidden" id="cf-turnstile-response" name="cf-turnstile-response" />
+                                   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+                                fim cloudfare-->
+                                <input type="submit" id="submit-btn" class="btn btn-primary btn-block btn-flat" value="Require"/>
+                            </div><!-- /.col -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<!--
+<script>
+function onTurnstileSuccess(token) {
+    document.getElementById('cf-turnstile-response').value = token;
+    document.getElementById('submit-btn').disabled = false;
+}
+
+document.getElementById('forgotPasswordForm').addEventListener('submit', function(event) {
+    var turnstileResponse = document.getElementById('cf-turnstile-response').value;
+    if (!turnstileResponse) {
+        event.preventDefault();
+        alert('Por favor, complete o CAPTCHA.');
+    }
+});
+</script>
+-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gera dois números aleatórios para a conta
+            var num1 = Math.floor(Math.random() * 10) + 1;
+            var num2 = Math.floor(Math.random() * 10) + 1;
+            var correctAnswer = num1 + num2;
+
+            // Exibe os números na pergunta
+            document.getElementById('num1').textContent = num1;
+            document.getElementById('num2').textContent = num2;
+
+            // Verifica a resposta quando o usuário digitar
+            document.getElementById('math-captcha').addEventListener('input', function() {
+                var userAnswer = parseInt(this.value, 10);
+                if (userAnswer === correctAnswer) {
+                    document.getElementById('submit-btn').disabled = false;
+                } else {
+                    document.getElementById('submit-btn').disabled = true;
+                }
+            });
+        });
+    </script>
+
+    <div class="modal fade"
+         id="modal_signin"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="modalLabel_signin"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm"
+             role="document">
+            <div class="modal-content">
+                <form action="https://ensaiosclinicos.gov.br/signin" method="post">
+                    <div class="modal-header">
+                        <img src="https://ensaiosclinicos.gov.br/assets/images/rebec_logo.png" width="320px;" />
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group has-feedback">
+                            <input  type="text" class="form-control" 
+                                    placeholder="Username" 
+                                    name="email" required 
+                                    value=""  />
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input  type="password" class="form-control" 
+                                    placeholder="Password" 
+                                    name="password" required />
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                            </div><!-- /.col -->
+                            <div class="col-sm-4">
+                                <input type="submit" class="btn btn-primary btn-block btn-flat" value="Sign in" />
+                            </div><!-- /.col -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<header class="no-fixed-top" style="background-color: white; ">
+    <div class="container-fluid position-static" style="padding-left: 0px;">
+                <div class="row">
+            <div id="barra-brasil"
+                 class="col-md-12"
+                 style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;">
+                <ul id="menu-barra-temp" style="list-style:none;">
+                    <li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED">
+                        <a href="http://brasil.gov.br"
+                           style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal do Governo Brasileiro
+                        </a>
+                    </li>
+                    <li>
+                        <a style="font-family:sans,sans-serif; text-decoration:none; color:white;"
+                           href="http://epwg.governoeletronico.gov.br/barra/atualize.html">Atualize sua Barra de Governo
+                        </a>
+                    </li>
+                </ul>
+            </div>
+	</div>
+        <div class="row d-none d-md-block">
+            <div class="col-md-12">
+                <ul id="acessibilidade"
+                    class="light-blue darken-3 on-contrast-force-black d-inline-block pull-right">
+                    <li class="d-inline-block invisible">
+                        <div class="ui ignored icon font buttons small">
+                            <a class="increase ui button"> <i class="plus icon"></i></a>
+                            <a class="decrease ui button"> <i class="minus icon"></i></a>
+                        </div>
+                    </li>
+                    <li class="d-inline-block">
+                        <a href="#conteudo"
+                           accesskey="1"
+                           title="Go to main content">
+                           Go to main content [1]
+                        </a>
+                    </li>
+                    <li class="d-inline-block">
+                        <a href="#menu"
+                           accesskey="2"
+                           title="Go to main menu">Go to main menu [2]
+                        </a>
+                    </li>
+                    <li class="d-inline-block">
+                        <a role="button"
+                           tabindex="0"
+                           accesskey="3"
+                           onclick="window.toggleContrast()"
+                           title="Enable hight contrast">Enable hight contrast [3]
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row container-fluid">
+            <script>
+                $(window).ready(function() {
+                    // $('#menu_links').on('shown.bs.collapse', adjustPaddingTop);
+                    // $('#menu_links').on('hidden.bs.collapse', adjustPaddingTop);
+                });
+            </script>
+            <div class="col-1 invisible">
+                <button type="button"
+                        class="btn btn-lg btn-outline-secondary"
+                        data-toggle="collapse" data-target="#menu_links">
+                    <span class="fa fa-bars"></span>
+                </button>
+            </div>
+            <div class="col-sm-7">
+                <img class="image-responsive d-md-none"
+                     src="https://ensaiosclinicos.gov.br/assets/images/rebec_logo.png"  width="200px">
+                <img class="image-responsive d-none d-md-block"
+                     src="https://ensaiosclinicos.gov.br/assets/images/rebec_logo.png"  width="300px">
+            </div>
+            <div class="col-sm-4 no-break">
+                <nav id="navbar-example2" class="navbar navbar-light bg-light">
+                            <span class="dropdown">
+            <button class="btn dropdown-toggle"
+                    type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                                                    <span class="d-none d-lg-inline">Languages</span>
+                            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item select-language" data-value="en"
+                       href="#">
+                        <span class="flag-icon flag-icon-us"></span>
+                        <span> English</span>
+                    </a>
+                                    <a class="dropdown-item select-language" data-value="pt-br"
+                       href="#">
+                        <span class="flag-icon flag-icon-br"></span>
+                        <span> Português</span>
+                    </a>
+                                    <a class="dropdown-item select-language" data-value="es"
+                       href="#">
+                        <span class="flag-icon flag-icon-mx"></span>
+                        <span> Español</span>
+                    </a>
+                            </div>
+            <script>
+                $(window).ready(function () {
+                    $('.select-language').on('click', function (event) {
+                        var cname = "LANGUAGE";
+                        var cvalue = $(this).attr('data-value');
+                        $(this).parents(".dropdown").find('.btn').html($(this).html());
+                        document.cookie = cname + "=" + cvalue + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+                        window.location.reload(false);
+                    });
+                });
+            </script>
+        </span>
+                            <ul class="nav nav-pills">
+                        <li class="nav-item dropdown dropleft">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="fa fa-user-o fa-4"></i>
+                                                            </a>
+                            <div id="menu" class="dropdown-menu">
+                                                                    <div class="dropdown-item">
+                                        <a href="#"
+                                           data-toggle="modal" data-target="#modal_signin"
+                                           class="btn btn-default btn-flat">
+                                            <i class="fa fa-sign-in"></i> Sign in                                        </a>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                    <div class="dropdown-item">
+                                        <a  href="#"
+                                            data-toggle="modal" data-target="#modal_forgot_password"
+                                            class="btn btn-default btn-flat">
+                                            <i class="fa fa-key"></i> Forgot my password                                        </a>
+                                    </div>
+                                                                                                </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="d-none d-md-block">
+            <div class="col-sm-12">
+                <div>
+                                                                                                                                        </div>
+                <div class="breadcrumb clearfix" style="margin-top: 10px;">
+                    <a class="home"
+                       href="/">
+                        <i class="fa fa-home"></i>
+                    </a>
+                    <span class="navigation-pipe">&gt;</span>
+                                                                                                                                                                                                                                                                                                                            <a class="clear"
+                                   href="https://ensaiosclinicos.gov.br/search">
+                                    Results&nbsp;
+                                </a>
+                                                        <span class="navigation-pipe">&gt;</span>
+                                                                                                                                                                                                                                                                                                                                <a class="clear"
+                                   onclick="return false;"
+                                   href="#">
+                                    Simple Search&nbsp;
+                                </a>
+                                                        <span class="navigation-pipe">&gt;</span>
+                                                                                                                                                                                                                                                                                                                                <a class="clear"
+                                   href="https://ensaiosclinicos.gov.br/search/query/simple">
+                                    &nbsp;&nbsp;
+                                </a>
+                                                        <span class="navigation-pipe">&gt;</span>
+                                                                                                                <span>
+                            &nbsp;                        </span>
+                        <span class="navigation-pipe">&gt;</span>
+                                    </div>
+            </div>
+        </div>
+        <div id="menu_links" class="collapse in">
+            <div class="row">
+                <div class="col-12 border-dark">-</div>
+            </div>
+            <div class="col-12 border-dark">
+                <div id="site_links" class="row">
+                    <div class="col-3 border-dark">-</div>
+                    <div class="col-3 border-dark">-</div>
+                    <div class="col-3 border-dark">-</div>
+                    <div class="col-3 border-dark">-</div>
+                </div>
+            </div>
+        </div>
+        <div class="row"><!-- PROCURA -->
+            <div class="col-sm-12 form-group-sm">
+               
+              <!-- busca google -->
+                 <script async src="https://cse.google.com/cse.js?cx=ad5f3224a2a0fa826"></script>
+                 <div class="gcse-searchbox-only"  enableAutoComplete="true" data-resultsUrl=""></div>
+              <!-- fim busca google -->
+
+              <!-- 
+	      <form action="https://ensaiosclinicos.gov.br/search/" method="POST">
+                     <input type="text" name="allFields" placeholder="Digite algo">
+                     <button type="submit">Enviar</button>
+              </form>
+              -->
+
+              <!-- comentando busca antiga
+              <form action="https://ensaiosclinicos.gov.br/search/query/simple" method="post">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"></div>
+                        </div>
+                        <input type="text"
+                               class="form-control form-control-sm"
+                               name="q"
+                               value=""
+                               placeholder="Search on trials"/>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-secondary btn-sm"><i class="fa fa-search"></i>
+                            </button>
+                                                    </div>
+                    </div>
+		</form>
+              -->
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 clearfix">&nbsp;
+            </div>
+        </div>
+    </div>
+    <div style="border: .2px solid rgba(86, 61, 124, .2)">
+    </div>
+</header>
+<!-- -->
+<style>
+    body {
+        font-size: 82.5%;
+    }
+    img {
+        max-width: 100%;
+    }
+</style>
+<style>
+    .menu_dashboard {
+        height: auto;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 30px;
+        padding-bottom: 20px;
+    }
+    .footer {
+        background-color: #0f3f4f;
+        height: auto;
+        margin-left: 0;
+        width: 100%;
+        position: relative;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        position: relative;
+        overflow: auto;
+    }
+    .footer_links {
+        border-right: 1px solid #FFFFFF;
+        overflow: auto;
+        min-height: 232px;
+        color: #FFFFFF;
+        font-size: 14px;
+        padding: 1em 3em;
+    }
+    .footer_links a, .footer_links p {
+        color: #FFFFFF;
+        text-decoration: none;
+        padding-bottom: 10px;
+    }
+    .title_link, .title_link:hover {
+        color: #5D6162;
+        text-decoration: none;
+        padding-bottom: 1px;
+    }
+    .welcome_subtitle {
+        font-family: 'Lato', sans-serif;
+        font-size: 22px;
+        color: #5D6162;
+        font-weight: normal;
+    }
+</style>
+<style>
+    .fieldWrapper {
+        color: #231F20;
+        font-family: Helvetica;
+        font-size: 14px;
+        font-weight: normal;
+        display: inline;
+    }
+    .input {
+        background-color: #ececeb;
+        margin-bottom: 20px;
+        height: 72px;
+        width: 80%;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-top: 20px;
+        background-size: 30px;
+    }
+    .update input[type="password"], .update input[type="text"], .update input[type="email"], .update input[type="number"] {
+        border: 5px solid #ececeb;
+        margin-bottom: 20px;
+        height: 42px;
+        font-size: 14px;
+        font-family: Helvetica;
+        font-color: #000000;
+        width: 80%;
+    }
+    .fieldWrapper select {
+        border: solid;
+        border-color: #babcbd;
+        width: 60%;
+        height: 37px;
+        background-color: #FFFFFF;
+    }
+    .update select {
+        border: 5px solid #ececeb;
+        margin-bottom: 20px;
+        height: 42px;
+        font-size: 14px;
+        font-family: Helvetica;
+        font-color: #000000;
+        width: 60%;
+        background-color: #ffffff;
+    }
+</style>
+<style>
+    .table-bordered {
+        border: none;
+    }
+    .table_list {
+        width: 100%;
+        height: 16px;
+        padding-bottom: 22px;
+        margin-right: 20px;
+        overflow: auto;
+        margin-top: 20px;
+    }
+    .table_list .table_title th {
+        background-color: #0D6965;
+        color: #FFFFFF;
+        font-family: Helvetica;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .table_sumary th:first-child, .table_sumary th:last-child, .table_sumary th:nth-child(4) {
+        text-align: center;
+    }
+    .table th:first-child {
+        border-radius: 6px 0px 0px 0px;
+    }
+    .table th:last-child {
+        border-radius: 0px 6px 0px 0px;
+    }
+    table.table_list tbody tr:nth-child(odd) {
+        background-color: #eff2f1;
+    }
+</style>
+<style>
+    .alert-danger a {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+    a.anchor {
+        display: block;
+        position: relative;
+        top: -350px;
+        visibility: hidden;
+    }
+</style>
+<style>
+    </style>
+<script>
+    function animatedScrollToId(id) {
+        $('html, body').animate({
+            // scrollTop: $("[for*='"+id+"']").offset().top - ($('header').height() + 10)
+            scrollTop: $("[for*='"+id+"']").offset().top - 10
+        }, 1000);
+        return false;
+    }
+    function showRemark(event_obj, element_id) {
+        try {
+            // Get all elements with class="tabcontent" and hide them
+            var tabcontent = document.getElementsByClassName("tabcontent");
+            for (var i = 0; i < tabcontent.length; i++) tabcontent[i].style.display = "none";
+            // Get all elements with class="tablinks" and remove the class "active"
+            var tablinks = document.getElementsByClassName("tablinks");
+            for (var i = 0; i < tablinks.length; i++) tablinks[i].className = tablinks[i].className.replace(" active", "");
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(element_id).style.display = "";
+            event_obj.currentTarget.className += " active";
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+</script>
+<style>
+    .large.text {
+        font-size: 3rem;
+    }
+</style>
+<main style="background-color: #e7ecec !important; padding-left: 10px; padding-right: 10px;">
+        <div>
+                            </div>
+        <div class="container-fluid" style="padding-top: 10px; padding-bottom: 10px;">
+<!-- ############################################################################################################### -->
+                        <style><!--
+    .word-mark {
+        color: gray !important;
+        background-color:yellow !important;
+    }
+--></style>
+<style><!--
+    .container {
+    /*    margin: 0 auto;*/
+    /*    width: 1004px;*/
+        line-height: 1.7em;
+    /*    background: #fff;*/
+    }
+    span.label, span.legend {
+        font-weight: bold;
+    }
+    H2, H2 a {
+        color: #006837;
+        margin: 0px;
+        text-decoration: none;
+        font-size: 19px;
+    }
+    h3 {
+        display: block;
+        font-size: 1.17em;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: bold;
+    }
+    section {
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        font-size: 95%;
+        font-family: 'Lato', sans-serif;
+        background: #f2f2f0;
+    }
+    .balloon {
+        border: 6px solid #ffffff;
+        border-radius: 16px;
+        -moz-border-radius: 16px;
+        -webkit-border-radius: 16px;
+        background-color: #999999;
+    }
+    .subset {
+        border: 1px solid #000000;
+        border-radius: 5px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        padding: 10px;
+        margin: 10px;
+    }
+    table.dataTable TH {
+        color: #0c4762;
+        font-size: 90%;
+        background: #dedede;
+    }
+    table.dataTable TH, table.dataTable TD {
+        border-bottom: 1px solid #c9c9c9;
+        font-size: 85%;
+        padding: 6px 4px;
+    }
+--></style>
+<section class="row">
+    <div class="col-12">
+        <div class="row" > <!-- style="max-height: 600px; overflow:auto; " -->
+            <section class="container" style="min-height: 10px; height: 90%;">
+                <span class="welcome_subtitle">
+                    <h3>Search on trials</h3>
+                    <hr />
+                    <!-- inicio busca google -->
+                     <script async src="https://cse.google.com/cse.js?cx=ad5f3224a2a0fa826">
+                      </script>
+                      <div class="gcse-searchresults-only"></div>
+                    <!-- fim busca google -->
+                </span>
+
+
+</section>
+
+            <!-- ############################################################################################################### -->
+    </div>
+    <div class="row footer">
+        <div class="col-md-4 col-sm-4 footer_links">
+<p>Total de Ensaios Cl&iacute;nicos 17601.</p>
+
+<p>Existem 8892 ensaios cl&iacute;nicos registrados.</p>
+
+<p>Existem 4862 ensaios cl&iacute;nicos recrutando.</p>
+
+<p>Existem 121 ensaios cl&iacute;nicos em an&aacute;lise.</p>
+
+<p>Existem 5921 ensaios cl&iacute;nicos em rascunho.</p>
+</div>
+
+<div class="col-md-4 col-sm-4 footer_links">
+<p><a href="/signup">cadastre um novo usu&aacute;rio</a></p>
+
+<p><a href="/news">not&iacute;cias</a></p>
+
+<p><a href="/page/about">sobre</a></p>
+</div>
+
+<div class="col-md-4 col-sm-4 footer_links">
+<p><a href="/faq">ajuda</a></p>
+
+<p><a href="/page/contacts">contato</a></p>
+
+<p><a href="/page/staff">equipe</a></p>
+
+<p><a href="/page/links">links &uacute;teis</a></p>
+
+<p><a href="/page/vocabulary">gloss&aacute;rio</a></p>
+</div>
+
+<div class="clear">&nbsp;</div>    </div>
+</main>
+<!--<div><pre>-->
+<!--</pre></div>-->
+<footer class="" style="background-color: #e7ecec !important;">
+    <div style="background-color:white; height:100%; width:100%">
+<p style="text-align:center">&nbsp;</p>
+
+<p style="text-align:center"><a href="https://www.paho.org/pt/brasil"><img alt="" src="https://ensaiosclinicos.gov.br/assets/images/rodape1.png" style="height:82px; width:176px" /></a><a href="https://www.who.int/pt"><img alt="" src="https://ensaiosclinicos.gov.br/assets/images/rodape2.png" style="height:82px; width:189px" /></a><a href="http://www.fiocruz.br/"><img alt="" src="https://ensaiosclinicos.gov.br/assets/images/rodape3.png" style="height:82px; width:181px" /></a><a href="http://www.brasil.gov.br"><img alt="" src="https://ensaiosclinicos.gov.br/assets/images/rodape4.png" /></a></p>
+
+<p style="text-align:center">&nbsp;</p>
+</div>
+<!--
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5a96bf824b401e45400d47e9/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+-->
+
+</script><!--End of Tawk.to Script--><!--
+<div style="bottom:30px; position:fixed; right:30px; z-index:9999"><a href="https://tawk.to/chat/5a96bf824b401e45400d47e9/default" target="_blank"><img alt="fale conosco via chat" src="http://ensaiosclinicos.gov.br/assets/images/chat.png" style="width:75px" title="fale conosco via chat" /></a></div>
+--><script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="hzV2VB3VsZhBYJMQKSDOf";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script></footer>
+<script async src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
+</body>
+<style>
+    @charset "UTF-8";
+
+    .contraste {
+        /* Cores */
+        /* Containers */
+        /* Textos */
+        /* SVGs */
+        /* Links */
+        /* Botões */
+        /* Dropdown */
+        /* Tooltips */
+        /* Tables */
+        /* Chips */
+        /* Preloaders */
+        /* Badges */
+        /* Pagination */
+        /* Datepicker */
+        /* Imagens */
+        /* Toasts */
+        /* Sidenav */
+        /* Tabs */
+        /* Blockquote */
+        /* Checkboxes */
+    }
+
+    .contraste .on-contrast-force-yellow-text {
+        color: #fff333 !important;
+    }
+
+    .contraste .on-contrast-force-white-text {
+        color: white !important;
+    }
+
+    .contraste .on-contrast-force-black {
+        background-color: black !important;
+    }
+
+    .contraste nav,
+    .contraste div,
+    .contraste li,
+    .contraste ol,
+    .contraste header,
+    .contraste footer,
+    .contraste section,
+    .contraste main,
+    .contraste aside,
+    .contraste article,
+    .contraste blockquote {
+        background: black !important;
+        color: white !important;
+    }
+
+    .contraste header {
+        border-bottom: 1px solid white !important;
+    }
+
+    .contraste main {
+        border-top: 1px solid white !important;
+        border-bottom: 1px solid white !important;
+    }
+
+    .contraste footer {
+        border-top: 1px solid white !important;
+    }
+
+    .contraste .z-depth-1 {
+        border: 1px solid white;
+    }
+
+    .contraste .divider {
+        background-color: white !important;
+    }
+
+    .contraste .card,
+    .contraste .card-panel,
+    .contraste .modal {
+        border: 1px solid white;
+    }
+
+    .contraste h1,
+    .contraste h2,
+    .contraste h3,
+    .contraste h4,
+    .contraste h5,
+    .contraste h6,
+    .contraste p,
+    .contraste label,
+    .contraste strong,
+    .contraste em,
+    .contraste cite,
+    .contraste q,
+    .contraste i,
+    .contraste b,
+    .contraste u,
+    .contraste span,
+    .contraste abbr {
+        color: white !important;
+    }
+
+    .contraste svg {
+        fill: white !important;
+    }
+
+    .contraste .input-field {
+        /* Labels */
+    }
+
+    .contraste .input-field input[type=text],
+    .contraste .input-field input[type=password],
+    .contraste .input-field input[type=url],
+    .contraste .input-field input[type=search],
+    .contraste .input-field input[type=email],
+    .contraste .input-field input[type=tel],
+    .contraste .input-field input[type=date],
+    .contraste .input-field input[type=month],
+    .contraste .input-field input[type=week],
+    .contraste .input-field input[type=datetime],
+    .contraste .input-field input[type=datetime-local],
+    .contraste .input-field textarea,
+    .contraste .input-field input[type=number] {
+        background: black !important;
+        border: 1px solid white !important;
+        color: white !important;
+    }
+
+    .contraste .input-field input[type=text]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=password]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=url]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=search]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=email]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=tel]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=date]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=month]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=week]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=datetime]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=datetime-local]:not([disabled]):not([readonly]):hover,
+    .contraste .input-field textarea:not([disabled]):not([readonly]):hover,
+    .contraste .input-field input[type=number]:not([disabled]):not([readonly]):hover {
+        border: 1px solid #fff333 !important;
+        -webkit-box-shadow: 0 0 2px 3px #fff333 !important;
+        box-shadow: 0 0 2px 3px #fff333 !important;
+    }
+
+    .contraste .input-field input[type=text]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=password]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=url]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=search]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=email]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=tel]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=date]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=month]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=week]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=datetime]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=datetime-local]:not([disabled]):not([readonly]):focus,
+    .contraste .input-field textarea:not([disabled]):not([readonly]):focus,
+    .contraste .input-field input[type=number]:not([disabled]):not([readonly]):focus {
+        border: 1px solid #fff333 !important;
+        -webkit-box-shadow: 0 0 2px 3px #fff333 !important;
+        box-shadow: 0 0 2px 3px #fff333 !important;
+    }
+
+    .contraste .input-field input[type=text]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=password]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=url]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=search]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=email]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=tel]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=date]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=month]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=week]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=datetime]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=datetime-local]:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field textarea:not([disabled]):not([readonly]):focus + label,
+    .contraste .input-field input[type=number]:not([disabled]):not([readonly]):focus + label {
+        color: #fff333 !important;
+    }
+
+    .contraste .input-field input[type=text].invalid,
+    .contraste .input-field input[type=password].invalid,
+    .contraste .input-field input[type=url].invalid,
+    .contraste .input-field input[type=search].invalid,
+    .contraste .input-field input[type=email].invalid,
+    .contraste .input-field input[type=tel].invalid,
+    .contraste .input-field input[type=date].invalid,
+    .contraste .input-field input[type=month].invalid,
+    .contraste .input-field input[type=week].invalid,
+    .contraste .input-field input[type=datetime].invalid,
+    .contraste .input-field input[type=datetime-local].invalid,
+    .contraste .input-field textarea.invalid,
+    .contraste .input-field input[type=number].invalid {
+        border: 1px solid #fff333 !important;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .contraste .input-field .select-wrapper + label {
+        top: -32px !important;
+        color: #fffeee !important;
+    }
+
+    .contraste .input-field .select-wrapper input:hover,
+    .contraste .input-field .select-wrapper input:focus {
+        border: 1px solid #fff333 !important;
+        -webkit-box-shadow: 0 0 2px 3px #fff333 !important;
+        box-shadow: 0 0 2px 3px #fff333 !important;
+    }
+
+    .contraste .input-field > input[type]:-webkit-autofill:not(.browser-default):not([type="search"]) + label,
+    .contraste .input-field > input[type=date]:not(.browser-default) + label,
+    .contraste .input-field > input[type=time]:not(.browser-default) + label {
+        -webkit-transform: translateY(-14px) scale(0.8) !important;
+        transform: translateY(-14px) scale(0.8) !important;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+
+    .contraste .input-field > label:not(.label-icon).active {
+        -webkit-transform: translateY(-20px) scale(0.8) !important;
+        transform: translateY(-20px) scale(0.8) !important;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+
+    .contraste .helper-text {
+        font-size: 1em;
+        color: #fff333 !important;
+    }
+
+    .contraste .helper-text::after {
+        color: #fff333 !important;
+    }
+
+    .contraste a {
+        color: #fff333 !important;
+        background: black !important;
+        text-decoration: underline !important;
+    }
+
+    .contraste a.disabled {
+        color: white !important;
+    }
+
+    .contraste a:not(.disabled):hover,
+    .contraste a:not(.disabled):focus {
+        color: black !important;
+        font-weight: bold !important;
+        background-color: #fff333 !important;
+    }
+
+    .contraste a:not(.disabled):hover .material-icons,
+    .contraste a:not(.disabled):focus .material-icons {
+        color: black !important;
+    }
+
+    .contraste a:not(.disabled):hover svg,
+    .contraste a:not(.disabled):focus svg {
+        fill: black !important;
+    }
+
+    .contraste a svg {
+        fill: white !important;
+    }
+
+    .contraste a .material-icons {
+        color: white !important;
+    }
+
+    .contraste .btn,
+    .contraste .btn-flat,
+    .contraste .btn-floating,
+    .contraste .btn-large,
+    .contraste .btn-small,
+    .contraste button,
+    .contraste input[type=button],
+    .contraste input[type=reset],
+    .contraste input[type=submit] {
+        color: #fff333 !important;
+        background: black !important;
+        border: 1px solid #fff333 !important;
+        text-decoration: underline !important;
+    }
+
+    .contraste .btn.disabled,
+    .contraste .btn-flat.disabled,
+    .contraste .btn-floating.disabled,
+    .contraste .btn-large.disabled,
+    .contraste .btn-small.disabled,
+    .contraste button.disabled,
+    .contraste input[type=button].disabled,
+    .contraste input[type=reset].disabled,
+    .contraste input[type=submit].disabled {
+        color: white !important;
+        border: 1px solid white !important;
+    }
+
+    .contraste .btn .material-icons,
+    .contraste .btn-flat .material-icons,
+    .contraste .btn-floating .material-icons,
+    .contraste .btn-large .material-icons,
+    .contraste .btn-small .material-icons,
+    .contraste button .material-icons,
+    .contraste input[type=button] .material-icons,
+    .contraste input[type=reset] .material-icons,
+    .contraste input[type=submit] .material-icons {
+        color: white !important;
+    }
+
+    .contraste .btn svg,
+    .contraste .btn-flat svg,
+    .contraste .btn-floating svg,
+    .contraste .btn-large svg,
+    .contraste .btn-small svg,
+    .contraste button svg,
+    .contraste input[type=button] svg,
+    .contraste input[type=reset] svg,
+    .contraste input[type=submit] svg {
+        fill: white !important;
+    }
+
+    .contraste .btn:not(.disabled):hover,
+    .contraste .btn:not(.disabled):focus,
+    .contraste .btn-flat:not(.disabled):hover,
+    .contraste .btn-flat:not(.disabled):focus,
+    .contraste .btn-floating:not(.disabled):hover,
+    .contraste .btn-floating:not(.disabled):focus,
+    .contraste .btn-large:not(.disabled):hover,
+    .contraste .btn-large:not(.disabled):focus,
+    .contraste .btn-small:not(.disabled):hover,
+    .contraste .btn-small:not(.disabled):focus,
+    .contraste button:not(.disabled):hover,
+    .contraste button:not(.disabled):focus,
+    .contraste input[type=button]:not(.disabled):hover,
+    .contraste input[type=button]:not(.disabled):focus,
+    .contraste input[type=reset]:not(.disabled):hover,
+    .contraste input[type=reset]:not(.disabled):focus,
+    .contraste input[type=submit]:not(.disabled):hover,
+    .contraste input[type=submit]:not(.disabled):focus {
+        color: black !important;
+        font-weight: bold !important;
+        background-color: #fff333 !important;
+    }
+
+    .contraste .btn:not(.disabled):hover .material-icons,
+    .contraste .btn:not(.disabled):focus .material-icons,
+    .contraste .btn-flat:not(.disabled):hover .material-icons,
+    .contraste .btn-flat:not(.disabled):focus .material-icons,
+    .contraste .btn-floating:not(.disabled):hover .material-icons,
+    .contraste .btn-floating:not(.disabled):focus .material-icons,
+    .contraste .btn-large:not(.disabled):hover .material-icons,
+    .contraste .btn-large:not(.disabled):focus .material-icons,
+    .contraste .btn-small:not(.disabled):hover .material-icons,
+    .contraste .btn-small:not(.disabled):focus .material-icons,
+    .contraste button:not(.disabled):hover .material-icons,
+    .contraste button:not(.disabled):focus .material-icons,
+    .contraste input[type=button]:not(.disabled):hover .material-icons,
+    .contraste input[type=button]:not(.disabled):focus .material-icons,
+    .contraste input[type=reset]:not(.disabled):hover .material-icons,
+    .contraste input[type=reset]:not(.disabled):focus .material-icons,
+    .contraste input[type=submit]:not(.disabled):hover .material-icons,
+    .contraste input[type=submit]:not(.disabled):focus .material-icons {
+        color: black !important;
+        font-weight: bold !important;
+    }
+
+    .contraste .btn:not(.disabled):hover svg,
+    .contraste .btn:not(.disabled):focus svg,
+    .contraste .btn-flat:not(.disabled):hover svg,
+    .contraste .btn-flat:not(.disabled):focus svg,
+    .contraste .btn-floating:not(.disabled):hover svg,
+    .contraste .btn-floating:not(.disabled):focus svg,
+    .contraste .btn-large:not(.disabled):hover svg,
+    .contraste .btn-large:not(.disabled):focus svg,
+    .contraste .btn-small:not(.disabled):hover svg,
+    .contraste .btn-small:not(.disabled):focus svg,
+    .contraste button:not(.disabled):hover svg,
+    .contraste button:not(.disabled):focus svg,
+    .contraste input[type=button]:not(.disabled):hover svg,
+    .contraste input[type=button]:not(.disabled):focus svg,
+    .contraste input[type=reset]:not(.disabled):hover svg,
+    .contraste input[type=reset]:not(.disabled):focus svg,
+    .contraste input[type=submit]:not(.disabled):hover svg,
+    .contraste input[type=submit]:not(.disabled):focus svg {
+        fill: black !important;
+    }
+
+    .contraste .dropdown-content {
+        border: 1px solid white;
+    }
+
+    .contraste .dropdown-content span {
+        color: white;
+    }
+
+    .contraste .dropdown-content .selected,
+    .contraste .dropdown-content .selected span {
+        color: #fff333 !important;
+        text-decoration: underline;
+    }
+
+    .contraste .dropdown-content li:not(.disabled):hover,
+    .contraste .dropdown-content li:not(.disabled) span:hover {
+        color: black !important;
+        background-color: #fff333 !important;
+        font-weight: bold !important;
+    }
+
+    .contraste .material-tooltip {
+        background-color: white !important;
+    }
+
+    .contraste .tooltip-content {
+        color: black !important;
+        font-weight: bold;
+        background-color: white !important;
+    }
+
+    .contraste table tr {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .contraste table .striped > tbody > tr:nth-child(odd) {
+        background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .contraste table .highlight > tbody > tr:hover {
+        background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .contraste .chip {
+        border: 1px solid white;
+        text-decoration: underline;
+    }
+
+    .contraste .chip .close {
+        color: #fff333 !important;
+    }
+
+    .contraste .chip .close:hover,
+    .contraste .chip .close:focus {
+        color: #fff333 !important;
+        font-weight: bold;
+    }
+
+    .contraste .progress {
+        background-color: #505050 !important;
+    }
+
+    .contraste .progress .indeterminate,
+    .contraste .progress .determinate {
+        background-color: white !important;
+    }
+
+    .contraste .badge {
+        color: black !important;
+        font-weight: bold !important;
+        background-color: white !important;
+    }
+
+    .contraste .pagination .active a {
+        border-radius: 2px;
+        background-color: white !important;
+        color: black !important;
+        text-decoration: none !important;
+    }
+
+    .contraste .pagination .active a:focus,
+    .contraste .pagination .active a:hover {
+        cursor: default !important;
+        background-color: white !important;
+        color: black !important;
+        font-weight: normal !important;
+    }
+
+    .contraste .pagination .disabled a {
+        background-color: black !important;
+        color: white !important;
+        text-decoration: none !important;
+    }
+
+    .contraste .pagination .disabled a:hover,
+    .contraste .pagination .disabled a:focus {
+        background-color: black !important;
+        color: white !important;
+    }
+
+    .contraste .pagination .disabled a:hover .material-icons,
+    .contraste .pagination .disabled a:focus .material-icons {
+        background-color: black !important;
+        color: white !important;
+    }
+
+    .contraste .pagination .disabled a .material-icons {
+        background-color: black !important;
+        color: white !important;
+    }
+
+    .contraste .datepicker-date-display {
+        background-color: white !important;
+    }
+
+    .contraste .datepicker-date-display span {
+        color: black !important;
+    }
+
+    .contraste .datepicker-table abbr {
+        color: white !important;
+    }
+
+    .contraste .datepicker-table tr {
+        border: none;
+    }
+
+    .contraste .datepicker-table td.is-selected button {
+        color: black !important;
+        background-color: #fff333 !important;
+    }
+
+    .contraste .datepicker-table td.is-disabled button {
+        color: white !important;
+        border: 1px solid white !important;
+        background-color: black !important;
+    }
+
+    .contraste .datepicker-table td.is-disabled button:hover,
+    .contraste .datepicker-table td.is-disabled button:focus {
+        color: white !important;
+        border: 1px solid white !important;
+        background-color: black !important;
+    }
+
+    .contraste .datepicker-table td .datepicker-day-button:hover,
+    .contraste .datepicker-table td .datepicker-day-button:focus {
+        font-weight: normal !important;
+    }
+
+    .contraste img.on-contrast-force-gray {
+        -webkit-filter: grayscale(100%) contrast(120%);
+        filter: grayscale(100%) contrast(120%);
+    }
+
+    .contraste img.on-contrast-force-white {
+        -webkit-filter: brightness(0) invert(1);
+        filter: brightness(0) invert(1);
+    }
+
+    .contraste #toast-container {
+        background-color: transparent !important;
+    }
+
+    .contraste .toast,
+    .contraste .toast span {
+        background-color: white !important;
+        color: black !important;
+        font-weight: bold !important;
+    }
+
+    .contraste .sidenav {
+        background-color: black !important;
+    }
+
+    .contraste .sidenav li {
+        border-bottom: 1px white solid;
+    }
+
+    .contraste .sidenav li:hover {
+        border-bottom: 1px #fff333 solid;
+    }
+
+    .contraste .sidenav-overlay {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .contraste .tabs {
+        background-color: black;
+    }
+
+    .contraste .tabs .indicator {
+        background-color: #fff333 !important;
+    }
+
+    .contraste blockquote {
+        border-left-color: white;
+    }
+
+    .contraste [type="checkbox"].filled-in:checked + span:not(.lever):before {
+        border-top: 2px solid transparent;
+        border-left: 2px solid transparent;
+        border-right: 2px solid #000;
+        border-bottom: 2px solid #000;
+    }
+
+    .contraste [type="checkbox"].filled-in:checked + span:not(.lever):after {
+        border: 2px solid #fff333;
+        background-color: #fff333;
+    }
+</style>
+
+<script>
+    (function($){
+        (function () {
+            const Contrast = {
+                storage: 'contrastState',
+                cssClass: 'contraste',
+                currentFontSize: null,
+                check: checkContrast,
+                getState: getContrastState,
+                setState: setContrastState,
+                toggle: toggleContrast,
+                updateView: updateViewContrast
+            };
+
+            window.toggleContrast = function () { Contrast.toggle(); };
+
+            Contrast.check();
+
+            function checkContrast() {
+                this.updateView();
+            }
+
+            function getContrastState() {
+                return localStorage.getItem(this.storage) === 'true';
+            }
+
+            function setContrastState(state) {
+                localStorage.setItem(this.storage, '' + state);
+                this.currentState = state;
+                this.updateView();
+            }
+
+            function updateViewContrast() {
+                let body = document.body;
+
+                if (this.currentState === null || typeof this.currentState === 'undefined')
+                    this.currentState = this.getState();
+
+                if (this.currentState)
+                    body.classList.add(this.cssClass);
+                else
+                    body.classList.remove(this.cssClass);
+            }
+
+            function toggleContrast() {
+                this.setState(!this.currentState);
+            }
+        })();
+    })(jQuery); // end of jQuery name space
+</script>
+
+</html>

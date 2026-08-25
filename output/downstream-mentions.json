@@ -1,0 +1,10 @@
+{
+ "generated_utc": "2026-08-25T04:42:38Z",
+ "source": "Europe PMC REST search (hitCount)",
+ "endpoint": "https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+ "counts": {
+  "ReBEC": 2798,
+  "\"Brazilian Registry of Clinical Trials\"": 1234,
+  "\"ensaiosclinicos.gov.br\"": 494
+ }
+}

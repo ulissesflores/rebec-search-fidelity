@@ -1,0 +1,34 @@
+[project]
+name = "rebec-search-fidelity"
+version = "0.1.0"
+description = "Measured defects in the public search of ReBEC, a WHO ICTRP primary registry"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Carlos Ulisses Flores", email = "c.ulisses@gmail.com" }]
+license = { text = "Apache-2.0 AND CC-BY-4.0" }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+# No per-file exemptions: every source file is formatted and linted. The bytes of
+# the released instruments are a published claim (their SHA-256s appear in section 6
+# of the report), so a future reformat must regenerate that table -- which
+# tests/test_paper_numbers.py enforces rather than trusting anyone to remember.
+exclude = ["runs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "D"]
+ignore = ["D203", "D213"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.interrogate]
+fail-under = 100
+ignore-init-module = true
+exclude = ["runs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not live'"
+markers = ["live: hits the network; deselected by default"]

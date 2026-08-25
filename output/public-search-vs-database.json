@@ -1,0 +1,111 @@
+{
+ "generated_utc": "2026-08-25T02:36:47Z",
+ "public_search": {
+  "dengue": {
+   "http": 200,
+   "bytes": 69877,
+   "md5": "c0257e2598038947583d165a3c374345",
+   "sha256": "bbf0281011e6a783334172b4b1b94e415d08bcda97cabf26480dd5ad2cf47946"
+  },
+  "diabetes": {
+   "http": 200,
+   "bytes": 69877,
+   "md5": "c0257e2598038947583d165a3c374345",
+   "sha256": "bbf0281011e6a783334172b4b1b94e415d08bcda97cabf26480dd5ad2cf47946"
+  },
+  "prion": {
+   "http": 200,
+   "bytes": 69877,
+   "md5": "c0257e2598038947583d165a3c374345",
+   "sha256": "bbf0281011e6a783334172b4b1b94e415d08bcda97cabf26480dd5ad2cf47946"
+  },
+  "Creutzfeldt": {
+   "http": 200,
+   "bytes": 69877,
+   "md5": "c0257e2598038947583d165a3c374345",
+   "sha256": "bbf0281011e6a783334172b4b1b94e415d08bcda97cabf26480dd5ad2cf47946"
+  },
+  "Jakob": {
+   "http": 200,
+   "bytes": 69877,
+   "md5": "c0257e2598038947583d165a3c374345",
+   "sha256": "bbf0281011e6a783334172b4b1b94e415d08bcda97cabf26480dd5ad2cf47946"
+  },
+  "priônica": {
+   "http": 200,
+   "bytes": 69877,
+   "md5": "c0257e2598038947583d165a3c374345",
+   "sha256": "bbf0281011e6a783334172b4b1b94e415d08bcda97cabf26480dd5ad2cf47946"
+  }
+ },
+ "registry_database": {
+  "dengue": {
+   "http": 200,
+   "bytes": 794,
+   "md5": "835bd5f51e5d5ae005698a3f1f0a3b0a",
+   "sha256": "ca76263c7b452b5e7e1af4d5f5aeaaa6e22c747dd8da6cc039b3c2b8c456858e",
+   "recordsFiltered": 17,
+   "recordsTotal": 9629
+  },
+  "diabetes": {
+   "http": 200,
+   "bytes": 600,
+   "md5": "6d20f1164398b1156b4c3e2b449ab897",
+   "sha256": "9aeb61409877156e77383fc4f4cf5ac2826306a5e7347f525aab1833ab8a78f7",
+   "recordsFiltered": 1452,
+   "recordsTotal": 9629
+  },
+  "prion": {
+   "http": 200,
+   "bytes": 563,
+   "md5": "b8bd5ec1cfa75786f5b01dbb9d77a7b0",
+   "sha256": "021878befc91e288c5c175cbf379f36fa37f93ee51fd5a1a88e86dfb42cda3e8",
+   "recordsFiltered": 1,
+   "recordsTotal": 9629
+  },
+  "Creutzfeldt": {
+   "http": 200,
+   "bytes": 60,
+   "md5": "b1fbd7885a70dab0b4578e71dcc676a5",
+   "sha256": "bec5ccf70fcd2bcc64902de42a82e8cc12d8a3c3dfef8c6e12f3cbec5d41d162",
+   "recordsFiltered": 0,
+   "recordsTotal": 9629
+  },
+  "Jakob": {
+   "http": 200,
+   "bytes": 60,
+   "md5": "b1fbd7885a70dab0b4578e71dcc676a5",
+   "sha256": "bec5ccf70fcd2bcc64902de42a82e8cc12d8a3c3dfef8c6e12f3cbec5d41d162",
+   "recordsFiltered": 0,
+   "recordsTotal": 9629
+  },
+  "priônica": {
+   "http": 200,
+   "bytes": 60,
+   "md5": "b1fbd7885a70dab0b4578e71dcc676a5",
+   "sha256": "bec5ccf70fcd2bcc64902de42a82e8cc12d8a3c3dfef8c6e12f3cbec5d41d162",
+   "recordsFiltered": 0,
+   "recordsTotal": 9629
+  }
+ },
+ "unrecognised_parameter": {
+  "parameter": "q",
+  "recordsFiltered": 9629,
+  "recordsTotal": 9629,
+  "returns_whole_database": true
+ },
+ "verdict": {
+  "public_search_returns_200_for_every_term": true,
+  "public_search_body_identical_across_terms": true,
+  "database_discriminates_terms": true,
+  "records_filtered_by_term": {
+   "dengue": 17,
+   "diabetes": 1452,
+   "prion": 1,
+   "Creutzfeldt": 0,
+   "Jakob": 0,
+   "priônica": 0
+  },
+  "finding_confirmed": true
+ }
+}

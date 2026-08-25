@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="528" viewBox="0 0 660 528" role="img">
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#333"/></marker></defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="30" y="34" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15" font-weight="bold" fill="#111">Figura 1. Defeito 1: os cinco elos medidos entre a caixa de busca do</text>
+  <text x="30" y="54" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15" font-weight="bold" fill="#111">próprio registro e o aviso de segurança do navegador.</text>
+  <rect x="30" y="74" width="600" height="52" rx="5" fill="#fbfbfb" stroke="#333" stroke-width="1.4"/>
+  <text x="44" y="95" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.5" font-weight="bold" fill="#111">1. O visitante usa a caixa de busca</text>
+  <text x="44" y="112" font-family="'DejaVu Sans Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#333">página inicial do ReBEC, https://ensaiosclinicos.gov.br - digitado: dengue</text>
+  <line x1="330.0" y1="126" x2="330.0" y2="148" stroke="#333" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="30" y="148" width="600" height="70" rx="5" fill="#fbfbfb" stroke="#333" stroke-width="1.4"/>
+  <text x="44" y="169" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.5" font-weight="bold" fill="#111">2. O buscador decide para onde ir</text>
+  <text x="44" y="186" font-family="'DejaVu Sans Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#333">o cse.js?cx=ad5f3224a2a0fa826 traz uma única URL deste site:</text>
+  <text x="44" y="204" font-family="'DejaVu Sans Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#333">http://www.ensaiosclinicos.gov.br/search/query/simple</text>
+  <line x1="330.0" y1="218" x2="330.0" y2="240" stroke="#333" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="30" y="240" width="600" height="70" rx="5" fill="#fbfbfb" stroke="#333" stroke-width="1.4"/>
+  <text x="44" y="261" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.5" font-weight="bold" fill="#111">3. A navegação é promovida de http para https</text>
+  <text x="44" y="278" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#333">mecanismo NÃO isolado - ou o cabeçalho do próprio site</text>
+  <text x="44" y="296" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#333">Content-Security-Policy: upgrade-insecure-requests, ou a promoção do navegador</text>
+  <line x1="330.0" y1="310" x2="330.0" y2="332" stroke="#333" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="30" y="332" width="600" height="70" rx="5" fill="#fbfbfb" stroke="#333" stroke-width="1.4"/>
+  <text x="44" y="353" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.5" font-weight="bold" fill="#111">4. A requisição https bate num certificado que não cobre o host</text>
+  <text x="44" y="370" font-family="'DejaVu Sans Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#333">www.ensaiosclinicos.gov.br e ensaiosclinicos.gov.br resolvem para 140.82.26.58,</text>
+  <text x="44" y="388" font-family="'DejaVu Sans Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#333">mas o certificado traz uma SAN única: DNS:ensaiosclinicos.gov.br</text>
+  <line x1="330.0" y1="402" x2="330.0" y2="424" stroke="#333" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="30" y="424" width="600" height="52" rx="5" fill="#fdf3f3" stroke="#8a1f1f" stroke-width="1.4"/>
+  <text x="44" y="445" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.5" font-weight="bold" fill="#111">5. O navegador para. A busca nunca acontece.</text>
+  <text x="44" y="462" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#333">o Chrome exibe um erro de privacidade; nenhuma requisição chega ao registro</text>
+  <text x="30" y="506" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11" fill="#555">Todos os elos medidos em 25 de agosto de 2026. Reprodução: ver seção 6.</text>
+</svg>

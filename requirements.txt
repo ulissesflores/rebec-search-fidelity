@@ -1,0 +1,4 @@
+# Replication needs nothing but the standard library and pytest.
+# The figures are pure-stdlib SVG; the gates use urllib. No plotting stack, on purpose:
+# it is what makes the figures byte-reproducible and folds them into artifact_root.
+pytest>=8.0

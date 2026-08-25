@@ -1,0 +1,25 @@
+{
+ "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+ "@type": "SoftwareSourceCode",
+ "name": "rebec-search-fidelity",
+ "description": "Instruments, frozen captures and cryptographic provenance for three measured defects in the public search of ReBEC, a WHO ICTRP primary registry.",
+ "version": "0.1.0",
+ "dateCreated": "2026-08-25",
+ "datePublished": "2026-08-25",
+ "license": ["https://spdx.org/licenses/Apache-2.0", "https://spdx.org/licenses/CC-BY-4.0"],
+ "programmingLanguage": [{ "@type": "ComputerLanguage", "name": "Python", "version": ">=3.11" }],
+ "runtimePlatform": "Python 3.11+",
+ "codeRepository": "set at release",
+ "relatedLink": ["https://ensaiosclinicos.gov.br", "https://www.who.int/clinical-trials-registry-platform"],
+ "keywords": ["clinical trial registries", "ReBEC", "WHO ICTRP", "search interfaces", "silent failure", "research infrastructure", "reproducibility"],
+ "author": [{
+   "@type": "Person",
+   "@id": "https://orcid.org/0000-0002-6034-7765",
+   "givenName": "Carlos Ulisses",
+   "familyName": "Flores",
+   "email": "c.ulisses@gmail.com",
+   "affiliation": { "@type": "Organization", "name": "Codex Hash Research Laboratory" }
+ }],
+ "developmentStatus": "active",
+ "identifier": "set at release: Zenodo concept DOI"
+}

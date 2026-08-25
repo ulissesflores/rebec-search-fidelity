@@ -1,0 +1,107 @@
+{
+ "generated_utc": "2026-08-25T03:49:26Z",
+ "source": "Internet Archive Wayback Machine (independent third party)",
+ "captures_2025_09_23": [
+  {
+   "timestamp": "20250923170818",
+   "term": "crohn",
+   "bytes": 66525,
+   "sha256": "e47f39fbc73fede9f75e40ac37013d610581b4866f54d923b8f46cb76dbfca16",
+   "term_present_in_html": false
+  },
+  {
+   "timestamp": "20250923170946",
+   "term": "artrite psoriática",
+   "bytes": 66525,
+   "sha256": "e47f39fbc73fede9f75e40ac37013d610581b4866f54d923b8f46cb76dbfca16",
+   "term_present_in_html": false
+  },
+  {
+   "timestamp": "20250923170959",
+   "term": "psoriatic arthritis",
+   "bytes": 66525,
+   "sha256": "e47f39fbc73fede9f75e40ac37013d610581b4866f54d923b8f46cb76dbfca16",
+   "term_present_in_html": false
+  }
+ ],
+ "cdx_inventory": [
+  {
+   "timestamp": "20220729154028",
+   "statuscode": "404",
+   "digest": "H7CHFULHYQNEDE3CLL7YJ3TOLGNTAIAC",
+   "original": "https://ensaiosclinicos.gov.br/search/query/simple"
+  },
+  {
+   "timestamp": "20220729155742",
+   "statuscode": "301",
+   "digest": "CJRYX7RSF7ISKIOBMN4H3R4ITC44C32P",
+   "original": "http://ensaiosclinicos.gov.br/search/query/simple"
+  },
+  {
+   "timestamp": "20250404094439",
+   "statuscode": "200",
+   "digest": "MDNNS75ZWXJJ7YBXTINLYGRWWOQ75VJQ",
+   "original": "https://ensaiosclinicos.gov.br/search/query/simple"
+  },
+  {
+   "timestamp": "20250913110116",
+   "statuscode": "200",
+   "digest": "7OGHTN2IUR5S3VGTWXZSLIGT3XENBK6K",
+   "original": "https://ensaiosclinicos.gov.br/search/query/simple"
+  },
+  {
+   "timestamp": "20251113134519",
+   "statuscode": "200",
+   "digest": "NLC4B4NYJYNWSKH3OPSHJLIJZ75A644U",
+   "original": "https://ensaiosclinicos.gov.br/search/query/simple"
+  },
+  {
+   "timestamp": "20260220095614",
+   "statuscode": "200",
+   "digest": "KCRUWRYKUEKICJYKRVT7WLP33YBAXXAR",
+   "original": "https://ensaiosclinicos.gov.br/search/query/simple"
+  },
+  {
+   "timestamp": "20250923170946",
+   "statuscode": "200",
+   "digest": "A5UZZROU6SDBTUSO22VJFZUFALI6VR3E",
+   "original": "https://ensaiosclinicos.gov.br/search/query/simple?q=artrite+psori%C3%A1tica"
+  },
+  {
+   "timestamp": "20250923170818",
+   "statuscode": "200",
+   "digest": "A5UZZROU6SDBTUSO22VJFZUFALI6VR3E",
+   "original": "https://ensaiosclinicos.gov.br/search/query/simple?q=crohn"
+  },
+  {
+   "timestamp": "20250923170959",
+   "statuscode": "200",
+   "digest": "A5UZZROU6SDBTUSO22VJFZUFALI6VR3E",
+   "original": "https://ensaiosclinicos.gov.br/search/query/simple?q=psoriatic+arthritis"
+  },
+  {
+   "timestamp": "20240605090318",
+   "statuscode": "200",
+   "digest": "EN6CS6J6IDRQNNQ3R2UPFMSDIA6YA762",
+   "original": "https://ensaiosclinicos.gov.br/search/query/simple?q=RBR2bzspnz"
+  },
+  {
+   "timestamp": "20240605112907",
+   "statuscode": "301",
+   "digest": "CJRYX7RSF7ISKIOBMN4H3R4ITC44C32P",
+   "original": "http://ensaiosclinicos.gov.br/search/query/simple?q=RBR2bzspnz"
+  },
+  {
+   "timestamp": "20240605085417",
+   "statuscode": "200",
+   "digest": "EN6CS6J6IDRQNNQ3R2UPFMSDIA6YA762",
+   "original": "https://ensaiosclinicos.gov.br/search/query/simple?q=RBR2bzspnz."
+  }
+ ],
+ "verdict": {
+  "three_distinct_terms_same_response": true,
+  "single_sha256": "e47f39fbc73fede9f75e40ac37013d610581b4866f54d923b8f46cb76dbfca16",
+  "no_capture_contains_its_own_term": true,
+  "corroboration_confirmed": true
+ }
+}

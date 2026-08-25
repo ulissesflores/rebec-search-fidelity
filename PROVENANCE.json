@@ -1,0 +1,103 @@
+{
+  "provenance_version": "1.0",
+  "algorithm": "sha256",
+  "paper": "When a trial registry outsources its own search: three measured defects in the public search of ReBEC",
+  "semantics": {
+    "evidence": "frozen -- network captures of 2026-08-25 (live endpoints) and of 2025-09-23 (Internet Archive); not re-runnable on demand, and the instruments exit non-zero once the registry repairs the search",
+    "derivation": "reproducible to the byte -- the figures are pure-stdlib SVG with no plotting library, so they regenerate identically on any machine",
+    "artifact_root": "portable, machine-independent tamper-evidence over code + raw captures + sealed results + figures + paper"
+  },
+  "sealed_by_interpreter": {
+    "python": "3.14.7",
+    "platform": "macOS-26.7-arm64-arm-64bit-Mach-O",
+    "sha256": "5b9f92842bde788995fb6ce70d49e755fd19457c193b4e60863a230a39630a2a",
+    "note": "signing interpreter only; NOT folded into artifact_root"
+  },
+  "stages": [
+    {
+      "name": "code",
+      "kind": "derivation-input",
+      "merkle_root": "6302c952c15b26d5d05296560b94f8aaacaa41c686b7bc7f05460fb8f8b224f4",
+      "leaves": {
+        "code/make_figure.py": "1492ac993f36c8bf1475fc9ca468c3649f5c584f4155947a680dc56b3f404d51",
+        "code/measure_archive_timeline.py": "fce57db0cb38d5cd0f93b8ce9efce67ca86f3679d062430f811d0298e8e47196",
+        "code/measure_downstream_mentions.py": "4bb8eac8e611e1fdc9eb4be069a7a353a9a8a3eb13449fb25a8411714bcd6e3f",
+        "code/measure_public_search.py": "b4add151376bdef07ee418ba5400b1f830d7b8575fbef0f413f829df5a0dddd4",
+        "code/quality_checks.py": "4957063b241e07830060e6933c16c3e2aa6045e5e0377e90d34c1f74aeb02853",
+        "scripts/build_chain.py": "ff91bcda84ea37dc9ee4079b7b5e5b41748ac78e75ceea6d15a96cfa27c52540",
+        "scripts/hash_utils.py": "e4dee7bd50bbe2840b99c835a8c22cefae64fd77d816b8135721a75480762410",
+        "scripts/verify_chain.py": "19a1a001875de932589ea98dbf4dff84b58d7ca5e5394d0fce10efd94dab8d03",
+        "tests/test_citations_live.py": "aeb8683bc68ed0837d9a49645bfeef61004914a923a3f6d900bb7ac8bd11eca2",
+        "tests/test_determinism.py": "9b9a63d3b2969fb3740c3002d08eb82e495ac6bc89b8a1a88b73dc1b42d6fccb",
+        "tests/test_paper_numbers.py": "4358a16cf9e79d08d77bf1a2280bddd3d80e9d4752d395fe0b805f10ca51e021"
+      },
+      "hash": "6302c952c15b26d5d05296560b94f8aaacaa41c686b7bc7f05460fb8f8b224f4",
+      "chain_link": "002601f73f0311447f26a4b57ba85a2d34976a8be133e0376acada78e6f8e194"
+    },
+    {
+      "name": "evidence",
+      "kind": "frozen-evidence",
+      "merkle_root": "32ec4b249db5a480096297906b64715e896fecee5b18f4996a35ffd7bd9a4507",
+      "leaves": {
+        "data/derived/database-dengue-ids.json": "db7bbf18e1a4d3a341d23e87373e466c2baf5815ec9c424e63c75a57ecf8f9c5",
+        "data/derived/recall-dengue.json": "0a67fa71b190c5cb06e71f106388e80e5bab19f28316eb89a84e28eb5c898af6",
+        "data/raw/cse.js": "e189070f0722d01bfd5cf5d797a1626bdfa4de58bd42bd3384ae63e695ce7d22",
+        "data/raw/rebec-openapi.json": "dca2061e7f5874cd1d669f9254ef279382d472e8d9a7d0478879541befd21e57",
+        "data/raw/rebec-prion-hit.json": "021878befc91e288c5c175cbf379f36fa37f93ee51fd5a1a88e86dfb42cda3e8",
+        "data/raw/wayback/wb-0923-artrite.txt": "e47f39fbc73fede9f75e40ac37013d610581b4866f54d923b8f46cb76dbfca16",
+        "data/raw/wayback/wb-0923-crohn.txt": "e47f39fbc73fede9f75e40ac37013d610581b4866f54d923b8f46cb76dbfca16",
+        "data/raw/wayback/wb-0923-psoarth.txt": "e47f39fbc73fede9f75e40ac37013d610581b4866f54d923b8f46cb76dbfca16",
+        "data/raw/wayback/wb-2024-06-05-q-RBR2bzspnz.html": "0137ac44066f3a85d670fac99e2117a5021342837a133037a85302e371fca730",
+        "data/raw/wayback/wb-2025-09-13-bare.txt": "37a7e407393eb702ff820ad572c8e303cb4f0db4f51f8b28a05f0f490b5a212c",
+        "data/raw/wayback/wb-2026-02-20-bare.txt": "52049c469326e54dee2d086409203a9e30601a822a096b62df82a4f4d7378b49"
+      },
+      "hash": "32ec4b249db5a480096297906b64715e896fecee5b18f4996a35ffd7bd9a4507",
+      "chain_link": "a3c57ae836dd8a880474c0d0f7f945b1d1fe53049cbfa4854b64439f8700262b"
+    },
+    {
+      "name": "results",
+      "kind": "frozen-evidence",
+      "merkle_root": "6df8fa79fc7bd3383814e1918d43cb4a5005999ceb5c1c28be848e732f1e7675",
+      "leaves": {
+        "output/archive-timeline.json": "b6e1d54f7a5024041ab9415390b30688379fb79584d1f1a1bcd04664f689bd48",
+        "output/downstream-mentions.json": "41bf770d7fb2ea305fb4e7798b88bf682577a6a4a78fcee219c789f86444b9a6",
+        "output/public-search-vs-database.json": "0be693fab53218e0b0e132e10ff8a253129ed36fd7e64550eb72e6ae54aa4843"
+      },
+      "hash": "6df8fa79fc7bd3383814e1918d43cb4a5005999ceb5c1c28be848e732f1e7675",
+      "chain_link": "37b5fbc67973918c1195c01da2f8135c3f9b6290801c9ddad0ec3133e1661d5e"
+    },
+    {
+      "name": "figures",
+      "kind": "reproducible-derivation",
+      "merkle_root": "8a55bf781545a0229112d3848d7f2104f241530a1df7561a3d94e347c28f38f6",
+      "leaves": {
+        "output/figures/fig1-defect1-chain-pt.svg": "c19027caa66c82a20906c75bf36eeb08f4496cba0c9661d66274b24eff097506",
+        "output/figures/fig1-defect1-chain.svg": "bcf498856d53fa732157583bae3daddb40ec2e55951655f18e14a95b5c601e8e"
+      },
+      "hash": "8a55bf781545a0229112d3848d7f2104f241530a1df7561a3d94e347c28f38f6",
+      "chain_link": "3bd18753647093b72eabd13051cd5c6095c2502ee89bad2f5c9cb2ea0e978cdb"
+    },
+    {
+      "name": "paper",
+      "kind": "artifact",
+      "merkle_root": "512010ef26c85d3b59660b924984b073f2da1cdf14effa881bf73ca90c8e1662",
+      "leaves": {
+        "docs/paper/MANUSCRIPT-en.md": "88592ae9246bee3d68a6a1f22a762ffada17619b58f06f9a55ee6f984258b739",
+        "docs/paper/MANUSCRITO-pt-BR.md": "438ffea530db8ec1474c8ece0ca6f9b792035fdedccc327cc07e45e23f42ebe5",
+        "docs/paper/QUALITY-AUDIT-2026-08-25.md": "48c3fab9b9f124ff5485e19a48b4d825c2e78faffe355ac4078d228118bff9fe",
+        "docs/paper/QUALITY-CALIBRATION.md": "93adb97e52eb5592e8270285fe8ad97adf1b44ed127db9cae92462103d46222c"
+      },
+      "hash": "512010ef26c85d3b59660b924984b073f2da1cdf14effa881bf73ca90c8e1662",
+      "chain_link": "a32d41feb2e1b98fe8166e6880b6df0c2c36d9034bdf3c30aca62bc023e0405c"
+    }
+  ],
+  "chain_order": [
+    "code",
+    "evidence",
+    "results",
+    "figures",
+    "paper"
+  ],
+  "artifact_root": "a32d41feb2e1b98fe8166e6880b6df0c2c36d9034bdf3c30aca62bc023e0405c",
+  "doi_anchor": "set at release: the Zenodo Version DOI binds this artifact_root"
+}

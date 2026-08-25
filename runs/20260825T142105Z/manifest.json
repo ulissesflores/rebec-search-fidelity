@@ -1,0 +1,26 @@
+{
+  "run_id": "20260825T142105Z",
+  "created_utc": "2026-08-25T14:21:05.935260+00:00",
+  "git": {
+    "repository_url": "set at release",
+    "commit": "UNKNOWN",
+    "tag": null
+  },
+  "environment": {
+    "platform": "macOS-26.7-arm64-arm-64bit-Mach-O",
+    "python_version": "3.14.7",
+    "python_implementation": "CPython",
+    "architecture": "arm64",
+    "pip_freeze": [
+      "Pygments==2.21.0",
+      "iniconfig==2.3.0",
+      "packaging==26.3",
+      "pip==26.2.1",
+      "pluggy==1.6.0",
+      "pytest==9.1.1"
+    ]
+  },
+  "artifact_root": "a32d41feb2e1b98fe8166e6880b6df0c2c36d9034bdf3c30aca62bc023e0405c",
+  "chain_algorithm": "sha256 Merkle-per-stage + left-fold chain (scripts/build_chain.py)",
+  "notes": "rebec-search-fidelity seal; captures frozen, figures byte-reproducible"
+}

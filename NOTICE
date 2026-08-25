@@ -1,0 +1,16 @@
+rebec-search-fidelity
+Copyright 2026 Carlos Ulisses Flores
+
+Dual-licensed, by artifact class:
+
+  * CODE (code/, scripts/, tests/, run_all.py) -- Apache License 2.0.
+    See LICENSES/Apache-2.0.txt.
+  * PAPER, FIGURES AND DOCUMENTATION (docs/, output/figures/) --
+    Creative Commons Attribution 4.0 International (CC-BY-4.0).
+    See LICENSES/CC-BY-4.0.txt.
+
+FROZEN CAPTURES (data/raw/, output/*.json) are records of what third-party public
+endpoints returned on the stated dates. They are redistributed as evidence of the
+measurement. ensaiosclinicos.gov.br is operated by Fiocruz; the Internet Archive
+captures are the Internet Archive's. No affiliation with, or endorsement by, ReBEC,
+Fiocruz, the World Health Organization or Google is claimed or implied.

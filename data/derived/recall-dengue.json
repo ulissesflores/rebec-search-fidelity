@@ -1,0 +1,64 @@
+{
+ "database": [
+  "RBR-2j2zw3h",
+  "RBR-2w55vq",
+  "RBR-3qg2my",
+  "RBR-59447vn",
+  "RBR-5g4n3p",
+  "RBR-5r8gv8p",
+  "RBR-5vpyh4",
+  "RBR-69pf3b",
+  "RBR-6ck7g2",
+  "RBR-6tmdrtg",
+  "RBR-6xbgv9j",
+  "RBR-7gstxs6",
+  "RBR-7k3nv44",
+  "RBR-7yrysy5",
+  "RBR-88b5jr",
+  "RBR-8cjjpgm",
+  "RBR-9j53g4r"
+ ],
+ "public_search": [
+  "RBR-2j2zw3h",
+  "RBR-2w55vq",
+  "RBR-3qg2my",
+  "RBR-59447vn",
+  "RBR-5g4n3p",
+  "RBR-5r8gv8p",
+  "RBR-6ck7g2",
+  "RBR-6tmdrtg",
+  "RBR-6xbgv9j",
+  "RBR-7jmj48v",
+  "RBR-7k3nv44",
+  "RBR-7yrysy5",
+  "RBR-84nk5q6",
+  "RBR-88b5jr",
+  "RBR-8cjjpgm",
+  "RBR-9j53g4r"
+ ],
+ "intersection": [
+  "RBR-2j2zw3h",
+  "RBR-2w55vq",
+  "RBR-3qg2my",
+  "RBR-59447vn",
+  "RBR-5g4n3p",
+  "RBR-5r8gv8p",
+  "RBR-6ck7g2",
+  "RBR-6tmdrtg",
+  "RBR-6xbgv9j",
+  "RBR-7k3nv44",
+  "RBR-7yrysy5",
+  "RBR-88b5jr",
+  "RBR-8cjjpgm",
+  "RBR-9j53g4r"
+ ],
+ "not_returned": [
+  "RBR-5vpyh4",
+  "RBR-69pf3b",
+  "RBR-7gstxs6"
+ ],
+ "outside_database_filter": [
+  "RBR-7jmj48v",
+  "RBR-84nk5q6"
+ ]
+}
