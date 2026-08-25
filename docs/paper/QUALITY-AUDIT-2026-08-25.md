@@ -104,7 +104,7 @@ Technical density 238 >= 100, so **the hard cap of 600 does not fire.**
 
 | Sub-criterion | Max | Score | Evidence |
 |---|---|---|---|
-| Claims with verified citation | 60 | 60 | Every load-bearing quantity is recomputed from a sealed JSON by the gate; the three human-observed values (20 URLs, "approximately 38", 69,876 bytes) are traced to the document that attests them and declared as such. |
+| Claims with verified citation | 60 | 60 | Every load-bearing quantity is recomputed from a sealed JSON by the gate; the two human-observed values the report publishes ("approximately 38", 69,876 bytes) are traced to the document that attests them and declared as such; a third, the number of result URLs paged through, was withdrawn from the report rather than traced, because it was never sealed. |
 | No invention | 40 | 40 | All 12 entries come from tool output: Europe PMC `resultType=core`, `rfc-editor.org/rfc/*.json`, Crossref. `search[value]` verified by reading the served manual page. |
 | Assumptions marked | 25 | 25 | The `http`->`https` attribution is declared unisolated in section 3.2 and again in limitation 1; the between-days byte variance in limitation 4; the Europe PMC counts declared co-occurrence, not evidence of searching. |
 | URLs reachable | 15 | 15 | 4/4 HTTP 200 (network gate). |

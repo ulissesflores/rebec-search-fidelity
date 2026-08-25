@@ -301,8 +301,10 @@ def numbers(en: str, pt: str, d: dict) -> list[dict]:
     return rows
 
 
-# Quantities from the human browser session: not recomputable, so traced instead.
-ATTESTED = [("20 URLs", "20 URLs"), ("38", "38"), ("69,876", "69.876")]
+# Quantities from the human browser session: not recomputable, so traced instead. The count of
+# result URLs the session paged through was dropped from the report rather than traced: it lived
+# only in the session and sealing it after the fact would manufacture the evidence.
+ATTESTED = [("38", "38"), ("69,876", "69.876")]
 ATTESTING_DOCUMENTS = [EVIDENCE / "BROWSER-SESSION.md", EVIDENCE / "EARLIER-MEASUREMENT.md"]
 
 

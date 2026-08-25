@@ -1,12 +1,12 @@
-# When a trial registry outsources its own search: three measured defects in the public search of ReBEC
+# When a trial registry outsources its own search: measured defects in the public search of ReBEC
 
 **Carlos Ulisses Flores**
 MSc candidate in Artificial Intelligence, American Global Tech University · CTO and Chief Researcher,
 Codex Hash Research Laboratory, São Paulo, Brazil
 ORCID [0000-0002-6034-7765](https://orcid.org/0000-0002-6034-7765) · c.ulisses@gmail.com
 
-*Short report. All measurements taken 25 August 2026. Code, raw responses and cryptographic hashes
-are released with this report so that every number below can be re-derived or refuted.*
+*Short report. All measurements taken 25 August 2026 (UTC). Code, raw responses and cryptographic
+hashes are released with this report so that every number below can be re-derived or refuted.*
 
 > **Version note.** This English text is the version of record. A full Portuguese translation is
 > deposited under the same DOI; where the two diverge, this file governs.
@@ -20,19 +20,21 @@ are released with this report so that every number below can be re-derived or re
 reviewers, journalists, clinicians and patients search it and act on what it returns — including on
 what it does *not* return.
 
-**Methods.** We measured the public search interface of ReBEC on 25 August 2026 by five independent
-routes: (i) the served HTML of the search endpoint; (ii) the live search performed in an ordinary
+**Methods.** We measured the public search interface of ReBEC on 25 August 2026 (UTC) by five
+independent routes: (i) the served HTML of the search endpoint; (ii) the live search performed in an ordinary
 desktop browser; (iii) DNS and TLS of the hosts involved; (iv) the published configuration of the
 search widget; and (v) independent third-party captures held by the Internet Archive. Recall was
 measured by comparing sets of trial identifiers, never by the result estimate the interface
 displays. Every search used a positive control.
 
 **Results.** The public search of ReBEC does not query the registry database. It is a Google Custom
-Search over the pages of the website, executed in the visitor's browser. Three defects follow.
+Search over the pages of the website, executed in the visitor's browser. The defects below are not
+three independent faults of the registry: **(2)** and **(3)** are what that single decision
+produces, and **(1)** is where the decision meets a separate certificate configuration.
 **(1)** The search box on the registry's own home page sends the visitor to a hostname
 (`www.ensaiosclinicos.gov.br`) that the site's TLS certificate does not cover; in current Chrome the
-search therefore ends on a browser security interstitial. **(2)** The server ignores the query
-string entirely: six different query terms returned HTTP 200 with a single, byte-identical body
+search therefore ends on a browser security interstitial. **(2)** The served response does not vary
+with the query string: six different query terms returned HTTP 200 with a single, byte-identical body
 (69,877 bytes, one SHA-256). Filtering happens only in client-side JavaScript, so every non-JavaScript
 client — scripts, harvesters, and web archives — receives a search page that never filters. **(3)**
 For the term `dengue`, the registry database returns 17 trials while the public search surfaces 14 of
@@ -55,8 +57,8 @@ research infrastructure
 
 Trial registries exist so that studies can be found. That function is load-bearing: systematic
 reviewers search registries to detect unpublished and ongoing studies [1]; clinicians and patients
-search them to find studies they might join, and report being unable to search for the kinds of
-trial they care about [2]; journalists and meta-researchers search them to make
+search them to find studies they might join, and have called for search filters that registry
+interfaces do not currently offer [2]; journalists and meta-researchers search them to make
 claims about what a country is and is not studying. All of these uses share a property that makes
 them fragile: **an empty result is informative**. "There are no registered trials on X in Brazil" is
 a conclusion people draw, publish, and act on.
@@ -64,8 +66,8 @@ a conclusion people draw, publish, and act on.
 That inference is only valid if the search actually searched. This report measures whether it does,
 for one ICTRP primary registry.
 
-ReBEC was created to strengthen the management of clinical research in Brazil [3] and is operated
-within the Brazilian public health system; it is one of the WHO ICTRP primary registries [7]. Latin
+ReBEC was created to strengthen the management of clinical research in Brazil [3] (the 2009 notice
+announces it under the acronym *Rebrac*) and is operated within the Brazilian public health system; it is one of the WHO ICTRP primary registries [7]. Latin
 American registration practice, including Brazil's, has been studied for adherence and completeness
 [4,5,6]. We found no prior report evaluating whether
 a trial registry's public **search interface** returns what its database contains. The gap we
@@ -141,6 +143,14 @@ developer's own note, *"comentando busca antiga"* ("commenting out the old searc
 The consequence is structural rather than incidental: what a member of the public queries is
 **Google's index of the website's pages**, not the registry's 9,629 records.
 
+That single decision organises what follows, and we set the relation out before the measurements so
+that the three are not read as three independent faults. Defect 2 (§3.3) and defect 3 (§3.4) are
+consequences of it: filtering moved into the visitor's browser, and coverage became a third party's
+index of pages rather than the registry's own records. Defect 1 (§3.2) is not a consequence of it
+alone — it is where the configured target host of the outsourced widget meets a TLS certificate that
+does not cover that host, which is a separate configuration fault. We report all three because each
+was measured separately, and we subordinate them here because they do not carry equal independence.
+
 ### 3.2 Defect 1 — the registry's own search box ends on a browser security warning
 
 Typing `dengue` into the search box on the ReBEC home page and pressing Enter navigates to
@@ -162,7 +172,7 @@ A visitor who reaches the canonical host directly — by editing the URL, or fol
 not pass through the search box — does get results. The defect is in the path the registry itself
 offers.
 
-### 3.3 Defect 2 — the server ignores the query, so every non-JavaScript client sees a search that never filters
+### 3.3 Defect 2 — the served response does not vary with the query, so every non-JavaScript client sees a search that never filters
 
 On the canonical host, the search endpoint returned **HTTP 200 with a byte-identical body for all six
 terms**: 69,877 bytes, a single SHA-256 (`bbf0281011e6a783334172b4b1b94e415d08bcda97cabf26480dd5ad2cf47946`),
@@ -179,7 +189,9 @@ while the registry's own data endpoint discriminated between the same terms on t
 
 The left three columns do not vary; the right one does. That contrast is the defect.
 
-HTTP 200 is not itself the defect: it is the correct status for a page that renders a form. The
+HTTP 200 is not itself the defect: it is the correct status for a page that renders a form. What we
+measured is the served body, and it does not vary with the query string; we make no claim about how
+the server handles the parameter internally, only that nothing of it reaches the response. The
 defect is that the page presents itself as a search result, is reachable with a query string, and
 never filters server-side. Because filtering happens only in client-side JavaScript, **every client
 that does not execute JavaScript — command-line tools, harvesters, and web archives — receives a
@@ -192,7 +204,7 @@ Measured for `dengue`, by identifier:
 | Source | Result |
 |---|---|
 | Registry database (`/api2/api/search`, `search[value]=dengue`) | **17 trials** |
-| Public search (Google Custom Search, rendered in Chrome, paged to exhaustion) | **16 distinct `RBR-` identifiers** across 20 URLs |
+| Public search (Google Custom Search, rendered in Chrome, paged to exhaustion) | **16 distinct `RBR-` identifiers** |
 | Intersection | **14** |
 | **Recall** | **14/17** |
 
@@ -231,9 +243,15 @@ SHA-256 `e47f39fbc73fede9f75e40ac37013d610581b4866f54d923b8f46cb76dbfca16`), and
 contains the term that was searched. The archive's own CDX index records a single digest for the
 three, independently of our retrieval.
 
-Defect 2 therefore holds over an interval of **at least 11 months** (23 Sep 2025 – 25 Aug 2026), with
-intermediate captures consistent and none to the contrary. The start date is unknown and, for a
-specific reason, unrecoverable: an earlier capture (5 June 2024) shows a client-side search widget,
+Defect 2 therefore holds at two measured points **11 months apart** (23 Sep 2025 and 25 Aug 2026).
+We claim persistence between those two points and not continuity across the interval, and the
+distinction is in the data rather than in caution: the only archived captures of this endpoint that
+carry a query string are the three of 23 September 2025. The intermediate captures the archive holds
+(4 Apr 2025, 13 Sep 2025, 13 Nov 2025, 20 Feb 2026) are *bare* — retrieved without `?q=` — so they
+cannot test whether different terms return the same response, and their CDX digests differ from one
+another for that reason. We therefore do not offer them as corroboration, and an earlier draft of
+this report that described them as consistent and uncontradicted overstated what they can show. The
+start date is unknown and, for a specific reason, unrecoverable: an earlier capture (5 June 2024) shows a client-side search widget,
 and a web archive does not preserve what JavaScript rendered. **We therefore do not claim that the
 search never worked.**
 
@@ -241,15 +259,22 @@ search never worked.**
 
 ### 4.1 What this means for people who search registries
 
-A systematic reviewer who records "we searched ReBEC" has searched a third-party web index of the
-registry's pages, with coverage that is measurable and, in our one measured case, incomplete. The failure is fail-silent rather
-than fail-fast: nothing in the response tells the caller that the question was never put to the
-database. A reader cannot tell this from the interface, and the method sections of downstream work
-cannot record a distinction they were never shown. As a crude indication of how much work sits downstream of this
-interface, Europe PMC returns 2,798 records mentioning "ReBEC", 1,234 mentioning "Brazilian Registry
-of Clinical Trials" and 494 mentioning "ensaiosclinicos.gov.br" (25 Aug 2026). **These are
-co-occurrence counts, not verified claims of having searched, and we deliberately do not convert them
-into an estimate of harm.**
+Whoever reaches the registry's records through this interface is searching a third-party web index of
+the registry's pages, with coverage that is measurable and, in our one measured case, incomplete. The
+failure is fail-silent rather than fail-fast: nothing in the response tells the caller that the
+question was never put to the database. A reader cannot tell this from the interface, and the method
+sections of downstream work cannot record a distinction they were never shown.
+
+**We did not measure who arrives by this route, and that limit is sharper than it looks.** The same
+records are aggregated by the WHO ICTRP portal, which we did not measure; the methodological review
+most relevant to registry searching [1] searched the ICTRP portal rather than the national site. So
+a systematic review that records "we searched ReBEC" may or may not have passed through the
+interface measured here, and we do not claim that it did. As a crude indication of how much work
+sits somewhere downstream of this registry, Europe PMC returns 2,798 records mentioning "ReBEC",
+1,234 mentioning "Brazilian Registry of Clinical Trials" and 494 mentioning "ensaiosclinicos.gov.br"
+(25 Aug 2026). **These are co-occurrence counts, not verified claims of having searched, still less
+of having searched by this route, and we deliberately do not convert them into an estimate of
+harm.**
 
 The archival consequence is separate and worse, because it is silent and permanent: what the Internet
 Archive holds for this endpoint is a search page that never filtered. Anyone reconstructing, years
@@ -260,7 +285,9 @@ from now, what the Brazilian registry could be searched for will find query-inse
 It makes no claim about intent, negligence or fault. It describes observable properties of a public
 system on a stated date. It does not claim that ReBEC's *records* are incomplete — the database
 answered every query we put to it. It does not claim the search is unusable: on the canonical host,
-in a browser, it works. And it does not generalise defect 1 beyond current Chrome.
+in a browser, it works. It does not claim to know by which route people reach ReBEC's records — the
+WHO ICTRP portal carries the same records and was not measured here. And it does not generalise
+defect 1 beyond current Chrome.
 
 ### 4.3 Limitations, stated rather than discovered by the reader
 
@@ -296,18 +323,40 @@ primary registries and publish the census, which is what would turn one measured
 (ii) replicate defect 1 in Firefox and Safari and isolate which mechanism performs the `http`→`https`
 upgrade, by instrumenting the form submission itself rather than a programmatic click, which is the
 measurement that would close the open attribution in §3.2; and (iii) measure the downstream
-consequence directly, by sampling systematic reviews that record having searched ReBEC and checking
-whether the trials the public search omits are the ones those reviews missed — replacing the
-co-occurrence counts of §4.1 with an effect.
+consequence directly, by sampling systematic reviews that record having searched ReBEC, establishing
+by which route they searched, and checking whether the trials the public search omits are the ones
+those reviews missed — replacing the co-occurrence counts of §4.1 with an effect.
 
 ## 5. Notification
 
-At the time of deposit the operator had not been notified; notification will be sent after
-publication, in Portuguese, so that the operator can respond to a fixed, citable text rather than to
-a moving description. We note as part of the finding that the only contact address published on the
-registry's website is a free webmail address (`plantao.rebec@gmail.com`); the routes `/contato`,
-`/fale-conosco` and `/suporte` return HTTP 404. Should the interface be repaired, both instruments in
-this report will exit non-zero, and the repair — not this report — becomes the outcome of record.
+**Notification precedes deposit.** This report was sent in Portuguese to the registry's operator
+(ReBEC, operated within ICICT/Fiocruz) on **25 August 2026 (UTC)**, before deposit, at two addresses:
+the one the registry publishes on its own site, and `sic@fiocruz.br`, the institutional Citizen
+Information Service of the operating foundation, verified on the foundation's own
+access-to-information page on the same date. The notice carried this text and its SHA-256, and said
+plainly that deposit was imminent. **No response was awaited, and none is treated as consent**: the
+purpose of notifying first is that the operator should not learn from a permanent identifier that a
+report naming their system exists.
+
+We do not claim a receipt we do not hold. **No formal request under the Brazilian access-to-information
+statute was filed**, and therefore no dated government protocol number accompanies this section: that
+route runs through a platform requiring an authenticated national-identity account, which is a
+personal credential rather than an instrument of this report. What exists is the sent message, on the
+stated date, to the two addresses above. A reader weighing this should weigh it as that and nothing
+more.
+
+Notice did not go to a computer security response team. The finding in §3.2 is a certificate-coverage
+fault on a hostname that redirects to the covered one; it exposes no primitive an attacker gains
+from, so treating it as a vulnerability report would misdescribe it and would escalate over the
+operator. Escalation remains conditional and is stated as such: it would follow only from a
+persistent failure to reach anyone, which notification at an institutional address is meant to
+prevent. The WHO ICTRP was not notified as a disclosure counterparty; it is named in this report only
+as the platform whose primary registry this is.
+
+Should the interface be repaired, both instruments in this report exit non-zero, and the repair — not
+this report — becomes the outcome of record. That is the intended end of this finding, and the reason
+the notification carries a date: a reader comparing the repair to this text should be able to tell
+"fixed after being told" from "never true".
 
 ## 6. Data and code availability
 
@@ -351,7 +400,8 @@ echo | openssl s_client -connect www.ensaiosclinicos.gov.br:443 \
 3. Departamento de Ciência e Tecnologia, Secretaria de Ciência, Tecnologia e Insumos Estratégicos,
    Ministério da Saúde. [Brazilian Registry of Clinical Trials (Rebrac): strengthening of clinical
    trials management in Brazil]. *Rev Saude Publica* 2009;43(2):387-388.
-   doi:10.1590/s0034-89102009000200024 · PMID 19287881
+   doi:10.1590/s0034-89102009000200024 · PMID 19287881 — the 2009 notice announces the registry
+   under the acronym *Rebrac*; it is the registry now known as ReBEC.
 4. García-Vello P, Smith E, Elias V, Florez-Pinzon C, Reveiz L. Adherence to clinical trial
    registration in countries of Latin America and the Caribbean, 2015. *Rev Panam Salud Publica*
    2018;42:e44. doi:10.26633/rpsp.2018.44 · PMID 31093072

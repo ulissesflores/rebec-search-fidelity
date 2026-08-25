@@ -113,7 +113,7 @@ def compute_provenance() -> dict:
         "provenance_version": "1.0",
         "algorithm": "sha256",
         "paper": (
-            "When a trial registry outsources its own search: three measured defects "
+            "When a trial registry outsources its own search: measured defects "
             "in the public search of ReBEC"
         ),
         "semantics": {

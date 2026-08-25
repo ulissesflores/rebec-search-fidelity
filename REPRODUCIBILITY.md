@@ -73,7 +73,10 @@ an interpreter difference as INFO, never as failure.
 ## One measurement was made by a human, and is labelled as such
 
 Defect 1 concerns what a person experiences, so it was measured in an ordinary desktop
-Chrome, not by headless automation. Three quantities come from that session and are not
-recomputable: the 20 URLs enumerated for `dengue`, the unstable result estimate, and the
-earlier body size. They are traced to the documents that attest them in `docs/evidence/`,
-and the gate checks that traceability rather than pretending to recompute them.
+Chrome, not by headless automation. Two quantities the report publishes come from that
+session and are not recomputable: the unstable result estimate and the earlier body size.
+They are traced to the documents that attest them in `docs/evidence/`, and the gate checks
+that traceability rather than pretending to recompute them. A third — the number of result
+URLs paged through for `dengue` — stays in the session record and is **not** published,
+because it was never written to a sealed artefact and sealing it now would manufacture the
+evidence after the fact.

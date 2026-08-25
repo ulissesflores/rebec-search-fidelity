@@ -1,11 +1,11 @@
-# Quando um registro de ensaios clínicos terceiriza a própria busca: três defeitos medidos na busca pública do ReBEC
+# Quando um registro de ensaios clínicos terceiriza a própria busca: defeitos medidos na busca pública do ReBEC
 
 **Carlos Ulisses Flores**
 Mestrando em Inteligência Artificial, American Global Tech University · CTO e Chief Researcher,
 Codex Hash Research Laboratory, São Paulo, Brasil
 ORCID [0000-0002-6034-7765](https://orcid.org/0000-0002-6034-7765) · c.ulisses@gmail.com
 
-*Relato curto. Todas as medições em 25 de agosto de 2026. Código, respostas brutas e hashes
+*Relato curto. Todas as medições em 25 de agosto de 2026 (UTC). Código, respostas brutas e hashes
 criptográficos acompanham este relato para que cada número abaixo possa ser refeito — ou refutado.*
 
 > **Nota de versão.** Esta é a tradução integral, para o português, do texto depositado em inglês sob
@@ -20,7 +20,8 @@ Internacional de Registros de Ensaios Clínicos (ICTRP) da Organização Mundial
 sistemáticos, jornalistas, profissionais de saúde e pacientes buscam nele e agem com base no que ele
 devolve — inclusive com base no que ele **não** devolve.
 
-**Método.** Medimos a busca pública do ReBEC em 25 de agosto de 2026 por cinco rotas independentes:
+**Método.** Medimos a busca pública do ReBEC em 25 de agosto de 2026 (UTC) por cinco rotas
+independentes:
 (i) o HTML servido pelo endpoint de busca; (ii) a busca feita ao vivo num navegador comum;
 (iii) DNS e TLS dos hosts envolvidos; (iv) a configuração publicada do buscador; e (v) capturas
 independentes de terceiro, feitas pelo Internet Archive. O recall foi medido comparando **conjuntos
@@ -28,11 +29,13 @@ de identificadores** de ensaios, nunca pela estimativa de resultados que a inter
 busca usou controle positivo.
 
 **Resultados.** A busca pública do ReBEC **não consulta o banco do registro**. Ela é um Google Custom
-Search sobre as páginas do site, executado no navegador do visitante. Daí decorrem três defeitos.
+Search sobre as páginas do site, executado no navegador do visitante. Os defeitos abaixo não são três
+faltas independentes do registro: **(2)** e **(3)** são o que essa decisão única produz, e **(1)** é
+onde ela encontra uma configuração de certificado à parte.
 **(1)** A caixa de busca da própria página inicial envia o visitante a um nome de host
 (`www.ensaiosclinicos.gov.br`) que o certificado TLS do site não cobre; no Chrome atual, a busca
-termina num aviso de segurança do navegador. **(2)** O servidor ignora integralmente a consulta: seis
-termos diferentes devolveram HTTP 200 com um corpo byte a byte idêntico (69.877 bytes, um único
+termina num aviso de segurança do navegador. **(2)** A resposta servida não varia com a consulta:
+seis termos diferentes devolveram HTTP 200 com um corpo byte a byte idêntico (69.877 bytes, um único
 SHA-256). A filtragem ocorre apenas em JavaScript no cliente — logo, todo cliente sem JavaScript
 (scripts, coletores e arquivos da web) recebe uma página de busca que nunca filtra. **(3)** Para o
 termo `dengue`, o banco devolve 17 ensaios e a busca pública entrega 14 deles (recall 14/17); duas
@@ -54,8 +57,8 @@ falha silenciosa; infraestrutura de pesquisa
 
 Registros de ensaios existem para que estudos possam ser encontrados. Essa função sustenta peso:
 revisores sistemáticos buscam registros para detectar estudos não publicados e em andamento [1];
-profissionais e pacientes buscam para achar estudos dos quais possam participar — e relatam não
-conseguir buscar pelo tipo de ensaio que lhes importa [2]; jornalistas e
+profissionais e pacientes buscam para achar estudos dos quais possam participar — e pedem filtros de
+busca que as interfaces dos registros hoje não oferecem [2]; jornalistas e
 meta-pesquisadores buscam para afirmar o que um país está — e o que não está — estudando. Todos esses
 usos compartilham uma propriedade que os torna frágeis: **um resultado vazio informa**. "Não há
 ensaios registrados sobre X no Brasil" é uma conclusão que se tira, se publica e sobre a qual se age.
@@ -63,8 +66,8 @@ ensaios registrados sobre X no Brasil" é uma conclusão que se tira, se publica
 Essa inferência só é válida se a busca de fato buscou. Este relato mede se ela busca, num registro
 primário do ICTRP.
 
-O ReBEC foi criado para fortalecer a gestão da pesquisa clínica no Brasil [3] e é operado dentro do
-sistema público de saúde brasileiro; é um dos registros primários do ICTRP/OMS [7]. A prática de
+O ReBEC foi criado para fortalecer a gestão da pesquisa clínica no Brasil [3] (o comunicado de 2009 o
+anuncia sob a sigla *Rebrac*) e é operado dentro do sistema público de saúde brasileiro; é um dos registros primários do ICTRP/OMS [7]. A prática de
 registro na América Latina, inclusive a brasileira, já foi estudada quanto a adesão e completude
 [4,5,6]. **Não encontramos relato anterior avaliando se
 a interface de busca de um registro de ensaios devolve aquilo que o banco dele contém.** A lacuna que
@@ -139,6 +142,14 @@ próprio desenvolvedor: *"comentando busca antiga"*.
 A consequência é estrutural, não incidental: o que o público consulta é o **índice do Google sobre as
 páginas do site**, e não os 9.629 registros da base.
 
+Essa decisão única organiza o que vem a seguir, e declaramos a relação antes das medições para que os
+três não sejam lidos como três faltas independentes. O defeito 2 (§3.3) e o defeito 3 (§3.4) são
+consequência dela: a filtragem passou para o navegador do visitante, e a cobertura passou a ser o
+índice de um terceiro sobre páginas, não os registros do próprio registro. O defeito 1 (§3.2) não
+decorre só dela — é onde o host de destino configurado no buscador terceirizado encontra um
+certificado TLS que não cobre esse host, o que é uma falha de configuração à parte. Relatamos os três
+porque cada um foi medido separadamente, e os subordinamos aqui porque não têm a mesma independência.
+
 ### 3.2 Defeito 1 — a caixa de busca do próprio registro termina num aviso de segurança
 
 Digitar `dengue` na caixa de busca da página inicial do ReBEC e teclar Enter leva a
@@ -160,7 +171,7 @@ Um visitante que chegue diretamente ao host canônico — editando a URL, ou seg
 passe pela caixa de busca — obtém resultados. O defeito está no caminho que o próprio registro
 oferece.
 
-### 3.3 Defeito 2 — o servidor ignora a consulta, e todo cliente sem JavaScript vê uma busca que nunca filtra
+### 3.3 Defeito 2 — a resposta servida não varia com a consulta, e todo cliente sem JavaScript vê uma busca que nunca filtra
 
 No host canônico, o endpoint de busca devolveu **HTTP 200 com corpo byte a byte idêntico para os seis
 termos**: 69.877 bytes, um único SHA-256
@@ -179,8 +190,10 @@ próprio registro discriminou entre os mesmos termos no mesmo dia:
 As três colunas da esquerda não variam; a da direita varia. Esse contraste é o defeito.
 
 **HTTP 200 não é, ele mesmo, o defeito**: é o código correto para uma página que renderiza um
-formulário. O defeito é a página se apresentar como resultado de busca, ser alcançável com uma
-consulta na URL, e nunca filtrar do lado do servidor. Como a filtragem só acontece em JavaScript no
+formulário. O que medimos é o corpo servido, e ele não varia com a consulta na URL; não afirmamos
+nada sobre como o servidor trata o parâmetro internamente, apenas que nada dele chega à resposta. O
+defeito é a página se apresentar como resultado de busca, ser alcançável com uma consulta na URL, e
+nunca filtrar do lado do servidor. Como a filtragem só acontece em JavaScript no
 cliente, **todo cliente que não executa JavaScript — ferramentas de linha de comando, coletores e
 arquivos da web — recebe uma página de busca que ignora em silêncio a pergunta que lhe foi feita.**
 
@@ -191,7 +204,7 @@ Medido para `dengue`, por identificador:
 | Fonte | Resultado |
 |---|---|
 | Banco do registro (`/api2/api/search`, `search[value]=dengue`) | **17 ensaios** |
-| Busca pública (Google Custom Search, no Chrome, paginada até esgotar) | **16 identificadores `RBR-` distintos** em 20 URLs |
+| Busca pública (Google Custom Search, no Chrome, paginada até esgotar) | **16 identificadores `RBR-` distintos** |
 | Interseção | **14** |
 | **Recall** | **14/17** |
 
@@ -231,9 +244,15 @@ idênticas** (66.525 bytes, SHA-256
 que foi buscado. O índice CDX do próprio arquivo registra um único digest para as três,
 independentemente do nosso download.
 
-O defeito 2, portanto, se sustenta por um intervalo de **pelo menos 11 meses** (23/09/2025 a
-25/08/2026), com capturas intermediárias compatíveis e nenhuma em contrário. A data de início é
-desconhecida e, por um motivo específico, irrecuperável: uma captura anterior (05/06/2024) mostra um
+O defeito 2, portanto, se sustenta em dois pontos medidos separados por **11 meses** (23/09/2025 e
+25/08/2026). Afirmamos persistência entre esses dois pontos, e não continuidade ao longo do
+intervalo — e a distinção está no dado, não na cautela: as únicas capturas arquivadas deste endpoint
+que trazem consulta na URL são as três de 23 de setembro de 2025. As capturas intermediárias que o
+arquivo guarda (04/04/2025, 13/09/2025, 13/11/2025, 20/02/2026) são *cruas* — recuperadas sem `?q=`
+— logo não têm como testar se termos diferentes devolvem a mesma resposta, e por isso mesmo seus
+digests CDX diferem entre si. Não as oferecemos, portanto, como corroboração; uma versão anterior
+deste relato, que as descrevia como compatíveis e sem contrário, afirmava mais do que elas podem
+mostrar. A data de início é desconhecida e, por um motivo específico, irrecuperável: uma captura anterior (05/06/2024) mostra um
 widget de busca client-side, e arquivo da web não preserva o que o JavaScript renderizava.
 **Não afirmamos, portanto, que a busca nunca funcionou.**
 
@@ -241,15 +260,21 @@ widget de busca client-side, e arquivo da web não preserva o que o JavaScript r
 
 ### 4.1 O que isto significa para quem busca em registros
 
-Um revisor sistemático que anota "buscamos no ReBEC" buscou num índice de terceiro sobre as páginas
-do registro, com cobertura mensurável e, no único caso que medimos, incompleta. A falha é silenciosa em vez de
-ruidosa: nada na resposta avisa a quem chamou que a pergunta nunca foi posta ao banco. O leitor não
-tem como perceber isso pela interface, e a seção de método do trabalho a jusante não pode registrar
-uma distinção que nunca lhe foi mostrada. Como indicação grosseira de quanto trabalho se apoia nessa
-interface, o Europe PMC devolve 2.798 registros mencionando "ReBEC", 1.234 mencionando "Brazilian
-Registry of Clinical Trials" e 494 mencionando "ensaiosclinicos.gov.br" (25/08/2026). **São contagens
-de coocorrência, não afirmações verificadas de que buscaram — e deliberadamente não as convertemos
-em estimativa de dano.**
+Quem alcança os registros por esta interface está buscando num índice de terceiro sobre as páginas do
+registro, com cobertura mensurável e, no único caso que medimos, incompleta. A falha é silenciosa em
+vez de ruidosa: nada na resposta avisa a quem chamou que a pergunta nunca foi posta ao banco. O
+leitor não tem como perceber isso pela interface, e a seção de método do trabalho a jusante não pode
+registrar uma distinção que nunca lhe foi mostrada.
+
+**Não medimos quem chega por essa rota, e esse limite é mais afiado do que parece.** Os mesmos
+registros são agregados pelo portal ICTRP da OMS, que não medimos; e a revisão metodológica mais
+pertinente à busca em registros [1] buscou pelo portal ICTRP, não pelo site nacional. Logo, uma
+revisão sistemática que anota "buscamos no ReBEC" pode ou não ter passado pela interface medida
+aqui, e não afirmamos que tenha. Como indicação grosseira de quanto trabalho se apoia em algum ponto
+a jusante deste registro, o Europe PMC devolve 2.798 registros mencionando "ReBEC", 1.234 mencionando
+"Brazilian Registry of Clinical Trials" e 494 mencionando "ensaiosclinicos.gov.br" (25/08/2026).
+**São contagens de coocorrência, não afirmações verificadas de que buscaram, menos ainda de que
+buscaram por esta rota — e deliberadamente não as convertemos em estimativa de dano.**
 
 A consequência arquivística é distinta e pior, porque é silenciosa e permanente: o que o Internet
 Archive guarda desse endpoint é uma página de busca que nunca filtrou. Quem, daqui a anos,
@@ -261,7 +286,9 @@ consulta.
 Não afirma intenção, negligência nem culpa. Descreve propriedades observáveis de um sistema público
 numa data declarada. Não afirma que os **registros** do ReBEC sejam incompletos — o banco respondeu a
 todas as consultas que lhe fizemos. Não afirma que a busca seja inutilizável: no host canônico, num
-navegador, ela funciona. E não generaliza o defeito 1 para além do Chrome atual.
+navegador, ela funciona. Não afirma saber por qual rota as pessoas chegam aos registros do ReBEC — o
+portal ICTRP da OMS carrega os mesmos registros e não foi medido aqui. E não generaliza o defeito 1
+para além do Chrome atual.
 
 ### 4.3 Limites, declarados em vez de descobertos pelo leitor
 
@@ -298,19 +325,39 @@ primários do ICTRP e publicar o censo, que é o que converteria um caso medido 
 (ii) replicar o defeito 1 no Firefox e no Safari e isolar qual mecanismo executa a promoção de
 `http` para `https`, instrumentando a submissão do formulário em vez de um clique programático — a
 medição que fecharia a atribuição aberta do §3.2; e (iii) medir a consequência a jusante
-diretamente, amostrando revisões sistemáticas que registram ter buscado no ReBEC e conferindo se os
-ensaios que a busca pública omite são justamente os que essas revisões perderam — trocando as
-contagens de coocorrência do §4.1 por um efeito.
+diretamente, amostrando revisões sistemáticas que registram ter buscado no ReBEC, estabelecendo por
+qual rota buscaram, e conferindo se os ensaios que a busca pública omite são justamente os que essas
+revisões perderam — trocando as contagens de coocorrência do §4.1 por um efeito.
 
 ## 5. Notificação
 
-No momento do depósito o operador não havia sido notificado; a notificação será enviada após a
-publicação, em português, para que o operador possa responder a um texto fixo e citável em vez de a
-uma descrição em movimento. Registramos, como parte do achado, que o único endereço de contato
-publicado no site do registro é um endereço de webmail gratuito (`plantao.rebec@gmail.com`); as rotas
-`/contato`, `/fale-conosco` e `/suporte` devolvem HTTP 404. Se a interface for consertada, os dois
-instrumentos deste relato passarão a sair com código não-zero — e o conserto, não este relato, se
-torna o desfecho de registro.
+**A notificação precede o depósito.** Este relato foi enviado em português ao operador do registro
+(ReBEC, operado no ICICT/Fiocruz) em **25 de agosto de 2026 (UTC)**, antes do depósito, para dois
+endereços: o que o próprio registro publica em seu site e `sic@fiocruz.br`, o Serviço de Informação
+ao Cidadão institucional da fundação que o opera, verificado na página de acesso à informação da
+própria fundação na mesma data. O aviso levou este texto e o seu SHA-256, e dizia com todas as letras
+que o depósito era iminente. **Nenhuma resposta foi aguardada, e resposta nenhuma é tratada como
+anuência**: notificar antes serve para que o operador não descubra por um identificador permanente
+que existe um relato nomeando o sistema dele.
+
+Não alegamos recibo que não temos. **Nenhum pedido formal foi protocolado sob a Lei de Acesso à
+Informação**, e portanto nenhum número de protocolo datado acompanha esta seção: essa via corre por
+plataforma que exige conta autenticada de identidade nacional, que é credencial pessoal e não
+instrumento deste relato. O que existe é a mensagem enviada, na data declarada, aos dois endereços
+acima. Quem for pesar isto deve pesá-lo como isso, e nada além disso.
+
+O aviso não foi a uma equipe de resposta a incidentes de segurança. O achado do §3.2 é falha de
+cobertura de certificado num nome de host que redireciona para o host coberto; não expõe primitiva da
+qual um atacante ganhe algo, de modo que tratá-lo como relato de vulnerabilidade o descreveria errado
+e escalaria por cima do operador. A escalada segue condicional e declarada como tal: só decorreria de
+uma falha persistente em alcançar alguém, que é justamente o que notificar num endereço institucional
+previne. O ICTRP da OMS não foi notificado como contraparte de divulgação; é nomeado neste relato
+apenas como a plataforma da qual este é registro primário.
+
+Se a interface for consertada, os dois instrumentos deste relato passam a sair com código não-zero —
+e o conserto, não este relato, se torna o desfecho de registro. Esse é o fim pretendido deste achado,
+e é a razão de a notificação levar data: um leitor que compare o conserto a este texto precisa
+conseguir distinguir "consertado depois de avisado" de "nunca foi verdade".
 
 ## 6. Disponibilidade de dados e código
 
@@ -354,7 +401,8 @@ echo | openssl s_client -connect www.ensaiosclinicos.gov.br:443 \
 3. Departamento de Ciência e Tecnologia, Secretaria de Ciência, Tecnologia e Insumos Estratégicos,
    Ministério da Saúde. Registro Brasileiro de Ensaios Clínicos (Rebrac): fortalecimento da gestão
    de pesquisa clínica no Brasil. *Rev Saude Publica* 2009;43(2):387-388.
-   doi:10.1590/s0034-89102009000200024 · PMID 19287881
+   doi:10.1590/s0034-89102009000200024 · PMID 19287881 — o comunicado de 2009 anuncia o registro sob
+   a sigla *Rebrac*; é o registro hoje conhecido como ReBEC.
 4. García-Vello P, Smith E, Elias V, Florez-Pinzon C, Reveiz L. Adherence to clinical trial
    registration in countries of Latin America and the Caribbean, 2015. *Rev Panam Salud Publica*
    2018;42:e44. doi:10.26633/rpsp.2018.44 · PMID 31093072

@@ -1,21 +1,42 @@
 {
- "title": "When a trial registry outsources its own search: three measured defects in the public search of ReBEC",
+ "title": "When a trial registry outsources its own search: measured defects in the public search of ReBEC",
  "upload_type": "publication",
  "publication_type": "report",
- "access_right": "closed",
- "notes": "No DOI without the operator's explicit authorization in the turn. access_right flips to open, and version is bumped, only at the authorized release.",
- "version": "0.1.0",
+ "access_right": "open",
+ "notes": "Deposit metadata for the intended release. No DOI without the author's explicit authorization in the turn: the deposit is triggered by a git tag, and no tag exists until that authorization is given. These bytes are already coherent with that release (open access, 1.0.0) so that the irreversible act stays the tag itself, and is not a metadata correction made under time pressure. The repository is still at 0.1.0 and unreleased; CITATION.cff and CHANGELOG.md are bumped in the same commit that carries the tag.",
+ "version": "1.0.0",
  "language": "eng",
  "license": "cc-by-4.0",
- "creators": [{
+ "creators": [
+  {
    "name": "Flores, Carlos Ulisses",
    "affiliation": "Codex Hash Research Laboratory",
    "orcid": "0000-0002-6034-7765"
- }],
- "keywords": ["clinical trial registries", "ReBEC", "WHO ICTRP", "search interfaces", "silent failure", "research infrastructure"],
+  }
+ ],
+ "keywords": [
+  "clinical trial registries",
+  "ReBEC",
+  "WHO ICTRP",
+  "search interfaces",
+  "silent failure",
+  "research infrastructure"
+ ],
  "related_identifiers": [
-   { "identifier": "10.2196/72015", "relation": "cites", "scheme": "doi" },
-   { "identifier": "10.1136/bmj.j448", "relation": "cites", "scheme": "doi" },
-   { "identifier": "10.17487/RFC9525", "relation": "cites", "scheme": "doi" }
+  {
+   "identifier": "10.2196/72015",
+   "relation": "cites",
+   "scheme": "doi"
+  },
+  {
+   "identifier": "10.1136/bmj.j448",
+   "relation": "cites",
+   "scheme": "doi"
+  },
+  {
+   "identifier": "10.17487/RFC9525",
+   "relation": "cites",
+   "scheme": "doi"
+  }
  ]
 }

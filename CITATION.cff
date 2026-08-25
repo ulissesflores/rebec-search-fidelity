@@ -1,19 +1,22 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
-title: "When a trial registry outsources its own search: three measured defects in the public search of ReBEC"
+title: "When a trial registry outsources its own search: measured defects in the public search of ReBEC"
 abstract: >-
   The Brazilian Registry of Clinical Trials (ReBEC) is a WHO ICTRP primary registry.
   Its public search does not query the registry database: it is a Google Custom Search
-  over the pages of the website, executed in the visitor's browser. Three defects follow,
-  each measured on 2026-08-25 and released with the instruments that produced it.
+  over the pages of the website, executed in the visitor's browser. The defects below are
+  not three independent faults: (2) and (3) are what that single decision produces, and (1)
+  is where it meets a separate certificate configuration. Each was measured on 2026-08-25
+  (UTC) and is released with the instruments that produced it.
   (1) The search box on the registry's own home page sends the visitor to a hostname the
   site's TLS certificate does not cover, so in current Chrome the search ends on a browser
-  security interstitial. (2) The server ignores the query string entirely: six different
-  terms returned HTTP 200 with a single byte-identical body, so every client that does not
+  security interstitial. (2) The served response does not vary with the query string: six
+  different terms returned HTTP 200 with a single byte-identical body, so every client that does not
   execute JavaScript -- scripts, harvesters and web archives -- receives a search page that
   never filters. (3) For the term dengue the registry database returns 17 trials while the
   public search surfaces 14 of them, two of the omissions being attributable index failures.
-  Internet Archive captures place defect 2 on 2025-09-23, at least eleven months earlier.
+  Internet Archive captures place defect 2 on 2025-09-23, eleven months before our own
+  measurement; those are two measured points, not a continuous series.
   Reported as an observable property of a public system, with no claim about intent.
 type: software
 version: "0.1.0"

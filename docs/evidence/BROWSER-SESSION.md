@@ -59,7 +59,8 @@ On the canonical host, `?q=<anything>` returns **HTTP 200 with identical bytes**
 Filtering happens **in the client**, in Google's JavaScript. Consequence: **every non-JavaScript
 access sees a search page that never filters** — `curl`, harvesting scripts, crawlers, and the
 Internet Archive (see `docs/evidence/ARCHIVE-TIMELINE.md`: three distinct terms archived within
-two minutes, one SHA-256, at least 11 months ago).
+two minutes, one SHA-256, eleven months before this session — a second measured point, not a
+continuous series).
 
 **HTTP 200 is not itself the defect.** 200 is the correct status for a page that renders a form.
 The defect is that the page presents itself as a search result and never filters server-side.
@@ -71,7 +72,13 @@ Measured for `dengue`, by identifier set on both sides — never by Google's own
 | Source | Result |
 |---|---|
 | Registry database (`/api2/api/search`, `search[value]=dengue`) | **17 trials** |
-| Public search (Google CSE, real Chrome, paged to exhaustion over 3 pages) | **16 distinct `RBR-` identifiers** across 20 URLs |
+| Public search (Google CSE, real Chrome, paged to exhaustion over 3 pages) | **16 distinct `RBR-` identifiers** across 20 result URLs |
+
+> The count of 20 result URLs is recorded here because this document is the record of the session.
+> It is **not** published in the report: unlike the identifier sets, the URL list was never written
+> to a sealed artefact, and reconstructing it now would manufacture the evidence after the fact. The
+> recall figure does not depend on it — it is set arithmetic over the identifiers.
+
 | Intersection | **14** |
 | **Recall = 14/17 = 82.4%** | |
 
