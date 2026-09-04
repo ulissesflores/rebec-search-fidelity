@@ -3,7 +3,7 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) · Versioning: [SemVer](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.0] — unreleased
+## [1.1.0] — 2026-09-04
 
 Correction round following a blind three-auditor panel over the deposited text, plus the first
 repair this report's own instruments were built to detect. No measurement of §3 was withdrawn and

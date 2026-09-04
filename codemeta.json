@@ -3,9 +3,9 @@
  "@type": "SoftwareSourceCode",
  "name": "rebec-search-fidelity",
  "description": "Instruments, frozen captures and cryptographic provenance for the measured defects in the public search of ReBEC, a WHO ICTRP primary registry.",
- "version": "1.0.0",
+ "version": "1.1.0",
  "dateCreated": "2026-08-25",
- "datePublished": "2026-08-25",
+ "datePublished": "2026-09-04",
  "license": [
   "https://spdx.org/licenses/Apache-2.0",
   "https://spdx.org/licenses/CC-BY-4.0"
