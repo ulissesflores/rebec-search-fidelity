@@ -1,0 +1,29 @@
+{
+  "generated_utc": "2026-09-04T17:13:48Z",
+  "widget_configuration": {
+    "source": "https://cse.google.com/cse.js?cx=ad5f3224a2a0fa826",
+    "urls_for_this_site": [
+      "http://www.ensaiosclinicos.gov.br/search/query/simple"
+    ],
+    "points_at_www_over_http": true
+  },
+  "certificate": {
+    "host_checked": "www.ensaiosclinicos.gov.br",
+    "verification_succeeded": true,
+    "verification_error": null,
+    "canonical_host_subject_alt_names": [
+      "ensaiosclinicos.gov.br",
+      "www.ensaiosclinicos.gov.br"
+    ],
+    "covers_www": true
+  },
+  "measurement": {
+    "valid": true,
+    "error": null
+  },
+  "verdict": {
+    "link_1_widget_points_at_uncovered_host": true,
+    "link_2_certificate_does_not_cover_it": false,
+    "defect_1_still_holds": false
+  }
+}

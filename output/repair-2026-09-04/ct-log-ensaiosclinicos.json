@@ -1,0 +1,120 @@
+{
+  "retrieved_utc": "2026-09-04T17:26:57Z",
+  "source": "https://crt.sh/?q=ensaiosclinicos.gov.br&output=json",
+  "note": "Certificate Transparency log entries for the registry host, 2026. Third-party public log; not produced by this report.",
+  "window": "not_before >= 2026-01-01",
+  "entries": [
+    {
+      "not_before": "2026-01-05T04:29:26",
+      "not_after": "2026-04-05T04:29:25",
+      "issuer_name": "C=US, O=Let's Encrypt, CN=R13",
+      "common_name": "ensaiosclinicos.gov.br",
+      "name_value": [
+        "ensaiosclinicos.gov.br"
+      ],
+      "serial_number": "06fe2f30d705129847a92ac008c7510aad63",
+      "id": 23560493136
+    },
+    {
+      "not_before": "2026-01-05T04:29:26",
+      "not_after": "2026-04-05T04:29:25",
+      "issuer_name": "C=US, O=Let's Encrypt, CN=R13",
+      "common_name": "ensaiosclinicos.gov.br",
+      "name_value": [
+        "ensaiosclinicos.gov.br"
+      ],
+      "serial_number": "06fe2f30d705129847a92ac008c7510aad63",
+      "id": 23560473509
+    },
+    {
+      "not_before": "2026-03-06T03:39:52",
+      "not_after": "2026-06-04T03:39:51",
+      "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+      "common_name": "ensaiosclinicos.gov.br",
+      "name_value": [
+        "ensaiosclinicos.gov.br"
+      ],
+      "serial_number": "05808417548f7ea422a3721833fa167e1f12",
+      "id": 24812503004
+    },
+    {
+      "not_before": "2026-03-06T03:39:52",
+      "not_after": "2026-06-04T03:39:51",
+      "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+      "common_name": "ensaiosclinicos.gov.br",
+      "name_value": [
+        "ensaiosclinicos.gov.br"
+      ],
+      "serial_number": "05808417548f7ea422a3721833fa167e1f12",
+      "id": 24812634833
+    },
+    {
+      "not_before": "2026-05-05T04:02:57",
+      "not_after": "2026-08-03T04:02:56",
+      "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+      "common_name": "ensaiosclinicos.gov.br",
+      "name_value": [
+        "ensaiosclinicos.gov.br"
+      ],
+      "serial_number": "069fd947d2438f283528b29e0f61e1f7885f",
+      "id": 26080860914
+    },
+    {
+      "not_before": "2026-05-05T04:02:57",
+      "not_after": "2026-08-03T04:02:56",
+      "issuer_name": "C=US, O=Let's Encrypt, CN=R12",
+      "common_name": "ensaiosclinicos.gov.br",
+      "name_value": [
+        "ensaiosclinicos.gov.br"
+      ],
+      "serial_number": "069fd947d2438f283528b29e0f61e1f7885f",
+      "id": 26080591186
+    },
+    {
+      "not_before": "2026-07-04T04:52:24",
+      "not_after": "2026-10-02T04:52:23",
+      "issuer_name": "C=US, O=Let's Encrypt, CN=YR1",
+      "common_name": "ensaiosclinicos.gov.br",
+      "name_value": [
+        "ensaiosclinicos.gov.br"
+      ],
+      "serial_number": "05203542ce94e657ee271423bd59327136ae",
+      "id": 27681618857
+    },
+    {
+      "not_before": "2026-07-04T04:52:24",
+      "not_after": "2026-10-02T04:52:23",
+      "issuer_name": "C=US, O=Let's Encrypt, CN=YR1",
+      "common_name": "ensaiosclinicos.gov.br",
+      "name_value": [
+        "ensaiosclinicos.gov.br"
+      ],
+      "serial_number": "05203542ce94e657ee271423bd59327136ae",
+      "id": 27681624857
+    },
+    {
+      "not_before": "2026-08-25T22:54:08",
+      "not_after": "2026-11-23T22:54:07",
+      "issuer_name": "C=US, O=Let's Encrypt, CN=YR2",
+      "common_name": "ensaiosclinicos.gov.br",
+      "name_value": [
+        "ensaiosclinicos.gov.br",
+        "www.ensaiosclinicos.gov.br"
+      ],
+      "serial_number": "05c33bea04d8c47226c78268a28f3e5cddcf",
+      "id": 29177794959
+    },
+    {
+      "not_before": "2026-08-25T22:54:08",
+      "not_after": "2026-11-23T22:54:07",
+      "issuer_name": "C=US, O=Let's Encrypt, CN=YR2",
+      "common_name": "ensaiosclinicos.gov.br",
+      "name_value": [
+        "ensaiosclinicos.gov.br",
+        "www.ensaiosclinicos.gov.br"
+      ],
+      "serial_number": "05c33bea04d8c47226c78268a28f3e5cddcf",
+      "id": 29078015496
+    }
+  ]
+}

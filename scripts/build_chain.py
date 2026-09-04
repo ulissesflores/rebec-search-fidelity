@@ -44,13 +44,15 @@ SEALED_RESULTS = [
     "output/public-search-vs-database.json",
     "output/archive-timeline.json",
     "output/downstream-mentions.json",
+    "output/repair-2026-09-04/defect1-tls.json",
+    "output/repair-2026-09-04/public-search.json",
+    "output/repair-2026-09-04/ct-log-ensaiosclinicos.json",
 ]
 FIGURES = ["output/figures/fig1-defect1-chain.svg", "output/figures/fig1-defect1-chain-pt.svg"]
 PAPER = [
     "docs/paper/MANUSCRIPT-en.md",
     "docs/paper/MANUSCRITO-pt-BR.md",
     "docs/paper/QUALITY-CALIBRATION.md",
-    "docs/paper/QUALITY-AUDIT-2026-08-25.md",
 ]
 
 

@@ -46,10 +46,14 @@ def sealed() -> dict:
 
 
 def test_sealed_numbers_tie_to_frozen_data(editions, sealed):
-    """Twelve published quantities recompute from the sealed JSONs, in both languages."""
+    """Fifteen published quantities recompute from the sealed JSONs, in both languages.
+
+    Twelve are the measurements of section 3; the other three are the re-measurement
+    of 2026-09-04 published in section 5.1, held to the same rule.
+    """
     rows = gate.numbers(*editions, sealed)
     assert not gate.failures, gate.failures
-    assert len(rows) == 12
+    assert len(rows) == 15
 
 
 def test_recall_is_fourteen_of_seventeen(sealed):
@@ -120,8 +124,8 @@ def test_references_are_complete_and_ordered(editions):
     english = gate.references(en, "EN", "References")
     portuguese = gate.references(pt, "PT", "Referências")
     assert not gate.failures, gate.failures
-    assert english["entries"] == portuguese["entries"] == 12
-    assert english["cited"] == portuguese["cited"] == list(range(1, 13))
+    assert english["entries"] == portuguese["entries"] == 21
+    assert english["cited"] == portuguese["cited"] == list(range(1, 22))
 
 
 def test_no_placeholders_survive(editions):

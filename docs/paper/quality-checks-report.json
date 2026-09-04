@@ -6,25 +6,25 @@
  },
  "density": {
   "en": {
-   "words": 4825,
+   "words": 6693,
    "unique_concepts": 63,
    "fillers": 0,
-   "inline_citations": 12,
-   "metric_numbers": 31,
-   "tdi": 6.53,
+   "inline_citations": 19,
+   "metric_numbers": 35,
+   "tdi": 4.71,
    "filler_ratio": 0.0,
-   "info_density": 4.46,
+   "info_density": 4.03,
    "verdict": "ok"
   },
   "pt": {
-   "words": 4875,
-   "unique_concepts": 62,
+   "words": 6772,
+   "unique_concepts": 63,
    "fillers": 1,
-   "inline_citations": 12,
-   "metric_numbers": 31,
-   "tdi": 6.36,
-   "filler_ratio": 0.0002,
-   "info_density": 4.41,
+   "inline_citations": 19,
+   "metric_numbers": 40,
+   "tdi": 4.65,
+   "filler_ratio": 0.0001,
+   "info_density": 4.36,
    "verdict": "ok"
   }
  },
@@ -46,9 +46,72 @@
     9,
     10,
     11,
-    12
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
    ],
-   "entries": 12
+   "entries": 21,
+   "years": {
+    "1": 2025,
+    "2": 2017,
+    "3": 2026,
+    "4": 2025,
+    "5": 2026,
+    "6": 2009,
+    "7": null,
+    "8": 2018,
+    "9": 2017,
+    "10": 2016,
+    "11": 2024,
+    "12": 2025,
+    "13": 2026,
+    "14": null,
+    "15": 2008,
+    "16": 2023,
+    "17": null,
+    "18": 2023,
+    "19": 2012,
+    "20": 2025,
+    "21": 2023
+   },
+   "recent_entries": [
+    1,
+    3,
+    4,
+    5,
+    11,
+    12,
+    13,
+    16,
+    18,
+    20,
+    21
+   ],
+   "recent_share": 0.5238,
+   "recent_window": [
+    2023,
+    2026
+   ],
+   "undated_entries": [
+    7,
+    14,
+    17
+   ],
+   "thresholds": {
+    "minimum_entries": 10,
+    "recent_share_min": 0.5
+   },
+   "declared_but_not_mechanised": [
+    "distinct source types (>= 5 of 6) -- classification, not arithmetic",
+    "mean E-E-A-T of references (>= 75/100) -- judgement, not arithmetic"
+   ]
   },
   "pt": {
    "cited": [
@@ -63,9 +126,72 @@
     9,
     10,
     11,
-    12
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
    ],
-   "entries": 12
+   "entries": 21,
+   "years": {
+    "1": 2025,
+    "2": 2017,
+    "3": 2026,
+    "4": 2025,
+    "5": 2026,
+    "6": 2009,
+    "7": null,
+    "8": 2018,
+    "9": 2017,
+    "10": 2016,
+    "11": 2024,
+    "12": 2025,
+    "13": 2026,
+    "14": null,
+    "15": 2008,
+    "16": 2023,
+    "17": null,
+    "18": 2023,
+    "19": 2012,
+    "20": 2025,
+    "21": 2023
+   },
+   "recent_entries": [
+    1,
+    3,
+    4,
+    5,
+    11,
+    12,
+    13,
+    16,
+    18,
+    20,
+    21
+   ],
+   "recent_share": 0.5238,
+   "recent_window": [
+    2023,
+    2026
+   ],
+   "undated_entries": [
+    7,
+    14,
+    17
+   ],
+   "thresholds": {
+    "minimum_entries": 10,
+    "recent_share_min": 0.5
+   },
+   "declared_but_not_mechanised": [
+    "distinct source types (>= 5 of 6) -- classification, not arithmetic",
+    "mean E-E-A-T of references (>= 75/100) -- judgement, not arithmetic"
+   ]
   }
  },
  "sealed_numbers": [
@@ -120,6 +246,21 @@
    "pt": "494"
   },
   {
+   "sealed": "18",
+   "en": "18",
+   "pt": "18"
+  },
+  {
+   "sealed": "1457",
+   "en": "1,457",
+   "pt": "1.457"
+  },
+  {
+   "sealed": "9661",
+   "en": "9,661",
+   "pt": "9.661"
+  },
+  {
    "sealed": "bbf0281011e6a783334172b4b1b94e415d08bcda97cabf26480dd5ad2cf47946",
    "en": "bbf0281011e6a783334172b4b1b94e415d08bcda97cabf26480dd5ad2cf47946",
    "pt": "bbf0281011e6a783334172b4b1b94e415d08bcda97cabf26480dd5ad2cf47946"
@@ -142,8 +283,12 @@
  ],
  "hashes": [
   {
+   "file": "code/measurement.py",
+   "sha256": "836685862ad28520d0ab4e5c44622f5da9ab89c6244a74fd366ef2d627c3fc81"
+  },
+  {
    "file": "code/measure_public_search.py",
-   "sha256": "b4add151376bdef07ee418ba5400b1f830d7b8575fbef0f413f829df5a0dddd4"
+   "sha256": "57bb968c5b7d0d50b6cb4361af107b5c1ece5e38cc441ad0fbce0fa96ae57572"
   },
   {
    "file": "output/public-search-vs-database.json",
@@ -151,11 +296,15 @@
   },
   {
    "file": "code/measure_archive_timeline.py",
-   "sha256": "fce57db0cb38d5cd0f93b8ce9efce67ca86f3679d062430f811d0298e8e47196"
+   "sha256": "68a1b94bb76d702ba133258beba3d17e6ebb4730a7c9353ab02b4f64aaa6b5c2"
   },
   {
    "file": "output/archive-timeline.json",
    "sha256": "b6e1d54f7a5024041ab9415390b30688379fb79584d1f1a1bcd04664f689bd48"
+  },
+  {
+   "file": "code/measure_defect1_tls.py",
+   "sha256": "45128a754b967d02a98dec4f64d2427b5f11f487b2c315aff43cde8924c76439"
   },
   {
    "file": "code/measure_downstream_mentions.py",
@@ -164,6 +313,18 @@
   {
    "file": "output/downstream-mentions.json",
    "sha256": "41bf770d7fb2ea305fb4e7798b88bf682577a6a4a78fcee219c789f86444b9a6"
+  },
+  {
+   "file": "output/repair-2026-09-04/defect1-tls.json",
+   "sha256": "c79d7f1d55c9c86498418f04949b7d1963e378407add14ab6c099a94af5f8600"
+  },
+  {
+   "file": "output/repair-2026-09-04/public-search.json",
+   "sha256": "b8f201e0e795250dbe35c46e8a634313d601a7e89716084fb447b37c5c65acb4"
+  },
+  {
+   "file": "output/repair-2026-09-04/ct-log-ensaiosclinicos.json",
+   "sha256": "1935ab339862a4d61c8f778267f714ecee050adbfc17d283faab0fdf1f13725d"
   },
   {
    "file": "code/make_figure.py",
@@ -199,6 +360,7 @@
    "###4.3",
    "###4.4",
    "##5",
+   "###5.1",
    "##6"
   ],
   "identical": true

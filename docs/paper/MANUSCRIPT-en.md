@@ -8,6 +8,9 @@ ORCID [0000-0002-6034-7765](https://orcid.org/0000-0002-6034-7765) · c.ulisses@
 *Short report. All measurements taken 25 August 2026 (UTC). Code, raw responses and cryptographic
 hashes are released with this report so that every number below can be re-derived or refuted.*
 
+Concept DOI (all versions) [10.5281/zenodo.22102596](https://doi.org/10.5281/zenodo.22102596) ·
+repository [github.com/ulissesflores/rebec-search-fidelity](https://github.com/ulissesflores/rebec-search-fidelity)
+
 > **Version note.** This English text is the version of record. A full Portuguese translation is
 > deposited under the same DOI; where the two diverge, this file governs.
 
@@ -18,7 +21,8 @@ hashes are released with this report so that every number below can be re-derive
 **Background.** The Brazilian Registry of Clinical Trials (ReBEC) is a World Health Organization
 (WHO) International Clinical Trials Registry Platform (ICTRP) primary registry. Systematic
 reviewers, journalists, clinicians and patients search it and act on what it returns — including on
-what it does *not* return.
+what it does *not* return. This report measures that interface and finds that it does not query the
+registry's database.
 
 **Methods.** We measured the public search interface of ReBEC on 25 August 2026 (UTC) by five
 independent routes: (i) the served HTML of the search endpoint; (ii) the live search performed in an ordinary
@@ -33,7 +37,8 @@ three independent faults of the registry: **(2)** and **(3)** are what that sing
 produces, and **(1)** is where the decision meets a separate certificate configuration.
 **(1)** The search box on the registry's own home page sends the visitor to a hostname
 (`www.ensaiosclinicos.gov.br`) that the site's TLS certificate does not cover; in current Chrome the
-search therefore ends on a browser security interstitial. **(2)** The served response does not vary
+search therefore ended, on the date measured, on a browser security interstitial; this defect was
+repaired later the same day and the repair is recorded, dated and measured, in §5.1. **(2)** The served response does not vary
 with the query string: six different query terms returned HTTP 200 with a single, byte-identical body
 (69,877 bytes, one SHA-256). Filtering happens only in client-side JavaScript, so every non-JavaScript
 client — scripts, harvesters, and web archives — receives a search page that never filters. **(3)**
@@ -55,23 +60,32 @@ research infrastructure
 
 ## 1. Introduction
 
-Trial registries exist so that studies can be found. That function is load-bearing: systematic
-reviewers search registries to detect unpublished and ongoing studies [1]; clinicians and patients
-search them to find studies they might join, and have called for search filters that registry
-interfaces do not currently offer [2]; journalists and meta-researchers search them to make
-claims about what a country is and is not studying. All of these uses share a property that makes
-them fragile: **an empty result is informative**. "There are no registered trials on X in Brazil" is
-a conclusion people draw, publish, and act on.
+Trial registries exist so that studies can be found, and — under the World Health Organization's
+updated guidance — so that their summary results can be read there [1]. That function is
+load-bearing: systematic reviewers search registries to detect unpublished and ongoing studies [2],
+a practice frequent enough to be measured within a single surgical specialty [3]; clinicians and
+patients search them to find studies they might join, and have called for search filters that
+registry interfaces do not currently offer [4]; journalists and meta-researchers search them to make
+claims about what a country, or a field, is and is not studying [5]. All of these uses share a
+property that makes them fragile: **an empty result is informative**. "There are no registered
+trials on X in Brazil" is a conclusion people draw, publish, and act on — and for ReBEC, a WHO ICTRP
+primary registry, **that conclusion rests on nothing, because the registry's public search never
+queries the registry's database**. What it queries is a third-party web index of the registry's own
+pages, and the filtering it performs happens in the visitor's browser.
 
-That inference is only valid if the search actually searched. This report measures whether it does,
-for one ICTRP primary registry.
+That inference is valid only if the search actually searched, which is a falsifiable claim and the
+measurement this report makes. We state the outcome before the results because the three defects
+below are not three independent faults: two of them are what that single decision produces, and the
+third is where the decision meets a separate certificate configuration.
 
-ReBEC was created to strengthen the management of clinical research in Brazil [3] (the 2009 notice
-announces it under the acronym *Rebrac*) and is operated within the Brazilian public health system; it is one of the WHO ICTRP primary registries [7]. Latin
-American registration practice, including Brazil's, has been studied for adherence and completeness
-[4,5,6]. We found no prior report evaluating whether
-a trial registry's public **search interface** returns what its database contains. The gap we
-address is therefore narrow and stated as such (§4.3).
+ReBEC was created to strengthen the management of clinical research in Brazil [6] (the 2009 notice
+announces it under the acronym *Rebrac*) and is operated within the Brazilian public health system;
+it is one of the WHO ICTRP primary registries [7]. Latin American registration practice, including
+Brazil's, has been studied for adherence and completeness [8,9,10], and meta-research on registries
+at large has concentrated on the *content* of the entries — typically their agreement with the
+journal article that follows [11,12,13]. We found no prior report evaluating whether a trial
+registry's public **search interface** returns what its database contains. The gap we address is
+therefore narrow and stated as such (§4.3).
 
 ## 2. Methods
 
@@ -80,26 +94,44 @@ address is therefore narrow and stated as such (§4.3).
 Every measurement pairs a **term of interest** with a **positive control** — a term known to have
 records in the registry (`dengue`, `diabetes`). Without a positive control, an empty result cannot
 distinguish "there is nothing" from "the search did not run"; that distinction is the entire subject
-of this report.
+of this report. Both controls were fixed before the measurements, not chosen post hoc.
 
-Six terms were used against both the public interface and the registry's own data endpoint:
-`dengue`, `diabetes`, `prion`, `Creutzfeldt`, `Jakob`, `priônica`.
+**8 terms** were used in all, in two sets that this report keeps distinct. **6** of them — `dengue`,
+`diabetes`, `prion`, `Creutzfeldt`, `Jakob`, `priônica` — were run against both the public interface
+and the registry's own data endpoint, and they are the set behind defect 2 (§3.3). The browser arm
+of §3.4 added **2** more, `doença priônica` and `príon`, for which no data-endpoint measurement was
+taken.
 
 ### 2.2 Instruments and identifiers
 
-Two command-line instruments accompany this report:
+Three command-line instruments accompany this report, one per defect:
 
-| Instrument | What it measures | Exit semantics |
-|---|---|---|
-| `code/measure_public_search.py` | The served response of the public search endpoint for each term; the registry's own data endpoint for the same terms | exits non-zero if the finding no longer holds |
-| `code/measure_archive_timeline.py` | Internet Archive captures of the same endpoint for three different query terms | exits non-zero if the captures cease to be identical |
+| Instrument | What it measures |
+|---|---|
+| `code/measure_public_search.py` | The served response of the public search endpoint for each term; the registry's own data endpoint for the same terms |
+| `code/measure_archive_timeline.py` | Internet Archive captures of the same endpoint for three different query terms |
+| `code/measure_defect1_tls.py` | The two links of defect 1: the URL the published widget configuration names for this site, and whether the certificate served for that hostname covers it |
 
-Both instruments record byte counts, MD5 and SHA-256 of every response, so that any reader can
+They share one exit convention, and it is the report's own argument (§2.1) applied to the report's
+own instruments — a measurement that failed must never be readable as a negative result:
+
+| Exit code | Meaning |
+|---|---|
+| `0` | the finding held on this run |
+| `1` | the measurement was valid and the finding did **not** hold — the defect may have been repaired |
+| `2` | the measurement could not be made, which says nothing at all about the finding |
+
+Validity is therefore decided *before* the verdict: `measure_public_search.py` declares a run invalid
+if any request never completed or if a positive control comes back with no records, and in that case
+writes `finding_confirmed: null` rather than `false`. Re-running any instrument writes under
+`output/reruns/`, never over the sealed JSON whose hash this report publishes.
+
+All three record byte counts, MD5 and SHA-256 of every response, so that any reader can
 verify that the artefacts distributed with this report are the responses we actually received.
 
 The registry's own data endpoint is `/api2/api/search`, whose contract is published by the registry
 itself at `/api2/openapi.json`. It follows the DataTables server-side convention, in which the global filter
-parameter is `search[value]` [8]. Passing an unrecognised parameter (for example `q=`) does not raise an error; the
+parameter is `search[value]` [14]. Passing an unrecognised parameter (e.g. `q=`) does not raise an error; the
 endpoint ignores it and returns the entire base (9,629 records on the day of measurement). This is
 ordinary REST behaviour rather than a defect, but it is a trap for anyone writing a script against
 this endpoint, and we note it for that reason alone.
@@ -118,7 +150,7 @@ The interface displays an estimate ("approximately N results"). **That estimate 
 not use it**: the same query for `dengue` produced "approximately 38 results" on first render and
 "approximately 20" on the two subsequent runs. Recall is therefore computed over **sets of trial
 identifiers** (`RBR-*`), which were identical across the two independent runs, and in the standard
-sense: the fraction of the relevant set that the system returns [9].
+sense: the fraction of the relevant set that the system returns [15].
 
 ### 2.5 Statement on research conduct
 
@@ -141,7 +173,8 @@ are still present in the served HTML but are enclosed in HTML comments, one of t
 developer's own note, *"comentando busca antiga"* ("commenting out the old search").
 
 The consequence is structural rather than incidental: what a member of the public queries is
-**Google's index of the website's pages**, not the registry's 9,629 records.
+**Google's index of the website's pages**, not the registry's 9,629 records. The de facto search of
+a WHO ICTRP primary registry is a third party's index of that registry's own web pages.
 
 That single decision organises what follows, and we set the relation out before the measurements so
 that the three are not read as three independent faults. Defect 2 (§3.3) and defect 3 (§3.4) are
@@ -152,6 +185,10 @@ does not cover that host, which is a separate configuration fault. We report all
 was measured separately, and we subordinate them here because they do not carry equal independence.
 
 ### 3.2 Defect 1 — the registry's own search box ends on a browser security warning
+
+> **This defect was repaired after the measurement.** Everything in this section is what was
+> observed on 25 August 2026 and is left as measured; the certificate served for the `www` host
+> changed later that day and no longer produces the interstitial. See §5.1 for the dated record.
 
 Typing `dengue` into the search box on the ReBEC home page and pressing Enter navigates to
 `https://www.ensaiosclinicos.gov.br/search/query/simple?q=dengue` and Chrome displays a privacy
@@ -164,9 +201,9 @@ error. The search never runs. Each link of the chain was measured independently
 |---|---|
 | The search widget is configured to send visitors to the `www` host, over `http` | `cse.js?cx=ad5f3224a2a0fa826` contains exactly one URL for this site: `http://www.ensaiosclinicos.gov.br/search/query/simple` |
 | The `www` host resolves to the same server | `www.ensaiosclinicos.gov.br` → `ensaiosclinicos.gov.br` → `140.82.26.58` |
-| The certificate does not cover the `www` host | The identity a TLS client must check is the certificate's `subjectAltName` [10]: here `CN=ensaiosclinicos.gov.br`, **single SAN `DNS:ensaiosclinicos.gov.br`** (Let's Encrypt, valid 4 Jul 2026 – 2 Oct 2026). `curl`: *"no alternative certificate subject name matches target host name"* |
+| The certificate does not cover the `www` host | The identity a TLS client must check is the certificate's `subjectAltName` [16]: here `CN=ensaiosclinicos.gov.br`, **single SAN `DNS:ensaiosclinicos.gov.br`** (Let's Encrypt, valid 4 Jul 2026 – 2 Oct 2026). `curl`: *"no alternative certificate subject name matches target host name"* |
 | The server would fix this itself, if it were asked over `http` | `http://www.ensaiosclinicos.gov.br/search/query/simple?q=dengue` → **HTTP 301** → `https://ensaiosclinicos.gov.br/search/query/simple?q=dengue` |
-| But the browser never asks | The navigation is made over `https` to the `www` host, so it meets the wrong certificate and stops before the server can answer. **We did not isolate which of two mechanisms performs that upgrade**, and both are present: (a) the registry itself serves `Content-Security-Policy: upgrade-insecure-requests` on the home page and on the search page, and the specification upgrades form submissions under that directive *regardless of host* [12]; or (b) the browser's own automatic HTTPS upgrade. No HSTS [11] preloading is involved: `hstspreload.org` reports status `unknown` for both `gov.br` and `ensaiosclinicos.gov.br` |
+| But the browser never asks | The navigation is made over `https` to the `www` host, so it meets the wrong certificate and stops before the server can answer. **We did not isolate which of two mechanisms performs that upgrade**, and both are present: (a) the registry itself serves `Content-Security-Policy: upgrade-insecure-requests` on the home page and on the search page, and the specification upgrades form submissions under that directive *regardless of host* [17]; or (b) the browser's own automatic HTTPS upgrade, which upgrades main-frame navigations optimistically and falls back to `http` only when the upgrade fails [18]. No HSTS [19] preloading is involved: `hstspreload.org` reports status `unknown` for both `gov.br` and `ensaiosclinicos.gov.br` |
 
 A visitor who reaches the canonical host directly — by editing the URL, or following a link that does
 not pass through the search box — does get results. The defect is in the path the registry itself
@@ -195,7 +232,9 @@ the server handles the parameter internally, only that nothing of it reaches the
 defect is that the page presents itself as a search result, is reachable with a query string, and
 never filters server-side. Because filtering happens only in client-side JavaScript, **every client
 that does not execute JavaScript — command-line tools, harvesters, and web archives — receives a
-search page that silently ignores the question it was asked.**
+search page that silently ignores the question it was asked.** For archival crawlers this is a
+documented trade-off rather than an oversight: a browserless crawler is cheap and misses whatever
+appears only once scripts have run [20].
 
 ### 3.4 Defect 3 — what the public search returns is not what the registry holds
 
@@ -211,7 +250,7 @@ Measured for `dengue`, by identifier:
 The three trials the public search did not surface were inspected individually:
 
 - **`RBR-69pf3b`** and **`RBR-7gstxs6`** — the public trial page exists (HTTP 200) **and contains the
-  word `dengue`**, and the registry's own search still does not return it. These are attributable
+  word `dengue`**, and the public search still does not return it. These are attributable
   index failures.
 - **`RBR-5vpyh4`** — the public page exists but does **not** contain the term; the database matched on
   a field that the public page does not display. A text index could not have found it. We do **not**
@@ -223,12 +262,12 @@ not returned by the database filter for that term, and their pages do not contai
 divergence therefore runs in both directions, and we report both — but they are not the same
 quantity. The three trials the search omits are a **recall** failure; the two it surfaces outside
 the database's own filter for that term are a **precision** failure. We measured only the first.
-The distinction is the standard one in information retrieval [9], and it has a sharp edge here: an
+The distinction is the standard one in information retrieval [15], and it has a sharp edge here: an
 interface backed by a web index over pages returns *something* for almost any query, which reads as
 responsiveness while leaving recall unmeasured — and, by the interface's own design, unmeasurable
 from the outside without a second source to compare against.
 
-The six terms above were also run through the browser path. `dengue` and `diabetes` returned results;
+All **8** terms were run through the browser path. `dengue` and `diabetes` returned results;
 `prion`, `Creutzfeldt`, `Jakob`, `priônica`, `doença priônica` and `príon` returned *"A pesquisa não
 encontrou resultados"*. The single `prion` hit at the data endpoint is a substring false positive
 (`RBR-3w2scz`, a smoking-cessation trial), confirmed by opening the record. For this class of terms
@@ -245,15 +284,29 @@ three, independently of our retrieval.
 
 Defect 2 therefore holds at two measured points **11 months apart** (23 Sep 2025 and 25 Aug 2026).
 We claim persistence between those two points and not continuity across the interval, and the
-distinction is in the data rather than in caution: the only archived captures of this endpoint that
-carry a query string are the three of 23 September 2025. The intermediate captures the archive holds
-(4 Apr 2025, 13 Sep 2025, 13 Nov 2025, 20 Feb 2026) are *bare* — retrieved without `?q=` — so they
-cannot test whether different terms return the same response, and their CDX digests differ from one
-another for that reason. We therefore do not offer them as corroboration, and an earlier draft of
-this report that described them as consistent and uncontradicted overstated what they can show. The
-start date is unknown and, for a specific reason, unrecoverable: an earlier capture (5 June 2024) shows a client-side search widget,
-and a web archive does not preserve what JavaScript rendered. **We therefore do not claim that the
-search never worked.**
+distinction is in the data rather than in caution. The archive's CDX index lists **six** captures of
+this endpoint that carry a query string: the three of 23 September 2025 above, and three of 5 June
+2024 (two `200`, one `301` on the `http` host). Only the 2025 trio can test the identity of the
+response, because only there do *different* terms meet a single digest. The two 2024 bodies are
+byte-identical to each other, but they are the same identifier written with and without a trailing
+dot, and that pair would come back empty from a search that worked; we do not offer it as evidence of
+defect 2. The other four `200` captures the archive holds (4 Apr 2025, 13 Sep 2025, 13 Nov 2025,
+20 Feb 2026) are *bare* — retrieved without `?q=` — so they cannot test whether different terms
+return the same response, and their CDX digests differ from one another for that reason. We do not
+offer them as corroboration either, and an earlier draft of this report that described them as
+consistent and uncontradicted overstated what they can show.
+
+What the 5 June 2024 capture does establish is the decision of §3.1, and it establishes it earlier
+than any measurement in this report: its body carries the same Google Custom Search widget,
+`cse.js?cx=ad5f3224a2a0fa826`, that we measured live on 25 August 2026. The same `cx` is present in
+every archived body this repository distributes — 5 Jun 2024, 13 Sep 2025, 23 Sep 2025 and
+20 Feb 2026 — so the outsourcing of the search is documentable from **5 June 2024**, 15 months before
+the first point at which we measure defect 2. The two claims carry different spans and we keep them
+apart: in the archive, the outsourcing runs 5 Jun 2024 → 20 Feb 2026, while defect 2 runs
+23 Sep 2025 → 25 Aug 2026. The 2024 capture cannot narrow the second, and that is the specific reason
+the start date of defect 2 is unknown and unrecoverable: what it shows is a client-side search
+widget, and a web archive does not preserve what JavaScript rendered. **We therefore do not claim
+that the search never worked.**
 
 ## 4. Discussion
 
@@ -267,7 +320,7 @@ sections of downstream work cannot record a distinction they were never shown.
 
 **We did not measure who arrives by this route, and that limit is sharper than it looks.** The same
 records are aggregated by the WHO ICTRP portal, which we did not measure; the methodological review
-most relevant to registry searching [1] searched the ICTRP portal rather than the national site. So
+most relevant to registry searching [2] searched the ICTRP portal rather than the national site. So
 a systematic review that records "we searched ReBEC" may or may not have passed through the
 interface measured here, and we do not claim that it did. As a crude indication of how much work
 sits somewhere downstream of this registry, Europe PMC returns 2,798 records mentioning "ReBEC",
@@ -277,8 +330,11 @@ of having searched by this route, and we deliberately do not convert them into a
 harm.**
 
 The archival consequence is separate and worse, because it is silent and permanent: what the Internet
-Archive holds for this endpoint is a search page that never filtered. Anyone reconstructing, years
-from now, what the Brazilian registry could be searched for will find query-insensitive pages.
+Archive holds for this endpoint is a search page that never filtered. Replaying client-side-rendered
+pages out of an archive is an active problem in digital libraries [21]; here the page replays
+faithfully, and what it faithfully shows is a search that never filtered. Anyone reconstructing,
+years from now, what the Brazilian registry could be searched for will find query-insensitive
+pages.
 
 ### 4.2 What this report does not claim
 
@@ -354,19 +410,71 @@ persistent failure to reach anyone, which notification at an institutional addre
 prevent. The WHO ICTRP was not notified as a disclosure counterparty; it is named in this report only
 as the platform whose primary registry this is.
 
-Should the interface be repaired, both instruments in this report exit non-zero, and the repair — not
-this report — becomes the outcome of record. That is the intended end of this finding, and the reason
+Should the interface be repaired, the instrument that watches the repaired defect changes its exit
+code, and the repair — not this report — becomes the outcome of record. Each of the three defects has
+one, with the single stated exception that the public arm of defect 3 is enumerated in a browser
+(§2.3) and is not reproducible by command. That is the intended end of this finding, and the reason
 the notification carries a date: a reader comparing the repair to this text should be able to tell
 "fixed after being told" from "never true".
 
+### 5.1 Repair status — defect 1 was repaired, and this is the record of it
+
+**Measured 4 September 2026 (UTC), with `code/measure_defect1_tls.py`, exit 1.** Both measurements of
+this section are released as evidence, not asserted: `output/repair-2026-09-04/defect1-tls.json` and
+`output/repair-2026-09-04/public-search.json`, hashed in the table of §6 like every other artefact
+here. The certificate now served for `www.ensaiosclinicos.gov.br` carries **two** `subjectAltName`
+entries —
+`DNS:ensaiosclinicos.gov.br` and `DNS:www.ensaiosclinicos.gov.br` — where the one measured for §3.2
+carried a single name. The second link of defect 1 is gone, and with it the defect: the widget's
+target host now presents a certificate that covers it, and the request completes on the redirect the
+server was always willing to serve.
+
+The dates are the reason this section carries them, and they come from a log neither party controls.
+Certificate Transparency records five certificates for this host in 2026
+(`output/repair-2026-09-04/ct-log-ensaiosclinicos.json`, retrieved from crt.sh): 5 January, 6 March,
+5 May and 4 July — **exactly sixty days apart, each carrying the bare domain and nothing else** — and
+then 25 August at 22:54:08 UTC, **fifty-two days after its predecessor, which still had thirty-eight
+days of validity, and the first of the five to carry `www.ensaiosclinicos.gov.br`**. That
+fifth broke a renewal rhythm the previous four had kept, and added the name defect 1 turned on, on
+the day this report was measured (02:36 UTC) and notified (§5). **We do not claim the notice caused
+the repair.** We measured a re-issue, on that date, adding that name; intent is not observable from
+here, and a reader should weigh the coincidence as a coincidence with a date on it.
+
+Two things did **not** change, and reporting the repair without them would overstate it:
+
+| Element | Status on 4 September 2026 |
+|---|---|
+| Defect 1, first link — the widget still names `http://www.ensaiosclinicos.gov.br/...` | **unchanged**; the configuration still points at the non-canonical host, now harmlessly |
+| Defect 2 — the served response does not vary with the query | **still holds**: `code/measure_public_search.py`, valid run, identical body across the six terms while the database discriminated (`dengue` 18, `diabetes` 1,457, base 9,661) |
+
+Defect 3 was not re-measured: its public arm is a browser enumeration (§2.3) and is not reproducible
+by command. **§3.2 therefore describes a state of the system that ended on 25 August 2026, and §3.3
+describes one that had not ended nine days later.** The measurements of §3 are unchanged and remain
+what was observed on their stated date; this section is what the report promised would happen when a
+defect was repaired.
+
 ## 6. Data and code availability
 
-All instruments, raw responses, and hashes are released with this report. The two central claims are
-falsifiable in one command each:
+All instruments, raw responses, and hashes are released with this report. The two central claims —
+defect 2 and its duration — are falsifiable in one command each, and each remaining claim is bound
+here to the command that produces it, rather than left for the reader to infer:
+
+| Claim | Reproduced by |
+|---|---|
+| Defect 2: the response does not vary with the query (§3.3) | `code/measure_public_search.py` |
+| Duration: the three 2025 captures are identical (§3.5) | `code/measure_archive_timeline.py` |
+| Defect 3: the database arm, 17 trials for `dengue` (§3.4) | `code/measure_public_search.py` |
+| Defect 3: the public arm, 16 identifiers (§3.4) | the browser enumeration of §2.3 — manual by design, and not reproducible by command |
+| Defect 1: both links, the widget target and the certificate coverage (§3.2) | `code/measure_defect1_tls.py`, or the `curl` and `openssl` lines below |
+| The three co-occurrence counts (§4.1) | `code/measure_downstream_mentions.py` |
+| Figure 1 | `output/repair-2026-09-04/ct-log-ensaiosclinicos.json` | `1935ab339862a4d61c8f778267f714ecee050adbfc17d283faab0fdf1f13725d` |
+| `code/make_figure.py` |
 
 ```bash
 python3 code/measure_public_search.py        # defect 2, live; exit 1 if the search starts filtering
 python3 code/measure_archive_timeline.py     # duration, via the Internet Archive; exit 1 if captures diverge
+python3 code/measure_defect1_tls.py          # defect 1, live; exit 1 if either link is repaired
+#   exit 2, in all three, means the measurement failed and says nothing about the finding
 python3 code/measure_downstream_mentions.py  # the three co-occurrence counts of section 4.1
 python3 code/make_figure.py                  # regenerates Figure 1 from the facts above
 
@@ -378,12 +486,16 @@ echo | openssl s_client -connect www.ensaiosclinicos.gov.br:443 \
 
 | Artefact | SHA-256 |
 |---|---|
-| `code/measure_public_search.py` | `b4add151376bdef07ee418ba5400b1f830d7b8575fbef0f413f829df5a0dddd4` |
+| `code/measurement.py` | `836685862ad28520d0ab4e5c44622f5da9ab89c6244a74fd366ef2d627c3fc81` |
+| `code/measure_public_search.py` | `57bb968c5b7d0d50b6cb4361af107b5c1ece5e38cc441ad0fbce0fa96ae57572` |
 | `output/public-search-vs-database.json` | `0be693fab53218e0b0e132e10ff8a253129ed36fd7e64550eb72e6ae54aa4843` |
-| `code/measure_archive_timeline.py` | `fce57db0cb38d5cd0f93b8ce9efce67ca86f3679d062430f811d0298e8e47196` |
+| `code/measure_archive_timeline.py` | `68a1b94bb76d702ba133258beba3d17e6ebb4730a7c9353ab02b4f64aaa6b5c2` |
 | `output/archive-timeline.json` | `b6e1d54f7a5024041ab9415390b30688379fb79584d1f1a1bcd04664f689bd48` |
+| `code/measure_defect1_tls.py` | `45128a754b967d02a98dec4f64d2427b5f11f487b2c315aff43cde8924c76439` |
 | `code/measure_downstream_mentions.py` | `4bb8eac8e611e1fdc9eb4be069a7a353a9a8a3eb13449fb25a8411714bcd6e3f` |
 | `output/downstream-mentions.json` | `41bf770d7fb2ea305fb4e7798b88bf682577a6a4a78fcee219c789f86444b9a6` |
+| `output/repair-2026-09-04/defect1-tls.json` | `c79d7f1d55c9c86498418f04949b7d1963e378407add14ab6c099a94af5f8600` |
+| `output/repair-2026-09-04/public-search.json` | `b8f201e0e795250dbe35c46e8a634313d601a7e89716084fb447b37c5c65acb4` |
 | `code/make_figure.py` | `1492ac993f36c8bf1475fc9ca468c3649f5c584f4155947a680dc56b3f404d51` |
 | `output/figures/fig1-defect1-chain.svg` | `bcf498856d53fa732157583bae3daddb40ec2e55951655f18e14a95b5c601e8e` |
 | `output/figures/fig1-defect1-chain-pt.svg` | `c19027caa66c82a20906c75bf36eeb08f4496cba0c9661d66274b24eff097506` |
@@ -392,41 +504,70 @@ echo | openssl s_client -connect www.ensaiosclinicos.gov.br:443 \
 
 ## References
 
-1. Baudard M, Yavchitz A, Ravaud P, Perrodeau E, Boutron I. Impact of searching clinical trial
+1. Chan AW, Karam G, Pymento J, Askie LM, da Silva LR, Aymé S, Taylor CM, Hooft L, Ross AL,
+   Moorthy V. Reporting summary results in clinical trial registries: updated guidance from WHO.
+   *Lancet Glob Health* 2025;13(4):e759-e768. doi:10.1016/S2214-109X(24)00514-X · PMID 40155113
+2. Baudard M, Yavchitz A, Ravaud P, Perrodeau E, Boutron I. Impact of searching clinical trial
    registries in systematic reviews of pharmaceutical treatments: methodological systematic review
    and reanalysis of meta-analyses. *BMJ* 2017;356:j448. doi:10.1136/bmj.j448 · PMID 28213479
-2. Woolley KL, Woolley JD, Woolley MJ. Seek and ye shall not find (yet): searching clinical trial
+3. Pottepalem B, Sawar K, Reddy A, Chung KC. The frequency of clinical trial registry use in hand
+   surgery systematic reviews. *Plast Reconstr Surg*, published online April 2026.
+   doi:10.1097/PRS.0000000000013153 · PMID 42053431
+4. Woolley KL, Woolley JD, Woolley MJ. Seek and ye shall not find (yet): searching clinical trial
    registries for trials designed with patients — a call to action. *J Particip Med*
    2025;17:e72015. doi:10.2196/72015 · PMID 40446325
-3. Departamento de Ciência e Tecnologia, Secretaria de Ciência, Tecnologia e Insumos Estratégicos,
+5. Lv Z, Wang Y, Lv C, Lu Y, Cheng Q, Zhang H, Guo B, Gao F, Huang H, Li H, Yuan Q. Global
+   stagnation and misaligned priorities in BPH drug development: a 25-year landscape analysis of
+   clinical trial registries. *NPJ Aging* 2026;12(1):85. doi:10.1038/s41514-026-00387-5 ·
+   PMID 42000718
+6. Departamento de Ciência e Tecnologia, Secretaria de Ciência, Tecnologia e Insumos Estratégicos,
    Ministério da Saúde. [Brazilian Registry of Clinical Trials (Rebrac): strengthening of clinical
    trials management in Brazil]. *Rev Saude Publica* 2009;43(2):387-388.
    doi:10.1590/s0034-89102009000200024 · PMID 19287881 — the 2009 notice announces the registry
    under the acronym *Rebrac*; it is the registry now known as ReBEC.
-4. García-Vello P, Smith E, Elias V, Florez-Pinzon C, Reveiz L. Adherence to clinical trial
-   registration in countries of Latin America and the Caribbean, 2015. *Rev Panam Salud Publica*
-   2018;42:e44. doi:10.26633/rpsp.2018.44 · PMID 31093072
-5. Rodríguez-Feria P, Cuervo LG. Progress in trial registration in Latin America and the Caribbean,
-   2007-2013. *Rev Panam Salud Publica* 2017;41:e31. doi:10.26633/rpsp.2017.31 · PMID 31363353
-6. Freitas CG, Pesavento TF, Pedrosa MR, Riera R, Torloni MR. Practical and conceptual issues of
-   clinical trial registration for Brazilian researchers. *Sao Paulo Med J* 2016;134:28-33.
-   doi:10.1590/1516-3180.2014.00441803 · PMID 26313113
 7. World Health Organization. International Clinical Trials Registry Platform (ICTRP): primary
    registries. https://www.who.int/clinical-trials-registry-platform
-8. SpryMedia Ltd. *DataTables manual: server-side processing.*
-   https://datatables.net/manual/server-side — defines `search[value]` as the global search value
-   sent to the server.
-9. Manning CD, Raghavan P, Schütze H. *Introduction to Information Retrieval.* Cambridge:
-   Cambridge University Press; 2008. doi:10.1017/CBO9780511809071 · ISBN 9780521865715
-10. Saint-Andre P, Salz R. *Service Identity in TLS.* RFC 9525, November 2023.
-   doi:10.17487/RFC9525 — obsoletes RFC 6125; the client matches the presented identity against the
-   certificate's `subjectAltName`.
-11. Hodges J, Jackson C, Barth A. *HTTP Strict Transport Security (HSTS).* RFC 6797, November 2012.
-   doi:10.17487/RFC6797
-12. West M, editor. *Upgrade Insecure Requests.* W3C Candidate Recommendation.
-   https://www.w3.org/TR/upgrade-insecure-requests/ — §4.1 upgrades form submissions irrespective of
-   host, while other top-level navigations are upgraded only for hosts in the client's upgrade
-   insecure navigations set.
+8. García-Vello P, Smith E, Elias V, Florez-Pinzon C, Reveiz L. Adherence to clinical trial
+   registration in countries of Latin America and the Caribbean, 2015. *Rev Panam Salud Publica*
+   2018;42:e44. doi:10.26633/rpsp.2018.44 · PMID 31093072
+9. Rodríguez-Feria P, Cuervo LG. Progress in trial registration in Latin America and the Caribbean,
+   2007-2013. *Rev Panam Salud Publica* 2017;41:e31. doi:10.26633/rpsp.2017.31 · PMID 31363353
+10. Freitas CG, Pesavento TF, Pedrosa MR, Riera R, Torloni MR. Practical and conceptual issues of
+    clinical trial registration for Brazilian researchers. *Sao Paulo Med J* 2016;134:28-33.
+    doi:10.1590/1516-3180.2014.00441803 · PMID 26313113
+11. Zhang F, Zhu Y, Zhao S, Zhang Q, Tao H, Wu Y, Jia P. Discordant information on blinding in trial
+    registries and published research: a systematic review. *JAMA Netw Open* 2024;7(12):e2452274.
+    doi:10.1001/jamanetworkopen.2024.52274 · PMID 39724369
+12. He Z, Yang L, Li X, Du J. Discrepancies in reported results between trial registries and journal
+    articles for AI clinical research. *EClinicalMedicine* 2025;80:103066.
+    doi:10.1016/j.eclinm.2024.103066 · PMID 39963161
+13. Jerčić Martinić-Cezar I, Pranić SM, Tavra A, Marušić A. Consistency between clinical trial
+    registry entries and journal publications in transfusion medicine: an observational study.
+    *J Clin Med* 2026;15(10):3981. doi:10.3390/jcm15103981 · PMID 42194944
+14. SpryMedia Ltd. *DataTables manual: server-side processing.*
+    https://datatables.net/manual/server-side — defines `search[value]` as the global search value
+    sent to the server.
+15. Manning CD, Raghavan P, Schütze H. *Introduction to Information Retrieval.* Cambridge:
+    Cambridge University Press; 2008. doi:10.1017/CBO9780511809071 · ISBN 9780521865715
+16. Saint-Andre P, Salz R. *Service Identity in TLS.* RFC 9525, November 2023.
+    doi:10.17487/RFC9525 — obsoletes RFC 6125; the client matches the presented identity against the
+    certificate's `subjectAltName`.
+17. West M, editor. *Upgrade Insecure Requests.* W3C Candidate Recommendation.
+    https://www.w3.org/TR/upgrade-insecure-requests/ — §4.1 upgrades form submissions irrespective of
+    host, while other top-level navigations are upgraded only for hosts in the client's upgrade
+    insecure navigations set.
+18. Chromium project. *Intent to Ship: HTTPS Upgrades.* blink-dev, 24 May 2023.
+    https://groups.google.com/a/chromium.org/g/blink-dev/c/cAS525en8XE — "automatically and
+    optimistically upgrade all main-frame navigations to HTTPS, with fast fallback to HTTP".
+19. Hodges J, Jackson C, Barth A. *HTTP Strict Transport Security (HSTS).* RFC 6797, November 2012.
+    doi:10.17487/RFC6797
+20. Zhu J, Sun H, Madhyastha HV. Toward better efficiency vs. fidelity tradeoffs in web archives. In:
+    *Proceedings of the 2025 ACM Internet Measurement Conference (IMC '25)*. New York: ACM;
+    2025:1025-1031. doi:10.1145/3730567.3764507
+21. Weigle MC, Nelson ML, Alam S, Graham M. *Right HTML, wrong JSON: challenges in replaying archived
+    webpages built with client-side rendering.* 2023 ACM/IEEE Joint Conference on Digital Libraries
+    (JCDL); preprint arXiv:2305.01071, 1 May 2023. doi:10.48550/arXiv.2305.01071
+
 ## Funding, conflicts of interest, and use of automated tools
 
 No funding was received for this work. The author declares no competing interests, and no

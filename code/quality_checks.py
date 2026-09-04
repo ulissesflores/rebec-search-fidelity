@@ -12,8 +12,13 @@ Gates, in order:
    surface forms (English or Portuguese) appear. Hedge patterns are excluded by
    the calibration: in this report hedging is the virtue, not the padding.
 2. **placeholders** -- no draft marker survives into a deposit.
-3. **references** -- every ``[n]`` cited has an entry, every entry is cited, and
-   the numbering is a run of ``1..N``.
+3. **references** -- every ``[n]`` cited has an entry, every entry is cited, the
+   numbering is a run of ``1..N``, and the two reference thresholds the calibration
+   declares and that a machine CAN check are checked: the minimum entry count and
+   the share published in the last three years. The calibration declares two more
+   (distinct source types, mean E-E-A-T) that are judgement, not arithmetic; they
+   are listed in the report as NOT MECHANISED rather than silently dropped, because
+   a threshold no code measures otherwise reads as a threshold that passed.
 4. **sealed numbers** -- every load-bearing quantity in the prose is recomputed
    from the frozen JSONs, and required in BOTH languages.
 5. **attested** -- quantities from the human browser session are not recomputable,
@@ -111,6 +116,41 @@ def load_concepts() -> dict[str, list[str]]:
     return concepts
 
 
+def load_reference_thresholds() -> dict:
+    """Read the reference thresholds from the frozen calibration, never from here.
+
+    The calibration table is the single source; duplicating a number in code is
+    how a gate and its own rule drift apart.
+    """
+    text = CALIBRATION.read_text(encoding="utf-8")
+    minimum = re.search(r"Minimum reference count[^|]*\|\s*\*\*(\d+)\*\*", text)
+    recent = re.search(r"last 3 years \((\d{4})-(\d{4})\)[^|]*\|\s*\*\*>=\s*(\d+)%\*\*", text)
+    if not minimum or not recent:
+        raise SystemExit(f"[FATAL] reference thresholds missing from {CALIBRATION}")
+    return {
+        "minimum_entries": int(minimum.group(1)),
+        "recent_window": [int(recent.group(1)), int(recent.group(2))],
+        "recent_share_min": int(recent.group(3)) / 100,
+        "declared_but_not_mechanised": [
+            "distinct source types (>= 5 of 6) -- classification, not arithmetic",
+            "mean E-E-A-T of references (>= 75/100) -- judgement, not arithmetic",
+        ],
+    }
+
+
+def _entry_year(entry: str) -> int | None:
+    """Publication year of one reference entry: the latest plausible year in it.
+
+    Reference entries carry several numbers that look like years (DOI fragments,
+    RFC numbers, page ranges). Bounded four-digit tokens inside the plausible
+    window are the candidates, and the publication year is the latest of them --
+    a DOI minted earlier than the issue, or a span such as ``2007-2013``, must not
+    outrank the year the entry actually states. ``None`` for an undated resource.
+    """
+    years = [int(y) for y in re.findall(r"\b(\d{4})\b", entry) if 1990 <= int(y) <= 2027]
+    return max(years) if years else None
+
+
 def _deaccent(text: str) -> str:
     """Strip combining marks so a Portuguese form matches its unaccented spelling."""
     return "".join(c for c in unicodedata.normalize("NFD", text) if unicodedata.category(c) != "Mn")
@@ -186,7 +226,41 @@ def references(text: str, label: str, heading: str) -> dict:
         fail("references", f"{label}: entry never cited {sorted(entries - cited)}")
     if entries != set(range(1, len(entries) + 1)):
         fail("references", f"{label}: numbering out of sequence {sorted(entries)}")
-    return {"cited": sorted(cited), "entries": len(entries)}
+
+    # The two calibration thresholds a machine can actually check. Before this
+    # existed, both were declared in the calibration and measured by nothing, so
+    # the manuscript passed the instrument by the instrument's omission.
+    limits = load_reference_thresholds()
+    blocks = [b for b in re.split(r"\n(?=\d+\.\s)", listing.strip()) if re.match(r"\d+\.\s", b)]
+    years = {int(re.match(r"(\d+)\.", b).group(1)): _entry_year(b) for b in blocks}
+    low, high = limits["recent_window"]
+    recent = sorted(n for n, y in years.items() if y is not None and low <= y <= high)
+    undated = sorted(n for n, y in years.items() if y is None)
+    share = len(recent) / len(years) if years else 0.0
+
+    if len(entries) < limits["minimum_entries"]:
+        fail("references", f"{label}: {len(entries)} entries < floor {limits['minimum_entries']}")
+    if share < limits["recent_share_min"]:
+        fail(
+            "references",
+            f"{label}: {len(recent)}/{len(years)} entries from {low}-{high} "
+            f"({share:.1%}) < floor {limits['recent_share_min']:.0%}",
+        )
+
+    return {
+        "cited": sorted(cited),
+        "entries": len(entries),
+        "years": {str(n): years[n] for n in sorted(years)},
+        "recent_entries": recent,
+        "recent_share": round(share, 4),
+        "recent_window": [low, high],
+        "undated_entries": undated,
+        "thresholds": {
+            "minimum_entries": limits["minimum_entries"],
+            "recent_share_min": limits["recent_share_min"],
+        },
+        "declared_but_not_mechanised": limits["declared_but_not_mechanised"],
+    }
 
 
 def sealed() -> dict:
@@ -196,6 +270,8 @@ def sealed() -> dict:
         "archive": OUTPUT / "archive-timeline.json",
         "downstream": OUTPUT / "downstream-mentions.json",
         "recall": DERIVED / "recall-dengue.json",
+        "repair_tls": OUTPUT / "repair-2026-09-04" / "defect1-tls.json",
+        "repair_search": OUTPUT / "repair-2026-09-04" / "public-search.json",
     }
     for path in files.values():
         if not path.exists():
@@ -259,6 +335,11 @@ NUMBER_CHECKS = [
         lambda d: d["downstream"]["counts"]['"Brazilian Registry of Clinical Trials"'],
     ),
     ("494", "494", lambda d: d["downstream"]["counts"]['"ensaiosclinicos.gov.br"']),
+    # §5.1: the re-measurement of 2026-09-04. Published in the prose, therefore
+    # recomputed from the artefact, exactly like the numbers of §3.
+    ("18", "18", lambda d: d["repair_search"]["registry_database"]["dengue"]["recordsFiltered"]),
+    ("1,457", "1.457", lambda d: d["repair_search"]["registry_database"]["diabetes"]["recordsFiltered"]),
+    ("9,661", "9.661", lambda d: d["repair_search"]["registry_database"]["dengue"]["recordsTotal"]),
     (_search_sha, _search_sha, _search_sha),
     (_archive_sha, _archive_sha, _archive_sha),
 ]
@@ -326,12 +407,17 @@ def attested(en: str, pt: str) -> list[dict]:
 
 
 HASH_TABLE = {
+    "code/measurement.py": ROOT / "code" / "measurement.py",
     "code/measure_public_search.py": ROOT / "code" / "measure_public_search.py",
     "output/public-search-vs-database.json": OUTPUT / "public-search-vs-database.json",
     "code/measure_archive_timeline.py": ROOT / "code" / "measure_archive_timeline.py",
     "output/archive-timeline.json": OUTPUT / "archive-timeline.json",
+    "code/measure_defect1_tls.py": ROOT / "code" / "measure_defect1_tls.py",
     "code/measure_downstream_mentions.py": ROOT / "code" / "measure_downstream_mentions.py",
     "output/downstream-mentions.json": OUTPUT / "downstream-mentions.json",
+    "output/repair-2026-09-04/defect1-tls.json": OUTPUT / "repair-2026-09-04" / "defect1-tls.json",
+    "output/repair-2026-09-04/public-search.json": OUTPUT / "repair-2026-09-04" / "public-search.json",
+    "output/repair-2026-09-04/ct-log-ensaiosclinicos.json": OUTPUT / "repair-2026-09-04" / "ct-log-ensaiosclinicos.json",
     "code/make_figure.py": ROOT / "code" / "make_figure.py",
     "output/figures/fig1-defect1-chain.svg": OUTPUT / "figures" / "fig1-defect1-chain.svg",
     "output/figures/fig1-defect1-chain-pt.svg": OUTPUT / "figures" / "fig1-defect1-chain-pt.svg",

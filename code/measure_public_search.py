@@ -21,12 +21,18 @@ The measurement has four arms, and the third is what makes the argument close:
    unknown parameter and returns the whole base, which reads as "every term has
    9,629 results". That is the same silent zero pointing the other way.
 
-Exit code 0 if the finding held on this run, 1 if it did NOT -- the search having
-started to filter is also a result, and must not be swallowed.
+Exit codes (see ``code/measurement.py``): 0 the finding held, 1 it did not -- the
+search having started to filter is also a result and must not be swallowed -- and
+2 the measurement could not be made, which says nothing about the finding. The
+third code exists because this report's own argument (§2.1) is that a failed
+measurement and a negative result must never share a signal.
+
+The default ``--out`` deliberately does NOT point at the JSON whose hash the
+report publishes: following these instructions must not break the seal.
 
 Usage
 -----
-``python3 code/measure_public_search.py [--out output/public-search-vs-database.json]``
+``python3 code/measure_public_search.py [--out output/reruns/public-search-vs-database.json]``
 """
 
 from __future__ import annotations
@@ -39,6 +45,8 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+
+from measurement import EXIT_MEASUREMENT_FAILED, add_out_argument, report_outcome, write_report
 
 PUBLIC_SEARCH = "https://ensaiosclinicos.gov.br/search/query/simple"
 DATA_ENDPOINT = "https://ensaiosclinicos.gov.br/api2/api/search"
@@ -113,7 +121,7 @@ def digest(body: bytes) -> dict:
 def main() -> int:
     """Run the four arms, write the report, and return a shell exit code."""
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--out", default="output/public-search-vs-database.json")
+    add_out_argument(ap, "output/reruns/public-search-vs-database.json")
     args = ap.parse_args()
 
     out: dict = {
@@ -161,31 +169,60 @@ def main() -> int:
     except Exception:
         out["unrecognised_parameter"] = {"parameter": "q", "error": "non-JSON response"}
 
+    # Validity BEFORE verdict, and by the same rule the report applies to the
+    # registry: a request that never completed, or a positive control that comes
+    # back empty, means the measurement did not happen. Reporting that as
+    # "the finding no longer holds" would commit the very confusion of §2.1.
+    unreachable = sorted(
+        t
+        for section in ("public_search", "registry_database")
+        for t, v in out[section].items()
+        if v["http"] is None
+    )
+    controls = {t: filtered.get(t) for t in ("dengue", "diabetes")}
+    controls_have_records = all(isinstance(n, int) and n > 0 for n in controls.values())
+    valid = not unreachable and controls_have_records
+
+    out["measurement"] = {
+        "valid": valid,
+        "requests_that_never_completed": unreachable,
+        "positive_controls_records": controls,
+        "positive_controls_have_records": controls_have_records,
+        "why": (
+            "valid"
+            if valid
+            else "measurement failed: this run says nothing about the finding"
+        ),
+    }
     out["verdict"] = {
         "public_search_returns_200_for_every_term": all_200,
         "public_search_body_identical_across_terms": identical,
         "database_discriminates_terms": discriminates,
         "records_filtered_by_term": filtered,
-        "finding_confirmed": bool(all_200 and identical and discriminates),
+        # null, never false, when the measurement itself did not happen
+        "finding_confirmed": bool(all_200 and identical and discriminates) if valid else None,
     }
 
     text = json.dumps(out, indent=2, ensure_ascii=False)
-    with open(args.out, "w", encoding="utf-8") as f:
-        f.write(text + "\n")
+    write_report(args.out, text, args.force)
     print(text)
 
-    if out["verdict"]["finding_confirmed"]:
-        print(
-            "\nFINDING CONFIRMED: the public search returns the same page for every "
-            "term while the registry's own endpoint discriminates.",
-            file=sys.stderr,
-        )
-        return 0
-    print(
-        "\nFINDING NOT CONFIRMED on this run -- read the JSON before concluding anything.",
-        file=sys.stderr,
+    return report_outcome(
+        valid,
+        bool(out["verdict"]["finding_confirmed"]),
+        held=(
+            "the public search returns the same page for every term while the "
+            "registry's own endpoint discriminates."
+        ),
+        refuted=(
+            "the measurement was valid and the finding did not hold on this run -- "
+            "read the JSON before concluding anything."
+        ),
+        failed=(
+            f"unreachable={unreachable or 'none'}; positive controls={controls}. "
+            "Nothing here is evidence about the search."
+        ),
     )
-    return 1
 
 
 if __name__ == "__main__":

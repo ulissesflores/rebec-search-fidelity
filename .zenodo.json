@@ -3,7 +3,7 @@
  "upload_type": "publication",
  "publication_type": "report",
  "access_right": "open",
- "notes": "Deposit metadata for the intended release. No DOI without the author's explicit authorization in the turn: the deposit is triggered by a git tag, and no tag exists until that authorization is given. These bytes are already coherent with that release (open access, 1.0.0) so that the irreversible act stays the tag itself, and is not a metadata correction made under time pressure. The repository is still at 0.1.0 and unreleased; CITATION.cff and CHANGELOG.md are bumped in the same commit that carries the tag.",
+ "notes": "Deposit metadata. Version 1.0.0 was released on 2026-08-25 under concept DOI 10.5281/zenodo.22102596 (version DOI 10.5281/zenodo.22102597). The note previously carried here described a pre-release state -- that no tag existed and the repository was unreleased -- and remained in the published record after the tag, the release and the DOI had all happened; it is corrected here rather than left standing. No DOI is minted without the author's explicit authorization in the turn: the deposit is triggered by a git tag, and no tag exists until that authorization is given. CITATION.cff, codemeta.json and CHANGELOG.md are bumped in the same commit that carries the tag.",
  "version": "1.0.0",
  "language": "eng",
  "license": "cc-by-4.0",

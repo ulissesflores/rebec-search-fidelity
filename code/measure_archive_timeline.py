@@ -9,12 +9,18 @@ The Internet Archive captured three distinct queries against the same endpoint o
 2025-09-23, within two minutes of one another. If the search worked, the three
 captures would differ. That is the whole test.
 
-Exit code 1 if the captures cease to be identical -- if the premise of the test
-falls, the date claim must not quietly survive it.
+Exit codes (see ``code/measurement.py``): 0 the corroboration held, 1 the captures
+ceased to be identical -- if the premise of the test falls, the date claim must not
+quietly survive it -- and 2 the archive could not be reached, which is not evidence
+of anything. Before this file had a third code, an unreachable archive exited 1 and
+read as "the finding no longer holds".
+
+The default ``--out`` deliberately does NOT point at the JSON whose hash the report
+publishes: following these instructions must not break the seal.
 
 Usage
 -----
-``python3 code/measure_archive_timeline.py [--out output/archive-timeline.json]``
+``python3 code/measure_archive_timeline.py [--out output/reruns/archive-timeline.json]``
 """
 
 from __future__ import annotations
@@ -27,6 +33,8 @@ import json
 import sys
 import urllib.parse
 import urllib.request
+
+from measurement import add_out_argument, report_outcome, write_report
 
 # The registry's server and archive.org itself answer differently to clients with
 # no browser User-Agent; it is declared here so the test does not measure a third
@@ -108,31 +116,57 @@ def cdx_inventory() -> list[dict]:
 def main() -> int:
     """Fetch the three captures, compare them, write the report, return an exit code."""
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--out", default="output/archive-timeline.json")
+    add_out_argument(ap, "output/reruns/archive-timeline.json")
     args = ap.parse_args()
 
-    captures = [snapshot(ts, term) for ts, term in CAPTURES]
+    # Every network call of this instrument is inside one boundary, and a failure
+    # to reach the archive exits 2. It must never look like "the captures diverged".
+    error: str | None = None
+    captures: list[dict] = []
+    inventory: list[dict] = []
+    try:
+        captures = [snapshot(ts, term) for ts, term in CAPTURES]
+        inventory = cdx_inventory()
+    except Exception as exc:  # network, archive outage, malformed CDX response
+        error = f"{type(exc).__name__}: {exc}"
+
+    valid = error is None and len(captures) == len(CAPTURES)
     digests = {c["sha256"] for c in captures}
-    identical = len(digests) == 1
-    no_term_present = not any(c["term_present_in_html"] for c in captures)
+    identical = valid and len(digests) == 1
+    no_term_present = valid and not any(c["term_present_in_html"] for c in captures)
 
     report = {
         "generated_utc": dt.datetime.now(dt.UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "source": "Internet Archive Wayback Machine (independent third party)",
         "captures_2025_09_23": captures,
-        "cdx_inventory": cdx_inventory(),
+        "cdx_inventory": inventory,
+        "measurement": {
+            "valid": valid,
+            "captures_retrieved": len(captures),
+            "captures_expected": len(CAPTURES),
+            "error": error,
+        },
         "verdict": {
-            "three_distinct_terms_same_response": identical,
+            "three_distinct_terms_same_response": identical if valid else None,
             "single_sha256": next(iter(digests)) if identical else None,
-            "no_capture_contains_its_own_term": no_term_present,
-            "corroboration_confirmed": identical and no_term_present,
+            "no_capture_contains_its_own_term": no_term_present if valid else None,
+            # null, never false, when the archive could not be read
+            "corroboration_confirmed": (identical and no_term_present) if valid else None,
         },
     }
-    with open(args.out, "w", encoding="utf-8") as f:
-        json.dump(report, f, ensure_ascii=False, indent=2)
-        f.write("\n")
+    write_report(args.out, json.dumps(report, ensure_ascii=False, indent=2), args.force)
     print(json.dumps(report["verdict"], ensure_ascii=False, indent=2))
-    return 0 if report["verdict"]["corroboration_confirmed"] else 1
+
+    return report_outcome(
+        valid,
+        bool(report["verdict"]["corroboration_confirmed"]),
+        held="the three archived captures of 2025-09-23 remain byte-identical.",
+        refuted=(
+            "the archive was read and the captures are no longer identical -- "
+            "the premise of the duration claim has fallen."
+        ),
+        failed=f"the Internet Archive could not be read ({error}).",
+    )
 
 
 if __name__ == "__main__":
