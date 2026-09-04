@@ -46,7 +46,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-from measurement import EXIT_MEASUREMENT_FAILED, add_out_argument, report_outcome, write_report
+from measurement import add_out_argument, report_outcome, write_report
 
 PUBLIC_SEARCH = "https://ensaiosclinicos.gov.br/search/query/simple"
 DATA_ENDPOINT = "https://ensaiosclinicos.gov.br/api2/api/search"
@@ -189,9 +189,7 @@ def main() -> int:
         "positive_controls_records": controls,
         "positive_controls_have_records": controls_have_records,
         "why": (
-            "valid"
-            if valid
-            else "measurement failed: this run says nothing about the finding"
+            "valid" if valid else "measurement failed: this run says nothing about the finding"
         ),
     }
     out["verdict"] = {

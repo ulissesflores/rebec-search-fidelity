@@ -491,8 +491,8 @@ echo | openssl s_client -connect www.ensaiosclinicos.gov.br:443 \
 
 | Artefato | SHA-256 |
 |---|---|
-| `code/measurement.py` | `836685862ad28520d0ab4e5c44622f5da9ab89c6244a74fd366ef2d627c3fc81` |
-| `code/measure_public_search.py` | `57bb968c5b7d0d50b6cb4361af107b5c1ece5e38cc441ad0fbce0fa96ae57572` |
+| `code/measurement.py` | `55b5e58f734fab5cfa36e54dc5a68d48726f8250203688484c69e8e3c316ce9f` |
+| `code/measure_public_search.py` | `51f71c08846b295fcae1393103b095a26abede10e8fae31173df655d68cc61fa` |
 | `output/public-search-vs-database.json` | `0be693fab53218e0b0e132e10ff8a253129ed36fd7e64550eb72e6ae54aa4843` |
 | `code/measure_archive_timeline.py` | `68a1b94bb76d702ba133258beba3d17e6ebb4730a7c9353ab02b4f64aaa6b5c2` |
 | `output/archive-timeline.json` | `b6e1d54f7a5024041ab9415390b30688379fb79584d1f1a1bcd04664f689bd48` |

@@ -3,6 +3,26 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) · Versioning: [SemVer](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] — 2026-09-04
+
+Housekeeping release. No claim, number, measurement or figure changed; the two manuscript edits are
+the two code hashes in the section 6 table, which moved because the files they cover were formatted.
+
+### Fixed
+- **The CI was red on the commit v1.1.0 tags.** `ruff format --check` rejected `code/measurement.py`,
+  `code/quality_checks.py` and `code/measure_public_search.py`, and `ruff check` found a dead import
+  (`EXIT_MEASUREMENT_FAILED`, unused since the exit contract is applied through `report_outcome`).
+  A repository that argues for verification-first should not publish a failing pipeline.
+- **`run_all.py` now runs the same lint the CI runs.** The local pipeline was green while the
+  published repository was red because replication never invoked ruff — the same shape of defect the
+  panel found in the reference thresholds: a declared gate that no code executed. Ruff is a
+  development dependency, so when it is absent the step prints `[NOT RUN]` and does not fail: a check
+  that cannot run must not read as a check that passed.
+
+### Changed
+- Section 6 hash table, both editions: `code/measurement.py` and `code/measure_public_search.py`.
+- Provenance re-sealed over the formatted files; `artifact_root` changes accordingly.
+
 ## [1.1.0] — 2026-09-04
 
 Correction round following a blind three-auditor panel over the deposited text, plus the first

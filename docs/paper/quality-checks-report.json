@@ -284,11 +284,11 @@
  "hashes": [
   {
    "file": "code/measurement.py",
-   "sha256": "836685862ad28520d0ab4e5c44622f5da9ab89c6244a74fd366ef2d627c3fc81"
+   "sha256": "55b5e58f734fab5cfa36e54dc5a68d48726f8250203688484c69e8e3c316ce9f"
   },
   {
    "file": "code/measure_public_search.py",
-   "sha256": "57bb968c5b7d0d50b6cb4361af107b5c1ece5e38cc441ad0fbce0fa96ae57572"
+   "sha256": "51f71c08846b295fcae1393103b095a26abede10e8fae31173df655d68cc61fa"
   },
   {
    "file": "output/public-search-vs-database.json",
@@ -339,6 +339,14 @@
    "sha256": "c19027caa66c82a20906c75bf36eeb08f4496cba0c9661d66274b24eff097506"
   }
  ],
+ "published_root": {
+  "provenance_root": "f8cfa7b1014571c1b6dd4dfedd1c7e1d0a5d15bba697e2ed261386faf581ba04",
+  "quoted_in_readme": [
+   "f8cfa7b1014571c1...",
+   "f8cfa7b1014571c1b6dd4dfedd1c7e1d0a5d15bba697e2ed261386faf581ba04"
+  ],
+  "stale": []
+ },
  "pair_parity": {
   "sections": [
    "##1",
@@ -366,7 +374,110 @@
   "identical": true
  },
  "network": {
-  "skipped": true
+  "urls": [
+   {
+    "url": "http://www.ensaiosclinicos.gov.br/",
+    "http": 200
+   },
+   {
+    "url": "https://datatables.net/manual/server-side",
+    "http": 200
+   },
+   {
+    "url": "https://doi.org/10.5281/zenodo.22102596",
+    "http": 200
+   },
+   {
+    "url": "https://github.com/ulissesflores/rebec-search-fidelity",
+    "http": 200
+   },
+   {
+    "url": "https://groups.google.com/a/chromium.org/g/blink-dev/c/cAS525en8XE",
+    "http": 200
+   },
+   {
+    "url": "https://orcid.org/0000-0002-6034-7765",
+    "http": 200
+   },
+   {
+    "url": "https://www.w3.org/TR/upgrade-insecure-requests/",
+    "http": 200
+   },
+   {
+    "url": "https://www.who.int/clinical-trials-registry-platform",
+    "http": 200
+   }
+  ],
+  "dois": [
+   {
+    "doi": "10.1001/jamanetworkopen.2024.52274",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.1016/S2214-109X(24)00514-X",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.1016/j.eclinm.2024.103066",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.1017/CBO9780511809071",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.1038/s41514-026-00387-5",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.1097/PRS.0000000000013153",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.1136/bmj.j448",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.1145/3730567.3764507",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.1590/1516-3180.2014.00441803",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.1590/s0034-89102009000200024",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.17487/RFC6797",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.17487/RFC9525",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.2196/72015",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.26633/rpsp.2017.31",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.26633/rpsp.2018.44",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.3390/jcm15103981",
+    "crossref_http": 200
+   },
+   {
+    "doi": "10.48550/arXiv.2305.01071",
+    "crossref_http": 200
+   }
+  ]
  },
  "failures": [],
  "verdict": "PASS"

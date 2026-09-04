@@ -19,7 +19,7 @@ abstract: >-
   measurement; those are two measured points, not a continuous series.
   Reported as an observable property of a public system, with no claim about intent.
 type: software
-version: "1.1.0"
+version: "1.1.1"
 date-released: "2026-09-04"
 doi: "10.5281/zenodo.22102596"
 identifiers:

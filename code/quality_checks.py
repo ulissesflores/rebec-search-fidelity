@@ -338,7 +338,11 @@ NUMBER_CHECKS = [
     # §5.1: the re-measurement of 2026-09-04. Published in the prose, therefore
     # recomputed from the artefact, exactly like the numbers of §3.
     ("18", "18", lambda d: d["repair_search"]["registry_database"]["dengue"]["recordsFiltered"]),
-    ("1,457", "1.457", lambda d: d["repair_search"]["registry_database"]["diabetes"]["recordsFiltered"]),
+    (
+        "1,457",
+        "1.457",
+        lambda d: d["repair_search"]["registry_database"]["diabetes"]["recordsFiltered"],
+    ),
     ("9,661", "9.661", lambda d: d["repair_search"]["registry_database"]["dengue"]["recordsTotal"]),
     (_search_sha, _search_sha, _search_sha),
     (_archive_sha, _archive_sha, _archive_sha),
@@ -416,8 +420,12 @@ HASH_TABLE = {
     "code/measure_downstream_mentions.py": ROOT / "code" / "measure_downstream_mentions.py",
     "output/downstream-mentions.json": OUTPUT / "downstream-mentions.json",
     "output/repair-2026-09-04/defect1-tls.json": OUTPUT / "repair-2026-09-04" / "defect1-tls.json",
-    "output/repair-2026-09-04/public-search.json": OUTPUT / "repair-2026-09-04" / "public-search.json",
-    "output/repair-2026-09-04/ct-log-ensaiosclinicos.json": OUTPUT / "repair-2026-09-04" / "ct-log-ensaiosclinicos.json",
+    "output/repair-2026-09-04/public-search.json": OUTPUT
+    / "repair-2026-09-04"
+    / "public-search.json",
+    "output/repair-2026-09-04/ct-log-ensaiosclinicos.json": OUTPUT
+    / "repair-2026-09-04"
+    / "ct-log-ensaiosclinicos.json",
     "code/make_figure.py": ROOT / "code" / "make_figure.py",
     "output/figures/fig1-defect1-chain.svg": OUTPUT / "figures" / "fig1-defect1-chain.svg",
     "output/figures/fig1-defect1-chain-pt.svg": OUTPUT / "figures" / "fig1-defect1-chain-pt.svg",
@@ -500,6 +508,25 @@ def network(en: str, pt: str) -> dict:
     return {"urls": url_rows, "dois": doi_rows}
 
 
+def published_root() -> dict:
+    """Tie every artifact_root printed in README.md to the one in PROVENANCE.json.
+
+    v1.1.0 shipped a README quoting the root of the 2026-08-25 seal, two seals
+    stale, and nothing noticed: the chain verifies the files it seals, and the
+    README is not one of them. A root printed for a reader is a claim about the
+    artefact like any other, so it is checked like any other.
+    """
+    root = json.loads((ROOT / "PROVENANCE.json").read_text(encoding="utf-8"))["artifact_root"]
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    quoted = set(re.findall(r"\b([0-9a-f]{64})\b", readme)) | {
+        m + "..." for m in re.findall(r"\b([0-9a-f]{16})(?=\.\.\.)", readme)
+    }
+    stale = sorted(q for q in quoted if not root.startswith(q.rstrip(".")))
+    for q in stale:
+        fail("published_root", f"README quotes {q}, PROVENANCE.json has {root}")
+    return {"provenance_root": root, "quoted_in_readme": sorted(quoted), "stale": stale}
+
+
 def main() -> int:
     """Run every gate, write the report, and return a shell exit code."""
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -525,6 +552,7 @@ def main() -> int:
         "sealed_numbers": numbers(en, pt, data),
         "attested": attested(en, pt),
         "hashes": hashes(en, pt),
+        "published_root": published_root(),
         "pair_parity": parity(en, pt),
         "network": {"skipped": True} if args.offline else network(en, pt),
     }

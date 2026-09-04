@@ -41,7 +41,9 @@ def add_out_argument(parser, default: str) -> None:
     default : str
         Path under ``output/reruns/``. Never a path the report publishes a hash of.
     """
-    parser.add_argument("--out", default=default, help=f"where to write the report (default: {default})")
+    parser.add_argument(
+        "--out", default=default, help=f"where to write the report (default: {default})"
+    )
     parser.add_argument(
         "--force",
         action="store_true",
